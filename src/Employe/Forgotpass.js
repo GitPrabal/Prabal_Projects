@@ -14,7 +14,7 @@ class Forgotpass extends Component {
       <div>
         <div className="login-box">
           <div className="login-logo">
-            <a href=""><b>Forgot Password</b></a>
+            <b>Forgot Password</b>
           </div>
           <div className="login-box-body">
             <p className="login-box-msg">Enter email to retrive password</p>
@@ -31,13 +31,7 @@ class Forgotpass extends Component {
               </div>
             </div>
 
-            <div className="social-auth-links text-center">
-              <p>- OR -</p>
-              <a href="" className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook"></i> Sign in using
-            Facebook</a>
-              <a href="" className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus"></i> Sign in using
-            Google+</a>
-            </div>
+            
 
             <div>
             <a href='/' className="text-center">I already have a membership</a>
