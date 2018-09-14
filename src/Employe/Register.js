@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import '../Admin/bower_components/bootstrap/dist/css/bootstrap.min.css';
 import '../Admin/bower_components/Ionicons/css/ionicons.min.css';
@@ -15,7 +14,7 @@ class Register extends Component {
         return (
             <div class="register-box">
                 <div class="register-logo">
-                    <a href="../../index2.html"><b>Admin</b>LTE</a>
+                    <a href="../../index2.html"><b>Register Your Self</b> </a>
                 </div>
 
                 <div class="register-box-body">
@@ -39,9 +38,7 @@ class Register extends Component {
                     <div class="row">
                         <div class="col-xs-8">
                             <div class="checkbox icheck">
-                                <label>
-                                    <input type="checkbox" /> I agree to the <a href="#">terms</a>
-            </label>
+                                
           </div>
                             </div>
 
@@ -59,7 +56,7 @@ class Register extends Component {
                             <a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign up using
         Google+</a>
                         </div>
-                        <Link to='/' className="text-center">I already have a membership</Link>
+                        <a href='/' className="text-center">I already have a membership</a>
                     </div>
                 </div>
         )
