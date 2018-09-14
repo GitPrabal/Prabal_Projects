@@ -20,6 +20,58 @@ class Register extends Component {
     }]
   }
 
+  getUserList = () => {
+
+    this.setState({
+      isLoaded: true
+    });
+
+    /* API Call */
+    fetch('https://randomuser.me/api/?results=10&inc=name,registered&nat=fr')
+      .then(res => res.json())
+      .then((res) => {
+        this.setState({
+          users: res.results,
+          showComponent: true,
+          isLoaded: false
+        });
+
+      })
+  }
+
+
+  Insert_Data_Into_MySQL = () =>
+    {
+      
+            fetch('https://reactnativecode.000webhostapp.com/Insert_Product.php',
+            {
+                method: 'POST',
+                headers: 
+                {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                {
+                  fullname : this.state.fullname,
+                  email    : this.state.email,
+                  password : this.state.password
+
+                })
+ 
+            }).then((response) => response.json()).then((responseJsonFromServer) =>
+            {
+                console.log(responseJsonFromServer);
+            }).catch((error) =>
+            {
+                console.error(error);
+            });
+       
+    }
+
+
+
+
   registerUserData = ()=>{
   var name = this.state.fullname;
   var email = this.state.email;
