@@ -14,6 +14,7 @@ class App extends Component {
           <Route exact path="/" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/forgot-pass" component={Forgotpass} />
+          <Route exact path="/connect" component={Forgotpass} />
         </div>
       </Router>
       </div>
