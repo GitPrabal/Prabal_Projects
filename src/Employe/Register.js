@@ -10,6 +10,43 @@ import '../Employe/css/login.css';
 
 class Register extends Component {
 
+  constructor(props)
+  {
+    super(props);
+    this.state = [{
+    fullname:'',
+    email:'',
+    password:'' 
+    }]
+  }
+
+  registerUserData = ()=>{
+  var name = this.state.fullname;
+  var email = this.state.email;
+  var pass = this.state.password;
+
+  }
+
+  changeEmailHandler = (event) => {
+    this.setState({
+      email:event.target.value
+    })
+  }
+
+  changeNameHandler = (event) => {
+    this.setState({
+      fullname:event.target.value
+    })
+  }
+
+  changePassHandler = (event) => {
+    this.setState({
+      password:event.target.value
+    })
+  }
+
+  
+
     render() {
         return (
             <div class="register-box">
@@ -20,20 +57,22 @@ class Register extends Component {
                 <div class="register-box-body">
                     <p class="login-box-msg">Register a new membership</p>
                     <div class="form-group has-feedback">
-                        <input type="text" class="form-control" placeholder="Full name" />
+                        <input type="text" class="form-control" id="" placeholder="Full name" name="fullname"
+                         onChange={this.changeNameHandler}
+                        />
                         <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="email" class="form-control" placeholder="Email" />
+                        <input type="email" class="form-control" placeholder="Email" name="email"
+                          onChange={this.changeEmailHandler}
+                        />
                         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                     </div>
                     <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="Password" />
+                        <input type="password" class="form-control" placeholder="Password" name="password"
+                         onChange={this.changePassHandler}
+                         />
                         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
-                    <div class="form-group has-feedback">
-                        <input type="password" class="form-control" placeholder="Retype password" />
-                        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
                     </div>
                     <div class="row">
                         <div class="col-xs-8">
@@ -43,7 +82,7 @@ class Register extends Component {
                             </div>
 
                             <div class="col-xs-4">
-                                <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
+                                <button type="button" class="btn btn-primary btn-block btn-flat" onClick={this.registerUserData}>Register</button>
                             </div>
 
                         </div>
