@@ -2,6 +2,7 @@ body{
   background-color: #d2d6de;
   overflow: hidden;
 }
+
 @media only screen and (max-height: 600px) {
   body {
     overflow: auto;

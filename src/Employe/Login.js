@@ -47,7 +47,6 @@ class Login extends Component {
             <a href="/forgot-pass">I forgot my password</a><br />
             <a href='/register' className="text-center">Register a new membership</a>
             </div>
-
             
           </div>
         </div>

@@ -15,107 +15,85 @@ class Register extends Component {
     this.state = [{
       fullname: '',
       email: '',
-      password: ''
+      password: '',
+      isLoaded: false,
+      emailErrorMsg: false
     }]
-  }
+}
 
-  getUserList = () => {
+
+registerUserData = () => {
+
+    var name = this.state.fullname;
+    var email = this.state.email;
+    var pass = this.state.password;
+
+    if (name === '' || name == null) {
+      alert("Name Should not be blanked");
+      return;
+    }
+    var check = /^[A-Za-z ]+$/.test(name);
+    if (!check) {
+      alert("Name is not valid");
+      return;
+    }
+
+
+    if (email === '' || email == null) {
+      alert("Email Should not be blanked");
+      return;
+    }
+
+    var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+    if (!validEmail) {
+      alert("You have entered an invalid email address!");
+      return;
+    }
+
+    if (pass === '' || pass == null) {
+      alert("Please insert password");
+      return;
+    }
+
 
     this.setState({
-      isLoaded: true
+      isLoaded: true,
+      fullname: '',
+      password: '',
+      email: '',
+      emailErrorMsg: false
     });
 
-    /* API Call */
-    fetch('https://randomuser.me/api/?results=10&inc=name,registered&nat=fr')
-      .then(res => res.json())
-      .then((res) => {
-        this.setState({
-          users: res.results,
-          showComponent: true,
-          isLoaded: false
-        });
-
-      })
-  }
-
-
-  Insert_Data_Into_MySQL = () => {
-
-    fetch('https://reactnativecode.000webhostapp.com/Insert_Product.php',
+    axios.post('http://localhost/ReactApi/insert_data.php',
       {
-        method: 'POST',
-        headers:
-        {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(
-          {
-            fullname: this.state.fullname,
-            email: this.state.email,
-            password: this.state.password
+        fullname: name,
+        email: email,
+        pass: pass
+      }).then((response) => response).then((response) => {
 
+        if (response.data.status == '300') {
+          this.setState({
+            emailErrorMsg: true,
+            isLoaded: false
           })
+          return;
+        }
 
-      }).then((response) => response.json()).then((responseJsonFromServer) => {
-        console.log(responseJsonFromServer);
+        if (response.data.status == '200') {
+          this.setState({
+            isLoaded: false
+          })
+          alert("Account Created Successfully");
+        }
+
       }).catch((error) => {
-        console.error(error);
+        console.error("Error Founds In--------------" + error);
       });
 
   }
 
 
-
-
-  registerUserData = () => {
-
-  var name = this.state.fullname;
-  var email = this.state.email;
-  var pass = this.state.password;
-
-  if(name==='' || name ==null){
-    alert("Name Should not be blanked");
-    return;
-  }
-  var check = /^[A-Za-z ]+$/.test(name);
-  if(!check){
-    alert("Name is not valid");
-    return;
-  }
-
-
-  if(email==='' || email ==null){
-    alert("Email Should not be blanked");
-    return;
-  }
-
-var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
-
-if(!validEmail){
-  alert("You have entered an invalid email address!");
-  return;
-}
-
-  if(pass==='' || pass ==null){
-    alert("Please insert password");
-    return;
-  }
-
- 
-
-  axios.post('http://localhost/ReactApi/insert_data.php',
-  {
-      fullname:name,
-      email:email,
-      pass:pass
-      }).then((response) => response.json()).then((responseJsonFromServer) => {
-        console.log("Response Found n---------------------"+responseJsonFromServer);
-      }).catch((error) => {
-        console.error("Error Founds In--------------"+error);
-      });
-
-}
   changeEmailHandler = (event) => {
     this.setState({
       email: event.target.value
@@ -135,53 +113,72 @@ if(!validEmail){
   }
 
 
-
   render() {
+
     return (
-      <div className="register-box">
-        <div className="register-logo">
-          <a href="../../index2.html"><b>Register Your Self</b> </a>
-        </div>
-        <div className="register-box-body">
-          <p className="login-box-msg">Register a new membership</p>
-          <div className="form-group has-feedback">
-            <input type="text" className="form-control" id="" placeholder="Full name" name="fullname"
-              onChange={this.changeNameHandler}
-            />
-            <span className="glyphicon glyphicon-user form-control-feedback"></span>
+      <div>
+        <div className="register-box">
+          <div className="register-logo">
+            <a><b>Register Your Self</b></a>
+
+            <center>
+              {this.state.emailErrorMsg ?
+                <div className="btn btn-danger">
+                  Email id already in use
+            </div> : null}
+            </center>
+
           </div>
-          <div className="form-group has-feedback">
-            <input type="email" className="form-control" placeholder="Email" name="email"
-              onChange={this.changeEmailHandler}
-            />
-            <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
-          </div>
-          <div className="form-group has-feedback">
-            <input type="password" className="form-control" placeholder="Password" name="password"
-              onChange={this.changePassHandler}
-            />
-            <span className="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div className="row">
-            <div className="col-xs-8">
-              <div className="checkbox icheck">
+          <div className="register-box-body">
+            <p className="login-box-msg">Register a new membership</p>
+
+            <div className="form-group has-feedback">
+              <input type="text" className="form-control" id="" placeholder="Full name" name="fullname"
+                onChange={this.changeNameHandler} value={this.state.fullname}
+              />
+              <span className="glyphicon glyphicon-user form-control-feedback"></span>
+            </div>
+            <div className="form-group has-feedback">
+              <input type="email" className="form-control" placeholder="Email" name="email"
+                onChange={this.changeEmailHandler} value={this.state.email}
+              />
+              <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div className="form-group has-feedback">
+              <input type="password" className="form-control" placeholder="Password" name="password"
+                onChange={this.changePassHandler} value={this.state.password}
+              />
+              <span className="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div className="row">
+              <div className="col-xs-8">
+                <div className="checkbox icheck">
+                </div>
               </div>
+
+              <div className="col-xs-4">
+
+                {this.state.isLoaded ?
+                  <button disabled type="button" className="btn btn-primary btn-block btn-flat">
+                    <i class="fa fa-spinner fa-spin"></i>
+                  </button> :
+                  <button type="button" className="btn btn-primary btn-block btn-flat" onClick={this.registerUserData}>Register</button>
+                }
+
+              </div>
+
             </div>
-            <div className="col-xs-4">
-              <button type="button" className="btn btn-primary btn-block btn-flat" onClick={this.registerUserData}>Register</button>
-            </div>
-
-          </div>
 
 
-          <div className="social-auth-links text-center">
-            <p>- OR -</p>
-            <a href="" className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook"></i> Sign up using
+            <div className="social-auth-links text-center">
+              <p>- OR -</p>
+              <a href="" className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook"></i> Sign up using
         Facebook</a>
-            <a href="" className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus"></i> Sign up using
+              <a href="" className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus"></i> Sign up using
         Google+</a>
+            </div>
+            <a href='/' className="text-center">I already have a membership</a>
           </div>
-          <a href='/' className="text-center">I already have a membership</a>
         </div>
       </div>
     )
