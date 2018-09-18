@@ -43,7 +43,7 @@ fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password=
      emailErrorMsg:false,
      isLoaded:false
     })
-   // sessionStorage.setItem('myData',res.email);
+    sessionStorage.setItem('myData',res.email);
     this.props.history.push('/dashboard');
   }else{
    this.setState({

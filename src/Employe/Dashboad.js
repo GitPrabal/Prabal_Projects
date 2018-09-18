@@ -10,21 +10,27 @@ import '../Admin/dist/css/AdminLTE.min.css';
 import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
-
 import Dashboardcards from './Dashboardcards';
-import Error from './Error';
-
 
 class Dashboard extends Component {
 
+  constructor(props)
+  {
+    super(props);
+  }
+
 componentDidMount = ()=>{
     const result = sessionStorage.getItem('myData');
-
     if( result   === '' || result == null ){
-      this.props.history.push('/error')
+      this.props.history.push('/')
     }  
-
 }
+
+handleLogOut = () =>{
+  sessionStorage.clear();
+  this.props.history.push('/');
+}
+
 
   render() {
     return (
@@ -32,7 +38,7 @@ componentDidMount = ()=>{
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
           <div className="wrapper">
-            <Header />
+            <Header click={this.handleLogOut}/>
             <Sidebar />
             <div className="content-wrapper">
               <section className="content-header">

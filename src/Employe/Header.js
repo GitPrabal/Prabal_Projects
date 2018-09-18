@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-class Header extends Component {
 
-    render() {
+
+const Header = (props) =>{
         return (
             <div>
 
@@ -130,7 +130,12 @@ class Header extends Component {
                                     </ul>
                                 </li>
 
-                                <li className="dropdown tasks-menu">
+                                <li className="dropdown tasklass Header extends Component {
+
+constructor(props){
+    super(props)
+}
+s-menu">
                                     <a className="dropdown-toggle" data-toggle="dropdown">
                                         <i className="fa fa-flag-o"></i>
                                         <span className="label label-danger">9</span>
@@ -225,7 +230,7 @@ class Header extends Component {
                                                 <a className="btn btn-default btn-flat">Profile</a>
                                             </div>
                                             <div className="pull-right">
-                                                <a className="btn btn-default btn-flat">Sign out</a>
+                                                <a className="btn btn-default btn-flat" onClick={props.click} >Sign out</a>
                                             </div>
                                         </li>
                                     </ul>
@@ -242,6 +247,14 @@ class Header extends Component {
             </div>
         )
     }
-}
+
+
+
+
+
+
+
+
+
 
 export default Header;
