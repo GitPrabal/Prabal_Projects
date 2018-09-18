@@ -7,9 +7,9 @@ const Header = (props) =>{
             <div>
 
                 <header className="main-header">
-                    <a href="index2.html" className="logo">
+                    <a  className="logo">
                         <span className="logo-mini"><b>A</b>LT</span>
-                        <span className="logo-lg"><b>Admin</b>LTE</span>
+                        <span className="logo-lg"><b>Dashboard</b></span>
                     </a>
                     <nav className="navbar navbar-static-top">
                         <a className="sidebar-toggle" data-toggle="push-menu" role="button">
