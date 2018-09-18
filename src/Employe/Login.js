@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+
 import '../Admin/bower_components/bootstrap/dist/css/bootstrap.min.css';
 import '../Admin/bower_components/Ionicons/css/ionicons.min.css';
 import '../Admin/dist/css/AdminLTE.min.css';
@@ -18,6 +18,7 @@ class Login extends Component {
       emailErrorMsg: false
     }]
   }
+
 
   getUserLoggedIn = () =>{
 
@@ -42,22 +43,18 @@ fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password=
      emailErrorMsg:false,
      isLoaded:false
     })
-    sessionStorage.setItem('myData',res.email);
-    this.props.history.push('/forgot-pass');
+   // sessionStorage.setItem('myData',res.email);
+    this.props.history.push('/dashboard');
   }else{
    this.setState({
     emailErrorMsg:true,
     isLoaded:false
-   }) 
+  }) 
    
 
-  }
+ }
 
 })
-
-  
-
-
 
 }
 
@@ -81,7 +78,6 @@ fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password=
         <div className="login-box">
           <div className="login-logo">
             <a href=""><b>Login</b></a>
-
              <center>
                <div id="errorMsg">
               {this.state.emailErrorMsg ?
@@ -90,9 +86,6 @@ fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password=
             </div> : null}
             </div>
             </center>
-
-
-
           </div>
           <div className="login-box-body">
             <p className="login-box-msg">Sign in to start your session</p>

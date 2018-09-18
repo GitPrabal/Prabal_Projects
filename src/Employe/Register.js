@@ -72,7 +72,7 @@ registerUserData = () => {
         pass: pass
       }).then((response) => response).then((response) => {
 
-        if (response.data.status == '300') {
+        if (response.data.status === '300') {
           this.setState({
             emailErrorMsg: true,
             isLoaded: false
@@ -80,16 +80,24 @@ registerUserData = () => {
           return;
         }
 
-        if (response.data.status == '200') {
+        if (response.data.status === '200') {
           this.setState({
             isLoaded: false
           })
           alert("Account Created Successfully");
+          this.props.history.push('/');
         }
 
       }).catch((error) => {
         console.error("Error Founds In--------------" + error);
       });
+
+      setTimeout( () => {
+        this.setState({
+          emailErrorMsg: false
+        });
+      }, 4000);
+
 
   }
 
@@ -160,7 +168,7 @@ registerUserData = () => {
 
                 {this.state.isLoaded ?
                   <button disabled type="button" className="btn btn-primary btn-block btn-flat">
-                    <i class="fa fa-spinner fa-spin"></i>
+                    <i className="fa fa-spinner fa-spin"></i>
                   </button> :
                   <button type="button" className="btn btn-primary btn-block btn-flat" onClick={this.registerUserData}>Register</button>
                 }
