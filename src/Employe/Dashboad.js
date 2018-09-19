@@ -19,11 +19,15 @@ class Dashboard extends Component {
     super(props);
   }
 
-componentDidMount = ()=>{
+componentWillMount = ()=>{
     const result = sessionStorage.getItem('myData');
     if( result   === '' || result == null ){
       this.props.history.push('/')
     }  
+}
+
+componentDidMount = () => {
+  console.log(this.props);
 }
 
 handleLogOut = () =>{
@@ -34,7 +38,6 @@ handleLogOut = () =>{
 
   render() {
     return (
-
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
           <div className="wrapper">
@@ -44,30 +47,23 @@ handleLogOut = () =>{
               <section className="content-header">
                 <h1>
                   Dashboard
-        <small>Control panel</small>
+                 <small>Control panel</small>
                 </h1>
                 <ol className="breadcrumb">
                   <li><a ><i className="fa fa-dashboard"></i> Home</a></li>
                   <li className="active">Dashboard</li>
                 </ol>
               </section>
-
                 <Dashboardcards />
-              
-
             </div>
 
             <footer className="main-footer">
               <div className="pull-right hidden-xs">
                 <b>Version</b> 2.4.0
-    </div>
+              </div>
               <strong>Copyright &copy; 2018-2019 <a>Smart Documents</a>.</strong> All rights
               reserved.
-  </footer>
-
-
-           
-
+            </footer>
 
             <div className="control-sidebar-bg"></div>
           </div>

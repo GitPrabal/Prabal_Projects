@@ -6,6 +6,7 @@ import Forgotpass from './Employe/Forgotpass';
 import Dashboard from './Employe/Dashboad';
 import Header from './Employe/Header';
 import Error from './Employe/Error';
+import Profile from './Employe/Profile';
 
 
 class App extends Component {
@@ -21,7 +22,9 @@ class App extends Component {
           <Route exact path="/connect" component={Forgotpass} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/header" component={Header} />
+          <Route exact path="/user-profile" component={Profile} />
           <Route exact path="/error" component={Error} />
+
         </div>
       </Router>
       </div>

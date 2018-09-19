@@ -24,6 +24,19 @@ class Login extends Component {
 
   var email = this.state.email;
   var password = this.state.password;
+  var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+  if(email=== '' || !validEmail ){
+    alert("Please insert valid email id");
+    return;
+  }
+
+  if(password===''){
+    alert("Please insert password");
+    return;
+  }
+
+
 
   this.setState({
     email: '',
@@ -42,7 +55,7 @@ fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password=
      emailErrorMsg:false,
      isLoaded:false
     })
-    sessionStorage.setItem('myData',res.email);
+    sessionStorage.setItem('myData',res.user_id);
     this.props.history.push('/dashboard');
   }else{
    this.setState({
@@ -109,7 +122,7 @@ fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password=
               </div>
               <div className="col-xs-4">
               {this.state.isLoaded ? 
-                <button disabled type="button" className="btn btn-primary btn-block btn-flat">Sign In<i className="fa fa-spinner fa-spin"></i></button>
+                <button disabled type="button" className="btn btn-primary btn-block btn-flat"><i className="fa fa-spinner fa-spin"></i></button>
                 :<button type="button" className="btn btn-primary btn-block btn-flat" onClick={this.getUserLoggedIn}>Sign In</button>
               }
                 </div>
