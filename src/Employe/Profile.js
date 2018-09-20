@@ -19,7 +19,6 @@ class Profile extends Component {
   };
 
   fileChangedHandler = (event) => {
-
     this.setState({selectedFile: event.target.files[0]})
   }
 
