@@ -13,7 +13,6 @@ import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
 import Dashboardcards from './Dashboardcards';
 
 class Dashboard extends Component {
-<<<<<<< HEAD
   
 
 componentWillMount = ()=>{
@@ -28,19 +27,6 @@ componentWillMount = ()=>{
     
     
 
-=======
-
-  constructor(props)
-  {
-    super(props);
-  }
-
-componentWillMount = ()=>{
-    const result = sessionStorage.getItem('myData');
-    if( result   === '' || result == null ){
-      this.props.history.push('/')
-    }  
->>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
 }
 
 componentDidMount = () => {

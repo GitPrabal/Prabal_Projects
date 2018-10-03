@@ -9,19 +9,12 @@ import "../Admin/bower_components/font-awesome/css/font-awesome.min.css";
 import "../Admin/dist/css/AdminLTE.min.css";
 
 class Profile extends Component {
-<<<<<<< HEAD
-=======
-  constructor(props) {
-    super(props);
-  }
->>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
 
   handleLogOut = () => {
     sessionStorage.clear();
     this.props.history.push("/");
   };
 
-<<<<<<< HEAD
   componentWillMount= () => {
 
   var user_id = sessionStorage.getItem('myData');
@@ -30,8 +23,6 @@ class Profile extends Component {
 
   }
 
-=======
->>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
   fileChangedHandler = (event) => {
     this.setState({selectedFile: event.target.files[0]})
   }
