@@ -1,0 +1,10 @@
+body{
+  background-color: #d2d6de;
+  overflow: auto;
+}
+
+@media only screen and (max-height: 600px) {
+  body {
+    overflow: auto;
+  }
+}
