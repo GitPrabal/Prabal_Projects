@@ -15,21 +15,29 @@ class Login extends Component {
       email: '',
       password: '',
       isLoaded: false,
+<<<<<<< HEAD
       emailErrorMsg: false,
       errorFlag:false,
       errorText:''
+=======
+      emailErrorMsg: false
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
     }]
   }
 
 
   getUserLoggedIn = () =>{
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
   var email = this.state.email;
   var password = this.state.password;
   var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 
   if(email=== '' || !validEmail ){
+<<<<<<< HEAD
     this.setState({
     errorFlag:true,
     errorText:"Invalid Email"
@@ -54,18 +62,35 @@ class Login extends Component {
     errorText:''
     })
 }
+=======
+    alert("Please insert valid email id");
+    return;
+  }
+
+  if(password===''){
+    alert("Please insert password");
+    return;
+  }
+
+
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
 
   this.setState({
     email: '',
     password: '',
+<<<<<<< HEAD
     isLoaded: true,
     errorFlag:false,
     errorText:''
+=======
+    isLoaded: true
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
    }) 
 
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
 
+<<<<<<< HEAD
    fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password)
    .then(res => res.json())
    .then(res=>{
@@ -88,6 +113,32 @@ class Login extends Component {
 
 
 }
+=======
+fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password)
+.then(res => res.json())
+.then((res) => {
+  if(res.flag){
+    this.setState({
+     emailErrorMsg:false,
+     isLoaded:false
+    })
+    sessionStorage.setItem('myData',res.user_id);
+    this.props.history.push('/dashboard');
+  }else{
+   this.setState({
+    emailErrorMsg:true,
+    isLoaded:false
+  }) 
+   
+
+ }
+
+})
+
+}
+
+
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
   changeEmailHandler = (event) => {
     this.setState({
       email: event.target.value
@@ -108,13 +159,17 @@ class Login extends Component {
           <div className="login-logo">
             <a href=""><b>Login</b></a>
              <center>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
                <div id="errorMsg">
               {this.state.emailErrorMsg ?
                 <div className="btn btn-danger">
                   Invalid Credentials
             </div> : null}
             </div>
+<<<<<<< HEAD
 
             <div id="errorMsg1">
               {this.state.errorFlag ?
@@ -124,6 +179,8 @@ class Login extends Component {
             </div>
 
 
+=======
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
             </center>
           </div>
           <div className="login-box-body">

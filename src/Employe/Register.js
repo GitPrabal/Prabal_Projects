@@ -17,8 +17,12 @@ class Register extends Component {
       email: '',
       password: '',
       isLoaded: false,
+<<<<<<< HEAD
       errorMsg:false,
       errorText:''
+=======
+      emailErrorMsg: false
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
     }]
 }
 
@@ -29,6 +33,7 @@ registerUserData = () => {
     var email = this.state.email;
     var pass = this.state.password;
 
+<<<<<<< HEAD
     if (name == '' ) {
       this.setState({
        errorMsg:true,
@@ -55,10 +60,21 @@ registerUserData = () => {
         errorMsg:false,
         errorText:""
        })
+=======
+    if (name === '' || name == null) {
+      alert("Name Should not be blanked");
+      return;
+    }
+    var check = /^[A-Za-z ]+$/.test(name);
+    if (!check) {
+      alert("Name is not valid");
+      return;
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
     }
 
 
     if (email === '' || email == null) {
+<<<<<<< HEAD
       this.setState({
         errorMsg:true,
         errorText:"Email can't be blank"
@@ -69,11 +85,16 @@ registerUserData = () => {
         errorMsg:false,
         errorText:""
        })
+=======
+      alert("Email Should not be blanked");
+      return;
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
     }
 
     var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 
     if (!validEmail) {
+<<<<<<< HEAD
         this.setState({
         errorMsg:true,
         errorText:"Invalid Email !"
@@ -158,6 +179,58 @@ registerUserData = () => {
 
 
      
+=======
+      alert("You have entered an invalid email address!");
+      return;
+    }
+
+    if (pass === '' || pass == null) {
+      alert("Please insert password");
+      return;
+    }
+
+
+    this.setState({
+      isLoaded: true,
+      fullname: '',
+      password: '',
+      email: '',
+      emailErrorMsg: false
+    });
+
+    axios.post('http://localhost/ReactApi/insert_data.php',
+      {
+        fullname: name,
+        email: email,
+        pass: pass
+      }).then((response) => response).then((response) => {
+
+        if (response.data.status === '300') {
+          this.setState({
+            emailErrorMsg: true,
+            isLoaded: false
+          })
+          return;
+        }
+
+        if (response.data.status === '200') {
+          this.setState({
+            isLoaded: false
+          })
+          alert("Account Created Successfully");
+          this.props.history.push('/');
+        }
+
+      }).catch((error) => {
+        console.error("Error Founds In--------------" + error);
+      });
+
+      setTimeout( () => {
+        this.setState({
+          emailErrorMsg: false
+        });
+      }, 4000);
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
 
 
   }
@@ -191,9 +264,15 @@ registerUserData = () => {
             <a><b>Register Your Self</b></a>
 
             <center>
+<<<<<<< HEAD
               {this.state.errorMsg ?
                 <div className="btn btn-danger">
                   {this.state.errorText}
+=======
+              {this.state.emailErrorMsg ?
+                <div className="btn btn-danger">
+                  Email id already in use
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
             </div> : null}
             </center>
 
@@ -203,19 +282,31 @@ registerUserData = () => {
 
             <div className="form-group has-feedback">
               <input type="text" className="form-control" id="" placeholder="Full name" name="fullname"
+<<<<<<< HEAD
                 onChange={this.changeNameHandler} 
+=======
+                onChange={this.changeNameHandler} value={this.state.fullname}
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
               />
               <span className="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
             <div className="form-group has-feedback">
               <input type="email" className="form-control" placeholder="Email" name="email"
+<<<<<<< HEAD
                 onChange={this.changeEmailHandler} 
+=======
+                onChange={this.changeEmailHandler} value={this.state.email}
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
               />
               <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div className="form-group has-feedback">
               <input type="password" className="form-control" placeholder="Password" name="password"
+<<<<<<< HEAD
                 onChange={this.changePassHandler} 
+=======
+                onChange={this.changePassHandler} value={this.state.password}
+>>>>>>> 510930aa5e88d2501e749f331929a235bb732e71
               />
               <span className="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
