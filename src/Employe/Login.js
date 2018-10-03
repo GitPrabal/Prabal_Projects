@@ -76,6 +76,20 @@ class Login extends Component {
       sessionStorage.setItem('myData',res.user_id);
       this.props.history.push('/dashboard');
     }
+
+    if(res.status=='404')
+    {
+      alert("Invalid Credentials");
+      this.setState({
+        emailErrorMsg:false,
+        isLoaded:false
+     })
+     return;
+
+    }
+
+
+
    })
 
    setTimeout( () => {
