@@ -64,8 +64,11 @@ class Login extends Component {
 
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
+   
+ 
+  //  'http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password
 
-   fetch('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password)
+   fetch(('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password))
    .then(res => res.json())
    .then(res=>{
     if(res.flag){
