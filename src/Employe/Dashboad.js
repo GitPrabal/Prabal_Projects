@@ -11,6 +11,7 @@ import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
 import Dashboardcards from './Dashboardcards';
+import { userInfo } from 'os';
 
 class Dashboard extends Component {
   
@@ -23,15 +24,21 @@ componentWillMount = ()=>{
     }
 
 
+    fetch( ('http://localhost/ReactApi/checkUserDetails.php?user_id='+result) )
+    .then( res => res.json())
+    .then( (res)=> {
+      sessionStorage.setItem('userData',res);
+     })
+     
+     
+
+
  
     
     
 
 }
 
-componentDidMount = () => {
-  console.log(this.props);
-}
 
 handleLogOut = () =>{
   sessionStorage.clear();
@@ -40,6 +47,7 @@ handleLogOut = () =>{
 
 
   render() {
+    var userData =  sessionStorage.getItem('userData');
     return (
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
@@ -49,6 +57,7 @@ handleLogOut = () =>{
             <div className="content-wrapper">
               <section className="content-header">
                 <h1>
+                {console.log(userData)}
                   Dashboard
                  <small>Control panel</small>
                 </h1>
