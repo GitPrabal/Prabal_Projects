@@ -8,10 +8,29 @@ import '../Admin/plugins/iCheck/square/blue.css';
 import '../Employe/css/login.css';
 
 class Forgotpass extends Component {
+constructor(props)
+{
+  super(props);
+  this.state=[{
+    isLoggedIn:false
+
+  }]
+}
+
+componentDidMount = () =>{
+  var user_details = sessionStorage.getItem('myData');
+  this.setState({
+    isLoggedIn:user_details
+  })
+}
 
   render() {
+    
     return (
+         
+
       <div>
+
         <div className="login-box">
           <div className="login-logo">
             <b>Forgot Password</b>
