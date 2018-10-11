@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 
 class Sidebar extends Component{
-
     render(){
-
         return(
             <div>
 <aside className="main-sidebar">
@@ -13,7 +11,7 @@ class Sidebar extends Component{
           <img src={require('../Admin/dist/img/user2-160x160.jpg')} className="img-circle" alt="" />
         </div>
         <div className="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{this.props.name}</p>
           <a><i className="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>

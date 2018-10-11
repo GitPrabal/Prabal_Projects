@@ -15,30 +15,27 @@ import { userInfo } from 'os';
 
 class Dashboard extends Component {
   
+  constructor(props){
+    super(props)
+    this.state = [{
+      userdetails:[]
+    }]
+  }
+
 
 componentWillMount = ()=>{
 
     const result = sessionStorage.getItem('myData');
     if( result   === '' || result == null ){
       this.props.history.push('/')
-    }
-
-
+}
     fetch( ('http://localhost/ReactApi/checkUserDetails.php?user_id='+result) )
     .then( res => res.json())
+    .then( (res)=> res)
     .then( (res)=> {
-      sessionStorage.setItem('userData',res);
-     })
-     
-     
-
-
- 
-    
-    
-
+      console.log(res);
+    })
 }
-
 
 handleLogOut = () =>{
   sessionStorage.clear();
@@ -47,17 +44,16 @@ handleLogOut = () =>{
 
 
   render() {
-    var userData =  sessionStorage.getItem('userData');
+    var full_name =  sessionStorage.getItem('full_name');
     return (
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
           <div className="wrapper">
-            <Header click={this.handleLogOut}/>
-            <Sidebar />
+            <Header click={this.handleLogOut} name={full_name}/>
+            <Sidebar name={full_name}/>
             <div className="content-wrapper">
               <section className="content-header">
                 <h1>
-                {console.log(userData)}
                   Dashboard
                  <small>Control panel</small>
                 </h1>

@@ -28,12 +28,13 @@ class Profile extends Component {
   }
 
   render() {
+    var full_name =  sessionStorage.getItem('full_name');
     return (
       <div>
         <div class="hold-transition skin-blue sidebar-mini">
           <div class="wrapper">
-            <Header click={this.handleLogOut} />
-            <Sidebar />
+            <Header click={this.handleLogOut} name={full_name}/>
+            <Sidebar name={full_name}/>
             <div class="content-wrapper">
               <section class="content-header">
                 <h1>User Profile</h1>
@@ -59,7 +60,7 @@ class Profile extends Component {
                           alt=""
                         />
                         <h3 class="profile-username text-center">
-                          Nina Mcintire
+                          {full_name}
                         </h3>
                         <p class="text-muted text-center">Software Engineer</p>
                       </div>
