@@ -1,8 +1,6 @@
 body{
   background-color: #d2d6de;
-<<<<<<< HEAD
   overflow: hidden;
-=======
   overflow: auto;
 }
 
@@ -10,5 +8,4 @@ body{
   body {
     overflow: auto;
   }
->>>>>>> e9b3ca8f1f1c7449f83baa4f13838ca7683cb7ea
 }
