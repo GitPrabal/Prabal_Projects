@@ -44,7 +44,9 @@ handleLogOut = () =>{
 
 
   render() {
+
     var full_name =  sessionStorage.getItem('full_name');
+    
     return (
       <div>
         <div className="hold-transition skin-blue sidebar-mini">

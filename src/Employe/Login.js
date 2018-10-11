@@ -76,8 +76,9 @@ class Login extends Component {
        emailErrorMsg:false,
        isLoaded:false
     })
+
       sessionStorage.setItem('myData',res.user_id);
-      sessionStorage.setItem('full_name',res.full_name);
+      sessionStorage.setItem('full_name',res.fullname);
       this.props.history.push('/dashboard');
     }
 
