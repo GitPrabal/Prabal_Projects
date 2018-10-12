@@ -9,7 +9,7 @@ class Dashboardcards extends Component {
                     <div className="small-box bg-aqua">
                         <div className="inner">
                             <h3>150</h3>
-                            <p>New Orders</p>
+                            <p>Total Documents</p>
                         </div>
                         <div className="icon">
                             <i className="ion ion-bag"></i>
@@ -47,7 +47,7 @@ class Dashboardcards extends Component {
                     <div className="small-box bg-red">
                         <div className="inner">
                             <h3>65</h3>
-                            <p>Unique Visitors</p>
+                            <p>Last Login Time</p>
                         </div>
                         <div className="icon">
                             <i className="ion ion-pie-graph"></i>

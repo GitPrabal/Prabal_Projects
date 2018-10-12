@@ -38,7 +38,7 @@ const Header = props => {
                     />
                     <p>
                       {props.name}
-                      <small>Member since Nov. 2012</small>
+                      <small>Member since {props.reg_date}</small>
                     </p>
                   </li>
 

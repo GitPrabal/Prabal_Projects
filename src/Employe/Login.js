@@ -17,40 +17,60 @@ class Login extends Component {
       isLoaded: false,
       emailErrorMsg: false,
       errorFlag:false,
-      errorText:''
+      errorText:'',
+      invalidEmail:false,
+      invalidPass:false
     }]
   }
 
 
   getUserLoggedIn = () =>{
 
+
   var email = this.state.email;
   var password = this.state.password;
   var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 
+
   if(email=== '' || !validEmail ){
+
     this.setState({
     errorFlag:true,
+    invalidEmail:true,
     errorText:"Invalid Email"
     })
+
+    setTimeout( () => {
+      this.setState({
+        errorFlag: false,
+        invalidEmail:false
+      });
+    }, 3000);
     return;
-  }else{      
+  }
+  else{      
     this.setState({
     errorFlag:false,
+    invalidEmail:false,
     errorText:''
     })
 }
-  if(password===''){
+
+
+
+  if(typeof password == 'undefined' || password == ' '){
     this.setState({
       errorFlag:true,
-      errorText:"Password can't be blanked"
+      errorText:"Password can't be blanked",
+      invalidPass:true
       })
     return;
   }
   else{      
     this.setState({
     errorFlag:false,
-    errorText:''
+    errorText:'',
+    invalidPass:false
     })
 }
 
@@ -79,6 +99,7 @@ class Login extends Component {
 
       sessionStorage.setItem('myData',res.user_id);
       sessionStorage.setItem('full_name',res.fullname);
+ //   sessionStorage.setItem('reg_date',res.reg_date);
       this.props.history.push('/dashboard');
     }
 
@@ -93,17 +114,7 @@ class Login extends Component {
 
     }
 
-
-
    })
-
-   setTimeout( () => {
-    this.setState({
-      errorFlag: false
-    });
-  }, 3000);
-
-
 
 }
   changeEmailHandler = (event) => {
@@ -120,44 +131,56 @@ class Login extends Component {
 
 
   render() {
+
+  const style = {
+  border:'1px solid red'
+ }
+
     return (
       <div>
         <div className="login-box">
           <div className="login-logo">
             <a href=""><b>Login</b></a>
              <center>
-
                <div id="errorMsg">
               {this.state.emailErrorMsg ?
                 <div className="btn btn-danger">
                   Invalid Credentials
             </div> : null}
             </div>
-
             <div id="errorMsg1">
               {this.state.errorFlag ?
                 <div className="btn btn-danger">
                   {this.state.errorText}
             </div> : null}
             </div>
-
-
             </center>
           </div>
           <div className="login-box-body">
             <p className="login-box-msg">Sign in to start your session</p>
             <div className="form-group has-feedback">
+ 
+             { !(this.state.invalidEmail) ?
               <input type="email" className="form-control" placeholder="Email" 
-               onChange={this.changeEmailHandler}
+               onChange={this.changeEmailHandler} name="email"
                id="user_email"
               />
+              :<input type="email" className="form-control" placeholder="Email" 
+              onChange={this.changeEmailHandler} name="email"
+              id="user_email" style={style}/>   
+             }
               <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div className="form-group has-feedback">
+            {!(this.state.invalidPass) ?   
               <input type="password" className="form-control" placeholder="Password" 
-               onChange={this.changePassHandler}
+               onChange={this.changePassHandler} name="password"
                id="user_pass"
               />
+              : <input type="password" className="form-control" placeholder="Password" 
+              onChange={this.changePassHandler} name="password"
+              id="user_pass" style={style} />
+              }
               <span className="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 
