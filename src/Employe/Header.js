@@ -41,7 +41,6 @@ const Header = props => {
                       <small>Member since {props.reg_date}</small>
                     </p>
                   </li>
-
                   <li className="user-footer">
                     <div className="pull-left">
                       <a href = "/user-profile" className="btn btn-default btn-flat">Profile</a>

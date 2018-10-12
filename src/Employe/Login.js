@@ -84,9 +84,7 @@ class Login extends Component {
 
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
-   
- 
-  //  'http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password
+
 
    fetch(('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password))
    .then(res => res.json())
@@ -99,7 +97,7 @@ class Login extends Component {
 
       sessionStorage.setItem('myData',res.user_id);
       sessionStorage.setItem('full_name',res.fullname);
- //   sessionStorage.setItem('reg_date',res.reg_date);
+      sessionStorage.setItem('reg_date',res.reg_date);
       this.props.history.push('/dashboard');
     }
 

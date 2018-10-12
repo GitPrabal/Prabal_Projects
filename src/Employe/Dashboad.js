@@ -45,9 +45,10 @@ handleLogOut = () =>{
 
   render() {
 
+
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
-
+    
     return (
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
