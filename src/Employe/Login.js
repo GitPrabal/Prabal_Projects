@@ -108,13 +108,23 @@ class Login extends Component {
 
     if(res.status=='404')
     {
-      alert("Invalid Credentials");
-      this.setState({
-        emailErrorMsg:false,
-        isLoaded:false
-     })
-     return;
+      
+     this.setState({
+      errorFlag:true,
+      errorText:"Invalid Credentials",
+      emailErrorMsg:false,
+      isLoaded:false
+      })
 
+      setTimeout( () => {
+        this.setState({
+          errorFlag: false
+        });
+      }, 3000);
+
+
+
+     return;
     }
 
    })
@@ -143,7 +153,7 @@ class Login extends Component {
       <div>
         <div className="login-box">
           <div className="login-logo">
-            <a href=""><b>Login</b></a>
+            <b>Login</b>
              <center>
                <div id="errorMsg">
               {this.state.emailErrorMsg ?

@@ -22,6 +22,12 @@ class ExpensesList extends Component{
     }
     
     componentWillMount = () => {
+
+      var isLoggedIn = sessionStorage.getItem('myData');
+      if( isLoggedIn   === '' || isLoggedIn == null ){
+        this.props.history.push('/')
+      }
+  
       
         const result = sessionStorage.getItem('myData');
         var id    = new Buffer(result).toString('base64');
@@ -35,7 +41,23 @@ class ExpensesList extends Component{
             })
           })
 }
+
+
+handleLogOut = () =>{
+  sessionStorage.clear();
+  this.props.history.push('/');
+}
+
+
+
+
     render(){
+
+      var full_name =  sessionStorage.getItem('full_name');
+      var reg_date =  sessionStorage.getItem('reg_date');
+  
+
+
       var numbers = this.state.data;
       var result  =  numbers.map( numbers=>
             <tr>
@@ -47,7 +69,7 @@ class ExpensesList extends Component{
        <div>
         <div className="hold-transition skin-blue sidebar-mini">
          <div className="wrapper">
-          <Header />
+          <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} />
           <Sidebar />
 
     <div class="content-wrapper">
