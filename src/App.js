@@ -7,7 +7,8 @@ import Dashboard from './Employe/Dashboad';
 import Header from './Employe/Header';
 import Error from './Employe/Error';
 import Profile from './Employe/Profile';
-
+import Expenses from './Employe/Expenses';
+import ExpensesList from './Employe/ExpensesList';
 
 class App extends Component {
 
@@ -24,6 +25,8 @@ class App extends Component {
           <Route exact path="/header" component={Header} />
           <Route exact path="/user-profile" component={Profile} />
           <Route exact path="/error" component={Error} />
+          <Route exact path="/expenses" component={Expenses} />
+          <Route exact path="/expenseslist" component={ExpensesList} />
 
         </div>
       </Router>

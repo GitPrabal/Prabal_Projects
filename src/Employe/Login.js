@@ -85,11 +85,16 @@ class Login extends Component {
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
 
+   var email    = new Buffer(email).toString('base64');
+   var password = new Buffer(password).toString('base64');
 
-   fetch(('http://localhost/ReactApi/checkUserLoggedIn.php?email='+email+'&password='+password))
+
+   fetch(('http://localhost/ReactApi/checkUserLoggedIn.php?e='+email+'&p='+password))
    .then(res => res.json())
    .then(res=>{
+
     if(res.flag){
+
       this.setState({
        emailErrorMsg:false,
        isLoaded:false

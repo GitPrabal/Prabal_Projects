@@ -19,7 +19,6 @@ const Header = props => {
           </a>
           <div className="navbar-custom-menu">
             <ul className="nav navbar-nav">
-
               <li className="dropdown user user-menu">
                 <a className="dropdown-toggle" data-toggle="dropdown">
                   <img

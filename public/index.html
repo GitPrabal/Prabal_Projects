@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="http://localhost/ReactApi/Admin/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
+         
     <link rel="stylesheet" href="http://localhost/ReactApi/Admin/dist/css/skins/_all-skins.min.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="http://localhost/ReactApi/Admin/bower_components/morris.js/morris.css">
@@ -42,6 +43,10 @@
     <link rel="stylesheet" href="http://localhost/ReactApi/Admin/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="http://localhost/ReactApi/Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+    <link rel="stylesheet" href="http://localhost/ReactApi/Admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
+    
 
     
   
@@ -115,6 +120,22 @@
 <script src="http://localhost/ReactApi/Admin/dist/js/demo.js"></script>
 
 
+<script src="http://localhost/ReactApi/Admin/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="http://localhost/ReactApi/Admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
 
   </body>
 </html>

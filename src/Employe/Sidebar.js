@@ -41,6 +41,7 @@ class Sidebar extends Component{
             <li><a href="index2.html"><i className="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
+            <li><a href="/expenseslist"><i class="fa fa-list" aria-hidden="true"></i> Manage Expenses</a></li>
         <li className="treeview">
           <a>
             <i className="fa fa-files-o"></i>
@@ -56,6 +57,8 @@ class Sidebar extends Component{
             <li><a href="pages/layout/collapsed-sidebar.html"><i className="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
           </ul>
         </li>
+
+
         <li>
           <a href="pages/widgets.html">
             <i className="fa fa-th"></i> <span>Widgets</span>

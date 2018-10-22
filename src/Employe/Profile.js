@@ -10,31 +10,51 @@ import "../Admin/dist/css/AdminLTE.min.css";
 
 class Profile extends Component {
 
+  state = {
+     details:[]
+  }
+
+
   handleLogOut = () => {
     sessionStorage.clear();
     this.props.history.push("/");
-  };
+};
 
-  componentWillMount= () => {
+componentWillMount = ()=>{
+const result = sessionStorage.getItem('myData');
+  if( result   === '' || result == null ){
+    this.props.history.push('/')
+}
+}
 
-  var user_id = sessionStorage.getItem('myData');
-  
+componentDidMount = () =>{
+  const x = sessionStorage.getItem('myData');
+  var result    = new Buffer(x).toString('base64');
+  fetch(('http://localhost/ReactApi/checkUserDetails.php?user_id='+result))
+   .then(res => res.json())
+   .then(res=>{
 
-
-  }
+   
+     
+   })
+}
 
   fileChangedHandler = (event) => {
     this.setState({selectedFile: event.target.files[0]})
   }
 
   render() {
+
     var full_name =  sessionStorage.getItem('full_name');
+
     return (
       <div>
         <div class="hold-transition skin-blue sidebar-mini">
           <div class="wrapper">
             <Header click={this.handleLogOut} name={full_name}/>
             <Sidebar name={full_name}/>
+            
+            {this.state.details}
             <div class="content-wrapper">
               <section class="content-header">
                 <h1>User Profile</h1>
@@ -44,11 +64,9 @@ class Profile extends Component {
                       <i class="fa fa-dashboard" /> Home
                     </a>
                   </li>
-                  
                   <li class="active">User profile</li>
                 </ol>
               </section>
-
               <section class="content">
                 <div class="row">
                   <div class="col-md-3">

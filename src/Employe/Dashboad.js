@@ -24,31 +24,22 @@ class Dashboard extends Component {
 
 
 componentWillMount = ()=>{
-
     const result = sessionStorage.getItem('myData');
     if( result   === '' || result == null ){
       this.props.history.push('/')
 }
-    fetch( ('http://localhost/ReactApi/checkUserDetails.php?user_id='+result) )
-    .then( res => res.json())
-    .then( (res)=> res)
-    .then( (res)=> {
-      console.log(res);
-    })
+
 }
 
 handleLogOut = () =>{
   sessionStorage.clear();
   this.props.history.push('/');
 }
-
-
   render() {
-
 
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
-    
+
     return (
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
