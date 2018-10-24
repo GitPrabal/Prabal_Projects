@@ -103,6 +103,7 @@ class Login extends Component {
       sessionStorage.setItem('myData',res.user_id);
       sessionStorage.setItem('full_name',res.fullname);
       sessionStorage.setItem('reg_date',res.reg_date);
+      
       this.props.history.push('/dashboard');
     }
 
@@ -185,7 +186,7 @@ class Login extends Component {
                onChange={this.changeEmailHandler} name="email"
                id="user_email"
               />
- 
+
               <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
 

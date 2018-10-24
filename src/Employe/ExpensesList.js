@@ -9,6 +9,8 @@ import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
 
+
+
 import Header from '../Employe/Header';
 import Sidebar from '../Employe/Sidebar';
 
@@ -25,11 +27,10 @@ class ExpensesList extends Component{
     componentWillMount = () => {
 
       var isLoggedIn = sessionStorage.getItem('myData');
-      if( isLoggedIn   === '' || isLoggedIn == null ){
+      if( isLoggedIn   === '' || isLoggedIn == null )
+      {
         this.props.history.push('/')
       }
-  
-      
         const result = sessionStorage.getItem('myData');
         var id    = new Buffer(result).toString('base64');
 
