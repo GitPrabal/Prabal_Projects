@@ -59,11 +59,20 @@ class Login extends Component {
 
 
   if(typeof password == 'undefined' || password == ' '){
+
     this.setState({
       errorFlag:true,
       errorText:"Password can't be blanked",
       invalidPass:true
-      })
+    })
+
+    setTimeout( () => {
+        this.setState({
+          errorFlag: false,
+          invalidPass:false
+        });
+      }, 3000);
+
     return;
   }
   else{      
@@ -74,13 +83,7 @@ class Login extends Component {
     })
 }
 
-  this.setState({
-    email: '',
-    password: '',
-    isLoaded: true,
-    errorFlag:false,
-    errorText:''
-   }) 
+
 
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
@@ -92,14 +95,11 @@ class Login extends Component {
    fetch(('http://localhost/ReactApi/checkUserLoggedIn.php?e='+email+'&p='+password))
    .then(res => res.json())
    .then(res=>{
-
     if(res.flag){
-
       this.setState({
        emailErrorMsg:false,
        isLoaded:false
     })
-
       sessionStorage.setItem('myData',res.user_id);
       sessionStorage.setItem('full_name',res.fullname);
       sessionStorage.setItem('reg_date',res.reg_date);
@@ -108,8 +108,7 @@ class Login extends Component {
 
     if(res.status=='404')
     {
-      
-     this.setState({
+      this.setState({
       errorFlag:true,
       errorText:"Invalid Credentials",
       emailErrorMsg:false,
@@ -121,13 +120,19 @@ class Login extends Component {
           errorFlag: false
         });
       }, 3000);
-
-
-
      return;
     }
 
-   })
+   }).catch((err)=> {
+    
+    this.setState({
+      errorFlag:true,
+      errorText:"It Seems that server is not responding Please try after sometime"
+    })
+
+
+   });
+  
 
 }
   changeEmailHandler = (event) => {
@@ -145,16 +150,21 @@ class Login extends Component {
 
   render() {
 
-  const style = {
-  border:'1px solid red'
+ let classes = [];
+ let passClass=[];
+
+ if(this.state.invalidEmail){
+   classes.push('red-bold');
  }
 
+ if(this.state.invalidPass){
+  passClass.push('red-bold');
+ }
     return (
       <div>
         <div className="login-box">
           <div className="login-logo">
             <b>Login</b>
-             <center>
                <div id="errorMsg">
               {this.state.emailErrorMsg ?
                 <div className="btn btn-danger">
@@ -167,33 +177,25 @@ class Login extends Component {
                   {this.state.errorText}
             </div> : null}
             </div>
-            </center>
           </div>
           <div className="login-box-body">
             <p className="login-box-msg">Sign in to start your session</p>
             <div className="form-group has-feedback">
- 
-             { !(this.state.invalidEmail) ?
-              <input type="email" className="form-control" placeholder="Email" 
+            <input type="email" className={"form-control " + classes} placeholder="Email" 
                onChange={this.changeEmailHandler} name="email"
                id="user_email"
               />
-              :<input type="email" className="form-control" placeholder="Email" 
-              onChange={this.changeEmailHandler} name="email"
-              id="user_email" style={style}/>   
-             }
+ 
               <span className="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
+
             <div className="form-group has-feedback">
-            {!(this.state.invalidPass) ?   
-              <input type="password" className="form-control" placeholder="Password" 
+            <input type="password" className={"form-control " + passClass}  placeholder="Password" 
                onChange={this.changePassHandler} name="password"
                id="user_pass"
               />
-              : <input type="password" className="form-control" placeholder="Password" 
-              onChange={this.changePassHandler} name="password"
-              id="user_pass" style={style} />
-              }
+
+          
               <span className="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
 

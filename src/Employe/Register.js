@@ -29,31 +29,40 @@ registerUserData = () => {
     var email = this.state.email;
     var pass = this.state.password;
 
+    this.setState({
+      isLoaded:true
+    })
     if (name == '' ) {
       this.setState({
        errorMsg:true,
+       isLoaded:false,
        errorText:"Name Can't be blank"
       })
       return;
     }else{ 
       this.setState({
         errorMsg:false,
-        errorText:""
+        errorText:"",
+        isLoaded:true,
        })
     }
-
+    
     var check = /^[A-Za-z ]+$/.test(name);
 
     if (!check) {
       this.setState({
         errorMsg:true,
-        errorText:"Please Insert Valid Name"
+        errorText:"Please Insert Valid Name",
+        isLoaded:false,
        })
+
+       return;
  
     }else{
       this.setState({
         errorMsg:false,
-        errorText:""
+        errorText:"",
+        isLoaded:true,
        })
     }
 
@@ -61,13 +70,15 @@ registerUserData = () => {
     if (email === '' || email == null) {
       this.setState({
         errorMsg:true,
-        errorText:"Email can't be blank"
+        errorText:"Email can't be blank",
+        isLoaded:false,
        })
        return
     }else{
        this.setState({
         errorMsg:false,
-        errorText:""
+        errorText:"",
+        isLoaded:true
        })
     }
 
@@ -76,14 +87,16 @@ registerUserData = () => {
     if (!validEmail) {
         this.setState({
         errorMsg:true,
-        errorText:"Invalid Email !"
+        errorText:"Invalid Email !",
+        isLoaded:false,
        })
        return
 
     }else{
       this.setState({
         errorMsg:false,
-        errorText:""
+        errorText:"",
+        isLoaded:true,
        })
 
     }
@@ -91,14 +104,16 @@ registerUserData = () => {
     if (pass === '' || pass == null) {
       this.setState({
         errorMsg:true,
-        errorText:"Password Can't be blank"
+        errorText:"Password Can't be blank",
+        isLoaded:false,
        })
 
       return;
     }else{
       this.setState({
         errorMsg:false,
-        errorText:""
+        errorText:"",
+        isLoaded:true,
        })
     }
     
@@ -114,49 +129,45 @@ registerUserData = () => {
       body: JSON.stringify(data)
   }).then((res)=> res.json())
     .then((res) =>{
-      this.setState({
-        isLoaded:false
-      })
-      
       if(res.status==='300' || res.status===300){
         this.setState({
           errorMsg:true,
-          errorText:"Email id already in use"
+          errorText:"Email id already in use",
+          isLoaded:false,
         })
-
         return;
       }
 
-      if(res.status==='200' || res.status===200){
+      if(res.status==='200' || res.status===200)
+      {
         this.setState({
           errorMsg:true,
-          errorText:"Thanks for registering with us"
+          errorText:"Thanks for registering with us",
+          isLoaded:false,
         })
 
         setTimeout( () => {
-
         this.props.history.push('/');
+        }, 850);
 
-        }, 2000);
-
-
-
+        return;
+      }
+      if(res.status==='400' || res.status===400){
+        this.setState({
+          errorMsg:true,
+          errorText:"Something wents wrong !",
+          isLoaded:false,
+        })
 
       }
 
 
-     
 
 
   })
   .catch(function(err) {
       console.log(err)
   });
-    
-
-
-     
-
 
   }
 

@@ -1,6 +1,16 @@
-import React from "react";
+import React,{Component} from "react";
 
-const Header = props => {
+class Header extends Component{
+
+  handleLogOut = () =>{
+    sessionStorage.clear();
+    this.props.push.push('/');
+  }
+  
+
+  render(){
+
+    console.log(this.props);
   return (
     <div>
       <header className="main-header">
@@ -26,7 +36,7 @@ const Header = props => {
                     className="user-image"
                     alt=""
                   />
-                  <span className="hidden-xs">{props.name}</span>
+                  <span className="hidden-xs">{this.props.name}</span>
                 </a>
                 <ul className="dropdown-menu">
                   <li className="user-header">
@@ -36,8 +46,8 @@ const Header = props => {
                       alt=""
                     />
                     <p>
-                      {props.name}
-                      <small>Member since {props.reg_date}</small>
+                      {this.props.name}
+                      <small>Member since {this.props.reg_date}</small>
                     </p>
                   </li>
                   <li className="user-footer">
@@ -47,7 +57,7 @@ const Header = props => {
                     <div className="pull-right">
                       <a
                         className="btn btn-default btn-flat"
-                        onClick={props.click}
+                        onClick={this.handleLogOut}
                       >
                         Sign out
                       </a>
@@ -67,6 +77,7 @@ const Header = props => {
       </header>
     </div>
   );
+}
 };
 
 export default Header;

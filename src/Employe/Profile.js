@@ -33,9 +33,7 @@ componentDidMount = () =>{
   fetch(('http://localhost/ReactApi/checkUserDetails.php?user_id='+result))
    .then(res => res.json())
    .then(res=>{
-
-   
-     
+     console.log(res);
    })
 }
 
@@ -51,7 +49,7 @@ componentDidMount = () =>{
       <div>
         <div class="hold-transition skin-blue sidebar-mini">
           <div class="wrapper">
-            <Header click={this.handleLogOut} name={full_name}/>
+            <Header click={this.handleLogOut} name={full_name} push={this.props.history}/>
             <Sidebar name={full_name}/>
             
             {this.state.details}

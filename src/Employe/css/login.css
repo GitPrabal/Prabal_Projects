@@ -9,3 +9,9 @@ body{
     overflow: auto;
   }
 }
+
+
+.red-bold
+{
+  border: 1px solid red;
+}

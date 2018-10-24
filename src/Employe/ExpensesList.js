@@ -18,6 +18,7 @@ class ExpensesList extends Component{
         super(props);
         this.state = {
           data: [],
+          Total:''
         };
     }
     
@@ -31,7 +32,7 @@ class ExpensesList extends Component{
       
         const result = sessionStorage.getItem('myData');
         var id    = new Buffer(result).toString('base64');
-        
+
         fetch('http://localhost/ReactApi/expenses.php?user_id='+id)
           .then( (response) => response.json())
           .then( (response) => (response))
@@ -42,34 +43,31 @@ class ExpensesList extends Component{
           })
 }
 
-
 handleLogOut = () =>{
   sessionStorage.clear();
   this.props.history.push('/');
 }
 
-
-
-
     render(){
 
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
-  
-
-
       var numbers = this.state.data;
+
       var result  =  numbers.map( numbers=>
             <tr>
                   <td>{numbers.date}</td>
                   <td>{numbers.price}</td>
             </tr>
+
       )
       return(
        <div>
         <div className="hold-transition skin-blue sidebar-mini">
          <div className="wrapper">
-          <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} />
+          <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} 
+           push={this.props.history}
+          />
           <Sidebar />
 
     <div class="content-wrapper">
@@ -85,6 +83,7 @@ handleLogOut = () =>{
             <div class="box-header">
               <h3 class="box-title">
                 <a href="/expenses">Add Expenses</a>
+                {this.state.users}
               </h3>
             </div>
             <div class="box-body">
