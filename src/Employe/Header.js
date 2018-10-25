@@ -3,14 +3,24 @@ import React,{Component} from "react";
 class Header extends Component{
 
   handleLogOut = () =>{
+
+  var id = sessionStorage.getItem('myData');
+  id = new Buffer(id).toString('base64');
+  fetch(('http://localhost/ReactApi/removeUser.php?id='+id))
+  .then( (res) => res.json() )
+  .then((res)=>{
+    console.log(res);
+  })
+
+
     sessionStorage.clear();
     this.props.push.push('/');
+  
+  
   }
   
 
-  render(){
-
-    console.log(this.props);
+render(){
   return (
     <div>
       <header className="main-header">

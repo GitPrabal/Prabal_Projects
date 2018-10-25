@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 
 class Sidebar extends Component{
     render(){
+      console.log("--------------------",this.props.name);
         return(
             <div>
 <aside className="main-sidebar">

@@ -36,16 +36,12 @@ componentWillMount = ()=>{
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
 
-
-
-
-
     return (
       <div>
         <div className="hold-transition skin-blue sidebar-mini">
           <div className="wrapper">
             <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} push={this.props.history}/>
-            <Sidebar name={full_name}/>
+            <Sidebar name={full_name} />
             <div className="content-wrapper">
               <section className="content-header">
                 <h1>

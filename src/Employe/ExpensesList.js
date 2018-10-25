@@ -9,8 +9,6 @@ import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
 
-
-
 import Header from '../Employe/Header';
 import Sidebar from '../Employe/Sidebar';
 
@@ -69,7 +67,7 @@ handleLogOut = () =>{
           <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} 
            push={this.props.history}
           />
-          <Sidebar />
+          <Sidebar name={full_name} />
 
     <div class="content-wrapper">
     <section class="content-header">

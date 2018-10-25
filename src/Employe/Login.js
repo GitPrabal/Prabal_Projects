@@ -83,8 +83,6 @@ class Login extends Component {
     })
 }
 
-
-
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
 
