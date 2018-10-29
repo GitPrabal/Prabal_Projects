@@ -42,7 +42,7 @@ class Sidebar extends Component{
             <li><a href="index2.html"><i className="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
-            <li><a href="/expenseslist"><i class="fa fa-list" aria-hidden="true"></i> Manage Expenses</a></li>
+            <li><a href="/expenseslist"><i className="fa fa-list" aria-hidden="true"></i> Manage Expenses</a></li>
         <li className="treeview">
           <a>
             <i className="fa fa-files-o"></i>

@@ -86,11 +86,21 @@ class Login extends Component {
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
 
-   var email    = new Buffer(email).toString('base64');
-   var password = new Buffer(password).toString('base64');
+   var data = {
+    email     : new Buffer(email).toString('base64'),
+    pass      : new Buffer(password).toString('base64') 
+}
 
 
-   fetch(('http://localhost/ReactApi/checkUserLoggedIn.php?e='+email+'&p='+password))
+
+   fetch(('http://test.reactapi.com/userlogin'),{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
    .then(res => res.json())
    .then(res=>{
     if(res.flag){
@@ -128,11 +138,7 @@ class Login extends Component {
       errorFlag:true,
       errorText:"It Seems that server is not responding Please try after sometime"
     })
-
-
    });
-  
-
 }
   changeEmailHandler = (event) => {
     this.setState({
@@ -193,6 +199,9 @@ class Login extends Component {
                onChange={this.changePassHandler} name="password"
                id="user_pass"
               />
+
+              <input type="hidden" name="password" className="csrf" value={Math.random()} />
+
 
           
               <span className="glyphicon glyphicon-lock form-control-feedback"></span>

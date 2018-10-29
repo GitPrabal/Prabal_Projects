@@ -11,7 +11,8 @@ import "../Admin/dist/css/AdminLTE.min.css";
 class Profile extends Component {
 
   state = {
-     details:[]
+     details:[],
+     errorFlag:false
   }
 
 
@@ -34,7 +35,12 @@ componentDidMount = () =>{
    .then(res => res.json())
    .then(res=>{
      console.log(res);
-   })
+   }).catch((err)=> {
+    this.setState({
+      errorFlag:true,
+      errorText:"It Seems that server is not responding Please try after sometime"
+    })
+   });
 }
 
   fileChangedHandler = (event) => {
@@ -83,6 +89,8 @@ componentDidMount = () =>{
                     </div>
                   </div>
 
+                  
+
                   <div class="col-md-9">
                     <div class="nav-tabs-custom">
                       <ul class="nav nav-tabs">
@@ -92,6 +100,14 @@ componentDidMount = () =>{
                           </a>
                         </li>
                       </ul>
+                      <center>
+                      <div id="errorMsg1">
+              {this.state.errorFlag ?
+                <div className="btn btn-danger">
+                  {this.state.errorText}
+                  </div>
+                  :null}
+            </div></center>
                       <div class="tab-content">
                         <div class="active tab-pane" id="settings">
                           <div class="form-horizontal">

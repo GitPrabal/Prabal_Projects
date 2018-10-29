@@ -3,20 +3,25 @@ import React,{Component} from "react";
 class Header extends Component{
 
   handleLogOut = () =>{
+  var user_id = new Buffer(sessionStorage.getItem('myData')).toString('base64');
 
-  var id = sessionStorage.getItem('myData');
-  id = new Buffer(id).toString('base64');
-  fetch(('http://localhost/ReactApi/removeUser.php?id='+id))
-  .then( (res) => res.json() )
-  .then((res)=>{
-    console.log(res);
+  var data = {
+    user_id : user_id
+}
+
+
+  fetch(('http://test.reactapi.com/userlogout'),{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
   })
-
-
+  .then( (res) => res.json() )
+  .then((res)=>{   })
     sessionStorage.clear();
     this.props.push.push('/');
-  
-  
   }
   
 

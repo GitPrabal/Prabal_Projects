@@ -124,7 +124,7 @@ registerUserData = () => {
       pass      : this.state.password 
   }
 
-  fetch("http://localhost/ReactApi/insert_data2.php", {
+  fetch("http://test.reactapi.com/register", {
       method: 'POST',
       body: JSON.stringify(data)
   }).then((res)=> res.json())
