@@ -12,7 +12,7 @@ import "../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css";
 import Header from "../Employe/Header";
 import Sidebar from "../Employe/Sidebar";
 
-class Expenses extends Component {
+class AddExpenses extends Component {
   constructor(props) {
     super(props);
     this.state = [
@@ -21,7 +21,8 @@ class Expenses extends Component {
         price: "",
         desc: "",
         flag: false,
-        msg: ""
+        msg: "",
+        errorFlag:false
       }
     ];
   }
@@ -83,8 +84,7 @@ class Expenses extends Component {
         price +
         "&date=" +
         date +
-        "&desc=" +
-        desc +
+        "&desc="+desc +
         "&user_id=" +
         user_id
     )
@@ -112,7 +112,12 @@ class Expenses extends Component {
             });
           }, 3000);
         }
-      });
+      }).catch((err)=> {
+        this.setState({
+          errorFlag:true,
+          errorText:"It Seems that server is not responding Please try after sometime"
+        })
+       });
   };
 
   changeDate = event => {
@@ -164,6 +169,15 @@ class Expenses extends Component {
                   </h5>
                   <div className="box box-primary">
                     <div className="box-header with-border">
+
+                    <center>
+                      <div id="errorMsg1">
+              {this.state.errorFlag ?
+                <div className="btn btn-danger">
+                  {this.state.errorText}
+                  </div>
+                  :null}
+                  </div></center>
                       <h3 className="box-title">Enter Expenses Details</h3>
                     </div>
                     <form role="form">
@@ -237,4 +251,4 @@ class Expenses extends Component {
   }
 }
 
-export default Expenses;
+export default AddExpenses;

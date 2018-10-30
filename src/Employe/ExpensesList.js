@@ -18,7 +18,8 @@ class ExpensesList extends Component{
         super(props);
         this.state = {
           data: [],
-          Total:''
+          Total:'',
+          errorFlag:false
         };
     }
     
@@ -39,7 +40,12 @@ class ExpensesList extends Component{
             this.setState({
               data :  response
             })
-          })
+          }).catch((err)=> {
+            this.setState({
+              errorFlag:true,
+              errorText:"It Seems that server is not responding ! We will fix it right away. Please try after some time"
+            })
+           });
 }
 
 handleLogOut = () =>{
@@ -80,6 +86,19 @@ handleLogOut = () =>{
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+
+          
+            <div id="errorMsg1">
+              {this.state.errorFlag ?
+
+              <div class="callout callout-danger">
+              <h4>Warning!</h4>
+              <p>{this.state.errorText}</p>
+              </div>
+              :null}
+            </div>
+          
+
               <h3 class="box-title">
                 <a href="/expenses">Add Expenses</a>
                 {this.state.users}

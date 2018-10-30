@@ -50,12 +50,13 @@ componentDidMount = () =>{
   render() {
 
     var full_name =  sessionStorage.getItem('full_name');
+    var reg_date =  sessionStorage.getItem('reg_date');
 
     return (
       <div>
         <div class="hold-transition skin-blue sidebar-mini">
           <div class="wrapper">
-            <Header click={this.handleLogOut} name={full_name} push={this.props.history}/>
+            <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} push={this.props.history}/>
             <Sidebar name={full_name}/>
             
             {this.state.details}
@@ -84,7 +85,7 @@ componentDidMount = () =>{
                         <h3 class="profile-username text-center">
                           {full_name}
                         </h3>
-                        <p class="text-muted text-center">Software Engineer</p>
+                        <p class="text-muted text-center">Member Since {reg_date}</p>
                       </div>
                     </div>
                   </div>
@@ -207,9 +208,10 @@ componentDidMount = () =>{
                             </div>
                             <div class="form-group">
                               <div class="col-sm-offset-2 col-sm-10">
-                                <button type="type" class="btn btn-danger">
-                                  Submit
-                                </button>
+                              {this.state.errorFlag ? 
+                                <button disabled type="type" class="btn btn-danger">Submit</button>
+                                :<button type="type" class="btn btn-danger">Submit</button>
+                               }
                               </div>
                             </div>
                           </div>

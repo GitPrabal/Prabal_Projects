@@ -80,12 +80,6 @@ render(){
                   </li>
                 </ul>
               </li>
-
-              <li>
-                <a data-toggle="control-sidebar">
-                  <i className="fa fa-gears" />
-                </a>
-              </li>
             </ul>
           </div>
         </nav>

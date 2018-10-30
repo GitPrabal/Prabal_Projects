@@ -124,8 +124,13 @@ registerUserData = () => {
       pass      : this.state.password 
   }
 
+
   fetch("http://test.reactapi.com/register", {
       method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(data)
   }).then((res)=> res.json())
     .then((res) =>{
@@ -155,6 +160,7 @@ registerUserData = () => {
       if(res.status==='400' || res.status===400){
         this.setState({
           errorMsg:true,
+          isLoaded:false,
           errorText:"Something wents wrong !",
           isLoaded:false,
         })

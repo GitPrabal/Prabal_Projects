@@ -7,8 +7,11 @@ import Dashboard from './Employe/Dashboad';
 import Header from './Employe/Header';
 import Error from './Employe/Error';
 import Profile from './Employe/Profile';
-import Expenses from './Employe/Expenses';
+import AddExpenses from './Employe/AddExpenses';
 import ExpensesList from './Employe/ExpensesList';
+import SharedDoc from './Employe/SharedDoc';
+import TypeDocs from './Employe/TypeDocs';
+import UploadedDocs from './Employe/UploadedDocs'
 
 
 class App extends Component {
@@ -26,10 +29,11 @@ class App extends Component {
           <Route exact path="/header" component={Header} />
           <Route exact path="/user-profile" component={Profile} />
           <Route exact path="/error" component={Error} />
-          <Route exact path="/expenses" component={Expenses} />
+          <Route exact path="/expenses" component={AddExpenses} />
           <Route exact path="/expenseslist" component={ExpensesList} />
-
-
+          <Route exact path="/share" component={SharedDoc} />
+          <Route exact path="/type-of-docs" component={TypeDocs} />
+          <Route exact path="/uploaded-docs" component={UploadedDocs} />
         </div>
       </Router>
       </div>

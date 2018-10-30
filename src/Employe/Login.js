@@ -82,17 +82,12 @@ class Login extends Component {
     invalidPass:false
     })
 }
-
    document.getElementById('user_email').value='';
    document.getElementById('user_pass').value='';
-
    var data = {
     email     : new Buffer(email).toString('base64'),
     pass      : new Buffer(password).toString('base64') 
 }
-
-
-
    fetch(('http://test.reactapi.com/userlogin'),{
     method: 'POST',
     headers: {
