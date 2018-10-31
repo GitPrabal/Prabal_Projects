@@ -25,10 +25,11 @@ class SharedDoc extends Component {
   }
 
 componentWillMount = ()=>{
+  
     const result = sessionStorage.getItem('myData');
     if( result   === '' || result == null ){
       this.props.history.push('/')
-}
+    }
 
 }
 

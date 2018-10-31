@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React, {Component} from 'react';
 
 
 class ImageUpload extends Component {
@@ -25,9 +25,8 @@ class ImageUpload extends Component {
         imagePreviewUrl: reader.result
       });
     }
-
     reader.readAsDataURL(file)
-  }
+}
 
   render() {
     let {imagePreviewUrl} = this.state;
@@ -54,6 +53,6 @@ class ImageUpload extends Component {
       </div>
     )
   }
-};
+}
   
 export default ImageUpload;

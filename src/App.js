@@ -11,7 +11,8 @@ import AddExpenses from './Employe/AddExpenses';
 import ExpensesList from './Employe/ExpensesList';
 import SharedDoc from './Employe/SharedDoc';
 import TypeDocs from './Employe/TypeDocs';
-import UploadedDocs from './Employe/UploadedDocs'
+import UploadedDocs from './Employe/UploadedDocs';
+import ImageUpload from './Employe/ImageUpload';
 
 
 class App extends Component {
@@ -34,6 +35,7 @@ class App extends Component {
           <Route exact path="/share" component={SharedDoc} />
           <Route exact path="/type-of-docs" component={TypeDocs} />
           <Route exact path="/uploaded-docs" component={UploadedDocs} />
+          <Route exact path="/ImageUpload" component={ImageUpload} />
         </div>
       </Router>
       </div>

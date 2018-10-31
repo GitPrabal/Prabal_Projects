@@ -91,16 +91,13 @@ registerUserData = () => {
         isLoaded:false,
        })
        return
-
     }else{
       this.setState({
         errorMsg:false,
         errorText:"",
         isLoaded:true,
        })
-
     }
-
     if (pass === '' || pass == null) {
       this.setState({
         errorMsg:true,

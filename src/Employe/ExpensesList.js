@@ -29,6 +29,7 @@ class ExpensesList extends Component{
       if( isLoggedIn   === '' || isLoggedIn == null )
       {
         this.props.history.push('/')
+        return;
       }
         const result = sessionStorage.getItem('myData');
         var id    = new Buffer(result).toString('base64');
