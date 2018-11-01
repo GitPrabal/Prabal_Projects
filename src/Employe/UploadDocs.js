@@ -12,12 +12,12 @@ import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
 
-class UploadedDocs extends Component {
+class UploadDocs extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      userdetails: [],
+      data: [],
       file: '',
       imagePreviewUrl: '',
       selectedFile: null,
@@ -25,7 +25,9 @@ class UploadedDocs extends Component {
       errorFlag: false,
       errorText: '',
       hideButton: true,
-      loader: false
+      loader: false,
+      user_id:'',
+      showHtml:''
     }
   }
 
@@ -39,11 +41,36 @@ class UploadedDocs extends Component {
     }
   }
 
+  componentDidMount() {
+
+    fetch('http://test.reactapi.com/getCategory')
+    .then( (response) => response.json())
+          .then( (response) => (response))
+          .then( (response) =>{
+            this.setState({
+              data :  response
+            })
+    })
+    
+      
+  }
+
+
+
+
+
 
 
   fileChangedHandler = (event) => {
 
     this.setState({ selectedFile: event.target.files[0] })
+
+    if( event.target.files[0] === undefined){
+      this.setState({
+        imagePreviewUrl:''
+      })
+      return;    
+    }
 
     let reader = new FileReader();
     let file = event.target.files[0];
@@ -53,6 +80,7 @@ class UploadedDocs extends Component {
     this.setState({
       imagename: file.name
     })
+
 
     var validExt = ["jpg", "jpeg", "png", "PNG", "JPEG", "JPG"];
     var fileExtension = fileName.substr(fileName.lastIndexOf('.') + 1);
@@ -90,7 +118,11 @@ class UploadedDocs extends Component {
 
   uploadHandler = () => {
 
-    var name = this.state.imagename;
+    var name    = this.state.imagename;
+    var user_id = sessionStorage.getItem('myData');
+
+    var e           = document.getElementById("document_name");
+    var document_id = e.options[e.selectedIndex].value;
 
     if (name == 'undefined' || name === '' || name == '' || name == undefined) {
       this.setState({
@@ -113,71 +145,72 @@ class UploadedDocs extends Component {
 
     const formData = new FormData()
 
+    formData.append('user_id',user_id)
+    formData.append('document_id',document_id)
     formData.append('myFile', this.state.selectedFile, this.state.selectedFile.name)
-    axios.post('http://test.reactapi.com/uploadImage', formData, {
 
+    axios.post('http://test.reactapi.com/uploadDocs', formData, {
       onUploadProgress: progressEvent => {
-        
         var result = progressEvent.loaded / progressEvent.total;
-       
-        if (result) {
-          this.setState({
-            successFlag: true,
-            successText: 'Document has been added for review',
-            loaded:false,
-            hideButton:false,
-            imagename:'',
-            hideButton:true
-          })
-
-          setTimeout(() => {
-            this.setState({
-              successFlag: false,
-              successText: ''
-            });
-          }, 3000);
-         
-          document.getElementById("docId").value='';
-
-
-        }
       }
-
-
     })
+    .then((res)=>{
 
+      if(res.data.status===200 || res.data.status=='200'){
+
+      this.setState({
+        loaded:false,
+        imagename:'',
+        hideButton:true,
+        imagePreviewUrl:'',
+        showHtml:<div class="callout callout-info"><h4>Added For Review !</h4><hr /><p>Your Document has been added successfully for review.
+                  Our team will review your docuement and contact you shortly
+                  </p>
+                  </div>
+      })
+
+      setTimeout(() => {
+        this.setState({
+          showHtml: ''
+        });
+      }, 3000);
+      
+      document.getElementById("docId").value='';
+
+    }else{
+
+      this.setState({
+        showHtml: <div class="callout callout-danger">
+        <h4>Warning!</h4>
+        <p>It Seems that server is not responding ! We will fix it right away. Please try after some time</p>
+        </div>
+      })
+
+      setTimeout(() => {
+        this.setState({
+          showHtml: ''
+        });
+      }, 3000);
+
+      document.getElementById("docId").value='';
+
+    }   
+
+
+    }).catch(function(err) {
+      console.log(err)
+      });
 
   }
 
   render() {
+  
+    var cat  = this.state.data.map( (category)=>{
+               return <option value={category.id}>{category.document_name}</option>
+    })
 
     var full_name = sessionStorage.getItem('full_name');
     var reg_date = sessionStorage.getItem('reg_date');
-
-
-    var numbers = ['Aadhaar Card', 'PAN Verification Record', 'LPG Subscription Voucher', 'Insurance Policy Certificate'
-      , 'Registration of Vehicles', 'Vehicle Tax Receipt', 'Fitness Certificate', 'Driving License'
-      , 'Class X Marksheet', 'Insurance Policy Certificate- Car', 'Income Certificate', 'Caste Certificate', 'Class XII Marksheet', 'Insurance Policy Certificate- Commercial Vehicle'
-      , 'Class X Passing Certificate'
-      , 'Domicile Certificate'
-      , 'Class XII Passing Certificate'
-      , 'Class X Migration Certificate'
-      , 'Records of Rights'
-      , 'Insurance Policy Certificate- Health'
-      , 'Residence Certificate'
-      , 'Class XII Migration'
-      , 'Birth Certificate'
-      , 'Possession Certificate'
-      , 'Ration Card'
-    ];
-
-    var docs = numbers.map(numbers =>
-      <option value={numbers}>{numbers}</option>
-    )
-
-    var full_name = sessionStorage.getItem('full_name');
-    var reg_date = sessionStorage.getItem('reg_date');
-
 
     let { imagePreviewUrl } = this.state;
     let $imagePreview = null;
@@ -205,12 +238,9 @@ class UploadedDocs extends Component {
                     <li class="active">Upload Docs</li>
                   </ol>
                 </section>
-
                 <section class="content">
                   <div class="box box-default">
                     <div class="box-header with-border">
-
-
                     <center>
                         {this.state.loader ?
                           <div className="">
@@ -218,40 +248,24 @@ class UploadedDocs extends Component {
                           </div>
                           : null}
                       </center>
-
-
                       <center>
-                        {this.state.successFlag ?
-                          <div class="callout callout-info">
-                            <h4>Added For Review !</h4>
-                            <hr />
-                            <p>Your Document has been added successfully for review.
-                              Our team will review your docuement and contact you shortly
-                </p>
-                          </div>
-                          : null}
+                       {this.state.showHtml}
                       </center>
-
-
                       <center>
                         {this.state.errorFlag ?
                           <div className="btn btn-danger">
                             {this.state.errorText}
                           </div> : null}
                       </center>
-
-
                       <h3 class="box-title">Choose Documents To Upload</h3>
-
                     </div>
-
                     <div class="box-body">
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Select</label>
-                            <select class="form-control select2">
-                              {docs}
+                            <select class="form-control select2" name="document_name" id="document_name">
+                           {cat}
                             </select>
                           </div>
                           <div class="form-group">
@@ -290,4 +304,4 @@ class UploadedDocs extends Component {
   }
 
 }
-export default UploadedDocs;
+export default UploadDocs;

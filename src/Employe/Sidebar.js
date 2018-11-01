@@ -31,15 +31,27 @@ class Sidebar extends Component{
         <li>
           <a href="/dashboard"><i className="fa fa-dashboard"></i> Dashboard</a>
         </li>
+
+        <li>
+          <a href="/addcategory"><i className="fa fa-list" aria-hidden="true"></i> Add Doc Category</a>
+        </li>
+
         <li>
           <a href="/expenseslist"><i className="fa fa-list" aria-hidden="true"></i> Manage Expenses</a>
         </li>
+
         <li>
-          <a href="/uploaded-docs"><i class="fa fa-file-o" aria-hidden="true"></i>Uploaded Documents</a>
+          <a href="/upload-docs"><i class="fa fa-file-o" aria-hidden="true"></i>Upload Documents</a>
         </li>
+
+        <li>
+          <a href="/doc-list"><i class="fa fa-bars" aria-hidden="true"></i>Document List</a>
+        </li>
+
         <li>
           <a href="/share"><i class="fa fa-share-alt-square" aria-hidden="true"></i>Shared Documents</a>
         </li>
+        
         <li>
           <a href="/type-of-docs"><i class="fa fa-keyboard-o" aria-hidden="true"></i>Types of Documents</a>
         </li>
