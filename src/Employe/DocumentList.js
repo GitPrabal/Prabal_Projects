@@ -21,7 +21,7 @@ class DocumentList extends Component{
         };
     }
 
-
+/*
 componentDidMount =()=> {
   var data = {
     user_id : sessionStorage.getItem('myData')
@@ -46,6 +46,21 @@ componentDidMount =()=> {
     })
 }
 
+*/
+
+componentDidMount =()=> {
+  var user_id =  sessionStorage.getItem('myData');
+  fetch('http://test.reactapi.com/getAllDocs?id='+user_id)
+  .then( (response) => response.json())
+  .then( (response)=> (response))
+  .then( (response) =>{
+          this.setState({
+            alldocs :  response
+          })
+  })
+}
+
+
 handleLogOut = () =>{
   sessionStorage.clear();
   this.props.history.push('/');
@@ -58,7 +73,13 @@ handleLogOut = () =>{
 
      
       var documents  = this.state.alldocs.map( (category,i)=>{
-        return <tr><td value={i}>{category.document_name}</td></tr>
+        return <tr>
+          <td value={i}>{category.document_name}</td>
+          <td value={i}>
+          <img src={category.image_url+category.document_image} height="50" width="50"></img>
+          </td>
+          <td>{category.isApproved ? 'Approved' : 'Not Approved'}</td>
+          </tr>
        })
 
       var full_name =  sessionStorage.getItem('full_name');
@@ -95,6 +116,8 @@ handleLogOut = () =>{
                 <thead>
                 <tr>
                   <th>Types of Documents</th>
+                  <th>Image</th>
+                  <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
