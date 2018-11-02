@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 01, 2018 at 03:02 PM
+-- Generation Time: Nov 02, 2018 at 02:04 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -43,7 +43,17 @@ INSERT INTO `document_category` (`id`, `document_name`, `added_date`) VALUES
 (4, 'Insurance Policy Certificate - Two Wheeler	', '2018-11-01 12:15:04'),
 (5, 'Registration of Vehicles', '2018-11-01 12:15:22'),
 (6, 'Vehicle Tax Receipt', '2018-11-01 12:15:35'),
-(7, 'Driving License', '2018-11-01 12:15:49');
+(7, 'Driving License', '2018-11-01 12:15:49'),
+(8, 'Class X Marksheet', '2018-11-02 05:22:40'),
+(9, 'Caste Certificate', '2018-11-02 05:22:58'),
+(10, 'Class XII Marksheet', '2018-11-02 05:23:05'),
+(11, 'Class X Passing Certificate', '2018-11-02 05:23:19'),
+(12, 'Domicile Certificate', '2018-11-02 05:23:29'),
+(13, 'Birth Certificate', '2018-11-02 05:23:46'),
+(14, 'Ration Card', '2018-11-02 05:23:54'),
+(15, 'ITI Certificate', '2018-11-02 05:24:08'),
+(16, 'Passport', '2018-11-02 05:24:37'),
+(17, 'Nationality Certificate', '2018-11-02 05:51:31');
 
 -- --------------------------------------------------------
 
@@ -124,6 +134,8 @@ CREATE TABLE `user_docs` (
   `user_id` varchar(500) NOT NULL,
   `document_id` varchar(200) NOT NULL,
   `document_image` varchar(500) NOT NULL,
+  `image_url` varchar(2000) NOT NULL DEFAULT 'http://images.reactapi.com/images/',
+  `isApproved` int(11) NOT NULL DEFAULT '0' COMMENT '0-false,1-true',
   `added_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -131,8 +143,12 @@ CREATE TABLE `user_docs` (
 -- Dumping data for table `user_docs`
 --
 
-INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `added_on`) VALUES
-(1, '1552508845', '1', '0001344001541080845.jpg', '2018-11-01 14:00:45');
+INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `image_url`, `isApproved`, `added_on`) VALUES
+(1, '1552508845', '1', '0001344001541080845.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-01 14:00:45'),
+(2, '1552508845', '17', '0065107001541137932.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 05:52:12'),
+(3, '1552508845', '17', '0483130001541137946.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 05:52:26'),
+(4, '1552508845', '8', '0344287001541141592.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 06:53:12'),
+(5, '1552508845', '3', '0281259001541142448.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 07:07:28');
 
 -- --------------------------------------------------------
 
@@ -152,7 +168,7 @@ CREATE TABLE `user_token` (
 
 INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
 (7, '1627743995', '75d59627f467f87f0ab9818ddd0d13bf'),
-(9, '1552508845', 'fea3d1a7f6933c8eb545aba2574e89a8');
+(12, '1552508845', '0f26ba18a8e40f9cd6accf307affedfa');
 
 --
 -- Indexes for dumped tables
@@ -205,7 +221,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `document_category`
 --
 ALTER TABLE `document_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `expenses`
 --
@@ -225,12 +241,12 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `user_docs`
 --
 ALTER TABLE `user_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
