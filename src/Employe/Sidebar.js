@@ -41,19 +41,19 @@ class Sidebar extends Component{
         </li>
 
         <li>
-          <a href="/upload-docs"><i class="fa fa-file-o" aria-hidden="true"></i>Upload Documents</a>
+          <a href="/upload-docs"><i className="fa fa-file-o" aria-hidden="true"></i>Upload Documents</a>
         </li>
 
         <li>
-          <a href="/doc-list"><i class="fa fa-bars" aria-hidden="true"></i>Document List</a>
+          <a href="/doc-list"><i className="fa fa-bars" aria-hidden="true"></i>Document List</a>
         </li>
 
         <li>
-          <a href="/share"><i class="fa fa-share-alt-square" aria-hidden="true"></i>Shared Documents</a>
+          <a href="/share"><i className="fa fa-share-alt-square" aria-hidden="true"></i>Shared Documents</a>
         </li>
         
         <li>
-          <a href="/type-of-docs"><i class="fa fa-keyboard-o" aria-hidden="true"></i>Types of Documents</a>
+          <a href="/type-of-docs"><i className="fa fa-keyboard-o" aria-hidden="true"></i>Types of Documents</a>
         </li>
 
 

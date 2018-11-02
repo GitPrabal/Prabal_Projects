@@ -17,39 +17,53 @@ class DocumentList extends Component{
     constructor(props){
         super(props);
         this.state = {
-          data: [],
-          Total:'',
-          errorFlag:false
+          alldocs: []
         };
     }
-    
-    componentWillMount = () => {
 
-      var isLoggedIn = sessionStorage.getItem('myData');
-      if( isLoggedIn   === '' || isLoggedIn == null )
-      {
-        this.props.history.push('/')
-        return;
-      }
+
+componentDidMount =()=> {
+  var data = {
+    user_id : sessionStorage.getItem('myData')
+  }
+    fetch('http://test.reactapi.com/getAllDocs'
+    , {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    .then( (response) => response.json())
+    .then( (response)=> (response))
+    .then( (response) =>{
+            this.setState({
+              alldocs :  response
+            })
+
+
+    })
 }
 
 handleLogOut = () =>{
   sessionStorage.clear();
   this.props.history.push('/');
 }
-
     render(){
+
+      const style = {
+        cursor:'pointer'
+      }
+
+     
+      var documents  = this.state.alldocs.map( (category,i)=>{
+        return <tr><td value={i}>{category.document_name}</td></tr>
+       })
 
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
-      var numbers = this.state.data;
-      var result  =  numbers.map( numbers=>
-            <tr>
-                  <td>{numbers.date}</td>
-                  <td>{numbers.price}</td>
-            </tr>
 
-      )
       return(
        <div>
         <div className="hold-transition skin-blue sidebar-mini">
@@ -59,54 +73,36 @@ handleLogOut = () =>{
           />
           <Sidebar name={full_name} />
 
-    <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-        Document List
-      </h1>
+    <div className="content-wrapper">
+    <section className="content-header">
+      <div className="callout callout-info">
+                 <h4>List Of Documents !</h4>
+                 <hr />
+                  <p>This section shows all documents / certificates which you can upload here.</p>
+         </div>
     </section>
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-
-          
-            <div id="errorMsg1">
-              {this.state.errorFlag ?
-
-              <div class="callout callout-danger">
-              <h4>Warning!</h4>
-              <p>{this.state.errorText}</p>
-              </div>
-              :null}
-            </div>
-          
-
-              <h3 class="box-title">
-                <a href="/upload-docs">Upload Documents</a>
-                {this.state.users}
+    <section className="content">
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="box">
+            <div className="box-header">
+              <h3 className="box-title">
+              List Of Documents
               </h3>
             </div>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Price</th>
+                  <th>Types of Documents</th>
                 </tr>
                 </thead>
                 <tbody>
-                {result}
+                {documents}
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Date</th>
-                  <th>Price</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
+          
           </div>
         </div>
       </div>

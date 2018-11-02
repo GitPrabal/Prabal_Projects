@@ -46,6 +46,8 @@ class AddDocCategory extends Component {
     }
   }
 
+ 
+
   addCategory = () => {
 
     var data = {
@@ -104,9 +106,7 @@ class AddDocCategory extends Component {
           showHtml:<div className="btn btn-danger">&nbsp;<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;It seems server is not responding ! Please try to refresh page and try again </div>
         })
        }); 
-
-
-  }  
+  }
 
   render() {
 

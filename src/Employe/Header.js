@@ -26,6 +26,12 @@ class Header extends Component{
   
 
 render(){
+
+  const style = {
+
+    cursor:'pointer'
+  }
+
   return (
     <div>
       <header className="main-header">
@@ -45,7 +51,7 @@ render(){
           <div className="navbar-custom-menu">
             <ul className="nav navbar-nav">
               <li className="dropdown user user-menu">
-                <a className="dropdown-toggle" data-toggle="dropdown">
+                <a className="dropdown-toggle" data-toggle="dropdown" style={style}>
                   <img
                     src={require("../Admin/dist/img/user2-160x160.jpg")}
                     className="user-image"

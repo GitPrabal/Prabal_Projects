@@ -23,6 +23,18 @@ class TypeDocs extends Component{
         };
     }
 
+
+componentDidMount =()=> {
+    fetch('http://test.reactapi.com/getCategory')
+    .then( (response) => response.json())
+    .then( (response)=> (response))
+    .then( (response) =>{
+            this.setState({
+              data :  response
+            })
+    })
+}
+
 handleLogOut = () =>{
   sessionStorage.clear();
   this.props.history.push('/');
@@ -33,75 +45,10 @@ handleLogOut = () =>{
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
 
-      var numbers  =['Aadhaar Card','PAN Verification Record','LPG Subscription Voucher','Insurance Policy Certificate'
-,'Registration of Vehicles','Vehicle Tax Receipt','Fitness Certificate','Driving License'
-,'Class X Marksheet','Insurance Policy Certificate- Car','Income Certificate','Caste Certificate','Class XII Marksheet','Insurance Policy Certificate- Commercial Vehicle'
-,'Class X Passing Certificate'
-,'Domicile Certificate'
-,'Class XII Passing Certificate'
-,'Class X Migration Certificate'
-,'Records of Rights'
-,'Insurance Policy Certificate- Health'
-,'Residence Certificate'
-,'Class XII Migration'
-,'Birth Certificate'
-,'Possession Certificate'
-,'Ration Card'
-,'Insurance Policy Certificate- Engineering'
-,'Integrated Certificate'
-,'Community and Date of Birth Certificate'
-,'Skill Certificate'
-,'Death Certificate'
-,'Community Certificate'
-,'Copy of Registered Deed'
-,'OBC Certificate'
-,'Nativity Certificate'
-,'One and the Same Certificate'
-,'Insurance Policy Certificate- Travel'
-,'Class X Provisional Certificate'
-,'NDLM Certificate Level'
-,'Pension Certificate'
-,'ITI Certificate'
-,'Economically Weaker Section Certificate'
-,'Sandhya Surakhsha Yojna Certificate'
-,'Class XII Provisional Certificate'
-,'NEET Marksheet'
-,'Leave and License Certificate'
-,'Bonafide Certificate'
-,'GPF Statement'
-,'SC/ST Certificate'
-,'Crop Certificate'
-,'Family Membership Certificate'
-,'Location Certificate'
-,'NEET Rank Letter'
-,'Possession and Non-Attachment Certificate'
-,'Character Certificate'
-,'Admit Card','Skill Marksheet/ Score Card',
-'Surviving Member Certificate',
-'TDS Certificate',
-'HK Region Residence and Eligibility Certificate',
-'Agriculture/ Agriculturist Certificate','Issue of Small and Marginal Farmer Certificate',
-'Relationship Certificate',
-'Land Valuation/ Holding/ Record Certificate',
-'Non-Tenancy Certificate',
-'EBC Certificate',
-'Late Registration of Birth and Death Certificate',
-'Legal Heir Certificate',
-'Degree/ Diploma Marksheet',
-'Interest Certificate',
-'Non-Remarriage Certificate',
-'ROR Register',
-'Anthya Samskara Yojna',
-'Dogra Class Certificate',
-'Economically Backward In General Caste Certificate','New Electricity Connection Certificate'];
+      var cat  = this.state.data.map( (category)=>{
+       return <tr><td value={category.id}>{category.document_name}</td></tr>
+      })
 
-var result  =  numbers.map( numbers=>
-    <tr>
-            <td>{numbers}</td>
-            
-    </tr>
-
-)
       return(
        <div>
         <div className="hold-transition skin-blue sidebar-mini">
@@ -144,14 +91,12 @@ var result  =  numbers.map( numbers=>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Types of Docuements</th>
-                  
+                  <th>Types of Documents</th>
                 </tr>
                 </thead>
                 <tbody>
-                {result}
+                {cat}
                 </tbody>
-              
               </table>
             </div>
           </div>
