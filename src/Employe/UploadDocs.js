@@ -154,10 +154,10 @@ class UploadDocs extends Component {
         var result = progressEvent.loaded / progressEvent.total;
       }
     })
+
     .then((res)=>{
 
       if(res.data.status===200 || res.data.status=='200'){
-
       this.setState({
         loaded:false,
         imagename:'',
@@ -166,7 +166,7 @@ class UploadDocs extends Component {
         showHtml:<div class="callout callout-info"><h4>Added For Review !</h4><hr /><p>Your Document has been added successfully for review.
                   Our team will review your docuement and contact you shortly
                   </p>
-                  </div>
+                 </div>
       })
 
       setTimeout(() => {
@@ -177,7 +177,32 @@ class UploadDocs extends Component {
       
       document.getElementById("docId").value='';
 
-    }else{
+    }
+
+    if(res.data.status===300 || res.data.status=='300'){
+
+      this.setState({
+        loaded:false,
+        imagename:'',
+        hideButton:true,
+        imagePreviewUrl:'',
+        showHtml:<div className="callout callout-warning"><h4>Document Found !</h4><hr /><p>It Seems that you already added document with this category.
+                  Mean while you can edit document in <a href="/doc-list">Document List</a> section
+                  </p>
+                  </div>
+      })
+
+      setTimeout(() => {
+        this.setState({
+          showHtml: ''
+        });
+      }, 8000);
+      
+      document.getElementById("docId").value='';
+
+    }
+
+    if(res.data.status===500 || res.data.status=='500'){
 
       this.setState({
         showHtml: <div class="callout callout-danger">

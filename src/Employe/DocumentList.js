@@ -50,6 +50,10 @@ componentDidMount =()=> {
 
 componentDidMount =()=> {
   var user_id =  sessionStorage.getItem('myData');
+  if( user_id   === '' || user_id == null ){
+    this.props.history.push('/')
+  }
+
   fetch('http://test.reactapi.com/getAllDocs?id='+user_id)
   .then( (response) => response.json())
   .then( (response)=> (response))
@@ -66,11 +70,6 @@ handleLogOut = () =>{
   this.props.history.push('/');
 }
     render(){
-
-      const style = {
-        cursor:'pointer'
-      }
-
      
       var documents  = this.state.alldocs.map( (category,i)=>{
         return <tr>
@@ -78,7 +77,7 @@ handleLogOut = () =>{
           <td value={i}>
           <img src={category.image_url+category.document_image} height="50" width="50"></img>
           </td>
-          <td>{category.isApproved ? 'Approved' : 'Not Approved'}</td>
+          <td>{category.isApproved ? 'Approved' : 'Pending For Approval'}</td>
           </tr>
        })
 

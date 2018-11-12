@@ -86,7 +86,26 @@ class AddDocCategory extends Component {
             })   
         }, 3000);
 
-    }else{
+    }
+    if(res.status==='300' ||  res.status===300){
+      this.setState({
+          loader:false,
+          hideButton:true,
+          showFlag:true,
+          category:'',
+          showText:'Category Added',
+          showHtml:<div className="btn btn-danger">&nbsp;<i className="fa fa-window-close" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Category Already Exist</div>
+      })
+
+      document.getElementById("categoryId").value='';
+      setTimeout( () => {
+          this.setState({
+              showHtml:'',
+          })   
+      }, 5000);
+
+  }
+  if(res.status==='500' ||  res.status===500){
         this.setState({
             loader:false,
             hideButton:false,
