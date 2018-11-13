@@ -21,32 +21,6 @@ class DocumentList extends Component{
         };
     }
 
-/*
-componentDidMount =()=> {
-  var data = {
-    user_id : sessionStorage.getItem('myData')
-  }
-    fetch('http://test.reactapi.com/getAllDocs'
-    , {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    .then( (response) => response.json())
-    .then( (response)=> (response))
-    .then( (response) =>{
-            this.setState({
-              alldocs :  response
-            })
-
-
-    })
-}
-
-*/
 
 componentDidMount =()=> {
   var user_id =  sessionStorage.getItem('myData');
@@ -76,6 +50,10 @@ handleLogOut = () =>{
           <td value={i}>{category.document_name}</td>
           <td value={i}>
           <img src={category.image_url+category.document_image} height="50" width="50"></img>
+          &nbsp;&nbsp;
+          <a href="/share-docs">{category.isApproved ? <i class="fa fa-share-alt-square" aria-hidden="true"></i>
+          : null}</a>
+
           </td>
           <td>{category.isApproved ? 'Approved' : 'Pending For Approval'}</td>
           </tr>

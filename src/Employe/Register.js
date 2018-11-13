@@ -131,6 +131,8 @@ registerUserData = () => {
       body: JSON.stringify(data)
   }).then((res)=> res.json())
     .then((res) =>{
+
+      
       if(res.status==='300' || res.status===300){
         this.setState({
           errorMsg:true,

@@ -48,6 +48,14 @@ class Sidebar extends Component{
           <a href="/doc-list"><i className="fa fa-bars" aria-hidden="true"></i>Document List</a>
         </li>
 
+         <li>
+          <a href="/share-docs"><i class="fa fa-retweet" aria-hidden="true"></i>Share Your Document</a>
+        </li>
+        
+        <li>
+          <a href="/set-ipin"><i class="fa fa-key" aria-hidden="true"></i>Set Instant IPIN</a>
+        </li>
+
         <li>
           <a href="/share"><i className="fa fa-share-alt-square" aria-hidden="true"></i>Shared Documents</a>
         </li>
@@ -55,6 +63,8 @@ class Sidebar extends Component{
         <li>
           <a href="/type-of-docs"><i className="fa fa-keyboard-o" aria-hidden="true"></i>Types of Documents</a>
         </li>
+
+        
 
 
       </ul>
