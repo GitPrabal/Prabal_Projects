@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2018 at 02:04 PM
+-- Generation Time: Nov 13, 2018 at 02:11 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -74,8 +74,10 @@ CREATE TABLE `expenses` (
 --
 
 INSERT INTO `expenses` (`id`, `user_id`, `date`, `price`, `desc_exp`) VALUES
-(1, '1552508845', '', '', ''),
-(2, '1627743995', '', '', '');
+(1, '1612986067', '', '', ''),
+(2, '1586975032', '', '', ''),
+(3, '1619866243', '', '', ''),
+(4, '1639794359', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -98,8 +100,24 @@ CREATE TABLE `registration` (
 --
 
 INSERT INTO `registration` (`id`, `user_id`, `fullname`, `email`, `password`, `salt_string`, `reg_date`) VALUES
-(3, '1552508845', 'Prabal', 'prabal1.gupta@gmail.com', '123456', '71875cce475ba332d2986a38dfc1e122$e10adc3949ba59abbe56e057f20f883e', '2018-10-30 06:47:25'),
-(4, '1627743995', 'prabal', 'rahul@gmail.com', '123456', 'bf58d3ae3a4f63fdc9719204846e3ffd$e10adc3949ba59abbe56e057f20f883e', '2018-10-31 05:39:55');
+(1, '1612986067', 'prabal', 'prabal1.gupta@gmail.com', '123456', '71875cce475ba332d2986a38dfc1e122$e10adc3949ba59abbe56e057f20f883e', '2018-11-13 12:06:07'),
+(2, '1586975032', 'krishna', 'krishna@gmail.com', '123456', '8612ab3933764d2c6e39fd0ff898a19a$e10adc3949ba59abbe56e057f20f883e', '2018-11-13 12:10:32'),
+(3, '1619866243', 'lata', 'lata@gmail.com', '123456', '89b1163c1d18b81c9aec10e3f84baca4$e10adc3949ba59abbe56e057f20f883e', '2018-11-13 12:10:43'),
+(4, '1639794359', 'abhishek', 'abhishek@gmail.com', '123456', 'd7ccd51bf3ea86dd2137db894c62786f$e10adc3949ba59abbe56e057f20f883e', '2018-11-13 12:10:59');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `share_document`
+--
+
+CREATE TABLE `share_document` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(200) NOT NULL,
+  `document_id` varchar(200) NOT NULL,
+  `transaction_id` varchar(800) NOT NULL,
+  `transaction_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -120,8 +138,10 @@ CREATE TABLE `user_details` (
 --
 
 INSERT INTO `user_details` (`id`, `user_id`, `address`, `phone_no`, `profile_pic`) VALUES
-(3, '1552508845', '', '', ''),
-(4, '1627743995', '', '', '');
+(1, '1612986067', '', '', ''),
+(2, '1586975032', '', '', ''),
+(3, '1619866243', '', '', ''),
+(4, '1639794359', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -144,11 +164,30 @@ CREATE TABLE `user_docs` (
 --
 
 INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `image_url`, `isApproved`, `added_on`) VALUES
-(1, '1552508845', '1', '0001344001541080845.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-01 14:00:45'),
-(2, '1552508845', '17', '0065107001541137932.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 05:52:12'),
-(3, '1552508845', '17', '0483130001541137946.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 05:52:26'),
-(4, '1552508845', '8', '0344287001541141592.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 06:53:12'),
-(5, '1552508845', '3', '0281259001541142448.jpg', 'http://images.reactapi.com/images/', 0, '2018-11-02 07:07:28');
+(1, '1612986067', '1', '0470244001542110832.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-13 12:09:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_ipin`
+--
+
+CREATE TABLE `user_ipin` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(500) NOT NULL,
+  `user_ipin` varchar(200) NOT NULL,
+  `set_ipin_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_ipin`
+--
+
+INSERT INTO `user_ipin` (`id`, `user_id`, `user_ipin`, `set_ipin_date`) VALUES
+(1, '1612986067', '', '2018-11-13 12:06:07'),
+(2, '1586975032', '', '2018-11-13 12:10:32'),
+(3, '1619866243', '', '2018-11-13 12:10:43'),
+(4, '1639794359', '', '2018-11-13 12:10:59');
 
 -- --------------------------------------------------------
 
@@ -167,8 +206,7 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
-(7, '1627743995', '75d59627f467f87f0ab9818ddd0d13bf'),
-(12, '1552508845', '0f26ba18a8e40f9cd6accf307affedfa');
+(3, '1612986067', '0b4a8928a30863dbb8e916d0d13d1191');
 
 --
 -- Indexes for dumped tables
@@ -194,6 +232,12 @@ ALTER TABLE `registration`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `share_document`
+--
+ALTER TABLE `share_document`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_details`
 --
 ALTER TABLE `user_details`
@@ -204,6 +248,12 @@ ALTER TABLE `user_details`
 -- Indexes for table `user_docs`
 --
 ALTER TABLE `user_docs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_ipin`
+--
+ALTER TABLE `user_ipin`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -221,17 +271,22 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `document_category`
 --
 ALTER TABLE `document_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `share_document`
+--
+ALTER TABLE `share_document`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
@@ -241,12 +296,17 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `user_docs`
 --
 ALTER TABLE `user_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `user_ipin`
+--
+ALTER TABLE `user_ipin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
