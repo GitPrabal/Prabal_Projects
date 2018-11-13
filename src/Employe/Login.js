@@ -91,13 +91,13 @@ class Login extends Component {
    fetch(('http://test.reactapi.com/userlogin'),{
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
     })
    .then(res => res.json())
    .then(res=>{
+     console.log(res);
     if(res.flag){
       this.setState({
        emailErrorMsg:false,

@@ -43,9 +43,7 @@ class SetIpin extends Component {
     .then( (response) => response.json())
     .then( (response)=> (response))
     .then( (response) =>{
-            this.setState({
-               userlist :  response
-            })
+      
     })
   }
 
