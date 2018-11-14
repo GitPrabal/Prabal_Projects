@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2018 at 02:11 PM
+-- Generation Time: Nov 14, 2018 at 02:34 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -184,10 +184,30 @@ CREATE TABLE `user_ipin` (
 --
 
 INSERT INTO `user_ipin` (`id`, `user_id`, `user_ipin`, `set_ipin_date`) VALUES
-(1, '1612986067', '', '2018-11-13 12:06:07'),
+(1, '1612986067', '123456', '2018-11-14 13:33:02'),
 (2, '1586975032', '', '2018-11-13 12:10:32'),
 (3, '1619866243', '', '2018-11-13 12:10:43'),
 (4, '1639794359', '', '2018-11-13 12:10:59');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_otp`
+--
+
+CREATE TABLE `user_otp` (
+  `id` int(11) NOT NULL,
+  `user_id` varchar(500) NOT NULL,
+  `otp` varchar(200) NOT NULL,
+  `otp_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_otp`
+--
+
+INSERT INTO `user_otp` (`id`, `user_id`, `otp`, `otp_date`) VALUES
+(1, '1612986067', '789456', '2018-11-14 09:58:52');
 
 -- --------------------------------------------------------
 
@@ -200,13 +220,6 @@ CREATE TABLE `user_token` (
   `user_id` varchar(500) NOT NULL,
   `access_token` varchar(600) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `user_token`
---
-
-INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
-(3, '1612986067', '0b4a8928a30863dbb8e916d0d13d1191');
 
 --
 -- Indexes for dumped tables
@@ -254,7 +267,15 @@ ALTER TABLE `user_docs`
 -- Indexes for table `user_ipin`
 --
 ALTER TABLE `user_ipin`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `user_otp`
+--
+ALTER TABLE `user_otp`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `user_token`
@@ -303,10 +324,15 @@ ALTER TABLE `user_docs`
 ALTER TABLE `user_ipin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `user_otp`
+--
+ALTER TABLE `user_otp`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+--
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

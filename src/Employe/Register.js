@@ -32,7 +32,7 @@ registerUserData = () => {
     this.setState({
       isLoaded:true
     })
-    if (name == '' ) {
+    if (name === '' || name == null ) {
       this.setState({
        errorMsg:true,
        isLoaded:false,

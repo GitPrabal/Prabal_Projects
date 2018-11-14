@@ -16,7 +16,14 @@ class SetIpin extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_ipin:[]     
+      confirm_ipin:'',
+      ipin:'',
+      errorFlag:false,
+      otp:false,
+      successFlag:false,
+      successText:'',
+      secondsRemaining:0,
+      setOtp:''
       }
   }
 
@@ -27,12 +34,77 @@ class SetIpin extends Component {
       this.props.history.push('/')
       return;
     }
+  }
 
-    var data = {
-        user_id : sessionStorage.getItem('myData')
+  changeIpinHandler = (event) =>{
+    this.setState({
+        ipin: event.target.value
+      })
+  }
+
+  changeConfirmIpinHandler = (event) =>{
+    this.setState({
+        confirm_ipin: event.target.value
+    })
+  }
+
+  tick = () => {
+    this.setState({secondsRemaining: this.state.secondsRemaining - 1});
+    if (this.state.secondsRemaining <= 0) {
+      //  sessionStorage.clear();
+      //  this.props.history.push('/');
+        clearInterval(this.interval);
+    }
+  }
+
+
+  setIpin = ()=>{
+
+    if(this.state.ipin.length == 0 || this.state.confirm_ipin.length == 0){
+        this.setState({
+         errorFlag:true,
+         errorText:'Please Set Ipin for both fields'
+        })
+
+        setTimeout( () => {
+            this.setState({
+                errorFlag:false,
+                errorText:''
+               })
+            }, 3000);
+
+            return;
     }
 
-    fetch('http://test.reactapi.com/getUserIpin',{
+    if(this.state.ipin!= this.state.confirm_ipin ){
+        this.setState({
+            errorFlag:true,
+            errorText:'Ipin are not same'
+        })
+
+        setTimeout( () => {
+            this.setState({
+                errorFlag:false,
+                errorText:''
+               })
+            }, 3000);
+
+            return;
+    }
+
+    this.setState({
+     otp:true
+    })
+
+    this.setState({ secondsRemaining: 30 });
+    this.interval = setInterval(this.tick, 1000);
+
+var data = {
+    user_id : sessionStorage.getItem('myData'),
+    otp     : '789456'
+}
+
+fetch('http://test.reactapi.com/sendOtp',{
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -43,27 +115,74 @@ class SetIpin extends Component {
     .then( (response) => response.json())
     .then( (response)=> (response))
     .then( (response) =>{
-      
+        if(response.status === 200 || response.status == '200'){
+            this.setState({
+                successFlag:true,
+                successText:'An OTP is send to your registered mobile number'
+            })
+        }
     })
-  }
+}
 
-  changeIpinHandler = (event) =>{
+verifyOtp = () =>{
+var data = {
+    otp  : this.state.setOtp,
+    ipin : this.state.ipin,
+    user_id : sessionStorage.getItem('myData')
+}
+
+fetch('http://test.reactapi.com/setUserIpin',{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then( (response) => response.json())
+    .then( (response)=> (response))
+    .then( (response) =>{
+        if(response.status === 200 || response.status == '200'){
+            this.setState({
+                successFlag:true,
+                successText:'Ipin Set Successfully, Redirecting To Dashboard',
+            })
+
+            setTimeout( ()=>{
+                this.props.history.push('/dashboard')
+             },2000 )
+
+        }else{
+            this.setState({
+                errorFlag:true,
+                errorText:'OTP is not valid please try to again !',
+            })
+        }
+    })
+
+
+
+}
+
+changeOtpHandler = (event) => {
     this.setState({
-        ipin: event.target.value
-      })
-  }
-
-
-
-
-
-
-
+        setOtp:event.target.value
+    })
+}
 
   render() {
 
     var style = {
         width:'40%'
+    }
+
+
+    var classes = [];
+
+    if(this.state.otp){
+        classes.push('show-otp hide-pin-div');
+    }else{
+        classes.push('hide-otp');
     }
 
     var full_name = sessionStorage.getItem('full_name');
@@ -90,16 +209,11 @@ class SetIpin extends Component {
                 <section class="content">
                   <div class="box box-default">
                     <div class="box-body">
-                    <div class="callout callout-info">
-                 <h4>Shared Your Documents Any Where In Just One Click !</h4>
-                 <hr />
-                  <p>Now sharing your documents is very easy. You can select registered user to send docs .</p>
-                 </div>
                 
                  <center>
                      <div style={style}>
                      {this.state.errorFlag ? 
-                     <div className="alert alert-danger">
+                     <div className="alert alert-danger fontBold">
                      {this.state.errorText}
                      </div> :null
                      }
@@ -107,34 +221,10 @@ class SetIpin extends Component {
                  </center>
 
 
-                      <div class="row">
-                        <div class="col-md-6">
-
-                         <div class="form-group">
-                            <label>Select Docs To Share</label>
-                          </div>
-
-                          <div class="form-group">
-                          <select className="form-control select2" multiple="multiple" 
-                          data-placeholder="Select Document" id="docs_list" name="docsName[]"
-                          >
-                          
-                          </select>
-                          </div>
-
-                          <div class="form-group">
-                            <label>Select User</label>
-                          </div>
-                          <div class="form-group">
-                          <select className="form-control select2" multiple="multiple"
-                          data-placeholder="Select User" id="user_list" name="userNameList[]"
-                          >
-                          
-                          </select>
-                          </div>
-
+                      <div className={"row" +  classes}>
+                        <div className="col-md-6">
                           <div className="form-group">
-                          <label>Enter IPIN</label>
+                          <label>Enter New IPIN</label>
                           </div>
 
                           <div className="form-group">
@@ -143,12 +233,54 @@ class SetIpin extends Component {
                           />
                           </div>
 
-                          <div class="form-group">
-                            <button  className="btn btn-info" onClick={this.sendDocs}>Send</button> 
+                          <div className="form-group">
+                          <label>Confirm IPIN</label>
                           </div>
-                         
+
+                          <div className="form-group">
+                          <input type="password" class="form-control" id="ipin" placeholder="Confirm IPIN" 
+                          onChange={this.changeConfirmIpinHandler}
+                          />
+                          </div>
+
+                          <div class="form-group">
+                            <button  className="btn btn-info" onClick={this.setIpin}>Send</button>
+                          </div>
                         </div>
                       </div>
+
+                      <div className={"row " + classes}>
+                      <center>
+                      { this.state.successFlag ? 
+                        
+                        <div className="btn btn-success">
+                            <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;
+                            {this.state.successText}<br />
+                        </div>
+                      : null }
+                      </center>
+                        <div className="col-md-6">
+                          <div className="form-group">
+                          <label>Enter OTP</label>
+                          </div>
+                          
+                          <div className="form-group">
+                          <input type="text" class="form-control" id="otp" placeholder="Enter OTP" 
+                          onChange={this.changeOtpHandler}
+                          />
+                          </div>
+                          <p>Enter OTP In {this.state.secondsRemaining} seconds.</p>
+                          <p>Otherwise you will be redirected to login page for security reasons</p>
+                          <div class="form-group">
+                            {this.state.verifyOtpButton ? 
+                            <button disabled className="btn btn-info">Verify OTP</button>
+                            : <button  className="btn btn-info" onClick={this.verifyOtp}>Verify OTP</button>
+                            }
+                          </div>
+                        </div>
+                      </div>
+
+
                     </div>
                     <div class="box-footer">
                       Visit <a href="#">Digital Documents Storage </a> for more examples and information about

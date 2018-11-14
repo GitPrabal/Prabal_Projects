@@ -10,8 +10,26 @@ body{
   }
 }
 
+.colorRed{
+  color: red;
+}
 
 .red-bold
 {
   border: 1px solid red;
+}
+
+.fontBold{
+  font-weight: bolder;
+}
+
+.hide-pin-div{
+  display: none;
+}
+
+.show-otp{
+  display: block;
+}
+.hide-otp{
+  display: none;
 }

@@ -1,58 +1,41 @@
-import React, {Component} from 'react';
+import React , { Component } from 'react';
 
-
-class ImageUpload extends Component {
-  constructor(props) {
+class ImageUpload extends Component{
+  constructor(props){
     super(props);
-    this.state = {file: '',imagePreviewUrl: ''};
+
+    this.state = {
+      secondsRemaining:0
+      }
   }
 
-  _handleSubmit(e) {
-    e.preventDefault();
-    // TODO: do something with -> this.state.file
-    console.log('handle uploading-', this.state.file);
+  tick = () => {
+    this.setState({secondsRemaining: this.state.secondsRemaining - 1});
+    if (this.state.secondsRemaining <= 0) {
+      clearInterval(this.interval);
+    }
   }
 
-  _handleImageChange(e) {
-    e.preventDefault();
+  componentDidMount = () => {
+    this.setState({ secondsRemaining: 30 });
+    this.interval = setInterval(this.tick, 1000);
+  }
 
-    let reader = new FileReader();
-    let file = e.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        file: file,
-        imagePreviewUrl: reader.result
-      });
-    }
-    reader.readAsDataURL(file)
-}
-
-  render() {
-    let {imagePreviewUrl} = this.state;
-    let $imagePreview = null;
-    if (imagePreviewUrl) {
-      $imagePreview = (<img src={imagePreviewUrl} />);
-    } else {
-      $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
-    }
-
-    return (
-      <div className="previewComponent">
-        <form onSubmit={(e)=>this._handleSubmit(e)}>
-          <input className="fileInput" 
-            type="file" 
-            onChange={(e)=>this._handleImageChange(e)} />
-          <button className="submitButton" 
-            type="submit" 
-            onClick={(e)=>this._handleSubmit(e)}>Upload Image</button>
-        </form>
-        <div className="imgPreview">
-          {$imagePreview}
-        </div>
+  render(){
+    return(
+      <div>
+        <p>Prabal</p>
+        {this.state.secondsRemaining}
       </div>
     )
   }
-}
   
+
+
+
+}
+
 export default ImageUpload;
+
+
+
