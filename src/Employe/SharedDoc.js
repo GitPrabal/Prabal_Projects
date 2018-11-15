@@ -25,11 +25,36 @@ class SharedDoc extends Component {
   }
 
 componentWillMount = ()=>{
-  
     const result = sessionStorage.getItem('myData');
     if( result   === '' || result == null ){
       this.props.history.push('/')
     }
+}
+
+componentDidMount = () =>{
+
+  var data = {
+    user_id : sessionStorage.getItem('myData')
+   }
+
+
+  fetch("http://test.reactapi.com/getAllSharedDocsList",{
+
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then((response) =>{ console.log(response) } )
+  /*
+  .then( (response) => response.json())
+  .then( (response)=> (response))
+  .then( (response) =>{
+    console.log(response)
+  }) */    
+
 
 }
 
@@ -62,7 +87,6 @@ componentWillMount = ()=>{
         </div>
        </section>
     </div>
-
     <footer className="main-footer">
               <div className="pull-right hidden-xs">
                 <b>Version</b> 2.4.0
@@ -72,6 +96,7 @@ componentWillMount = ()=>{
     </footer>
 
             <div className="control-sidebar-bg"></div>
+
           </div>
         </div>
       </div>

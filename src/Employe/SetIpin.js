@@ -160,8 +160,6 @@ fetch('http://test.reactapi.com/setUserIpin',{
         }
     })
 
-
-
 }
 
 changeOtpHandler = (event) => {
@@ -282,10 +280,10 @@ changeOtpHandler = (event) => {
 
 
                     </div>
-                    <div class="box-footer">
+                    <div className="box-footer">
                       Visit <a href="#">Digital Documents Storage </a> for more examples and information about
                       the plugin.
-        </div>
+                    </div>
                   </div>
 
                 </section>

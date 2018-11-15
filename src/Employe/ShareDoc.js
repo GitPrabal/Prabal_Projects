@@ -20,7 +20,9 @@ class ShareDoc extends Component {
         approvedDocs:[],
         ipin:'',
         errorText:'',
-        errorFlag:false
+        errorFlag:false,
+        successFlag:false,
+        successText:''
       }
   }
 
@@ -170,22 +172,47 @@ class ShareDoc extends Component {
     .then( (response) => response.json())
     .then( (response)=> (response))
     .then( (response) =>{
-            this.setState({
-               approvedDocs :  response
-            })
+
+      if(response.status=='200' || response.status===200){
+        this.setState({
+          successFlag:true,
+          successText:'Your Document Has Been Shared'
+        })
+
+        setTimeout(() => {
+
+          this.setState({
+          successFlag:false,
+          successText:''
+        })
+
+        window.location.reload();
+
+        }, 3000);
+
+        
+
+      }
+      if(response.status=='402' || response.status===402){
+        this.setState({
+          errorFlag:true,
+          errorText:"Ipin is not valid",
+          successFlag:false,
+          successText:''
+        })
+
+        setTimeout(() => {
+          
+          this.setState({
+            errorFlag:false,
+            errorText:''
+          })
+          
+        }, 2000);
+      }
+
     })
-
-
-
-
-
-
-
 }
-
-
-
-
 
   render() {
 
@@ -197,11 +224,11 @@ class ShareDoc extends Component {
     var reg_date = sessionStorage.getItem('reg_date');
 
     var username  = this.state.userlist.map( (user,i)=>{
-        return <option key={i} value={user.id}>{user.fullname}</option>
+        return <option key={i} value={user.user_id}>{user.fullname}</option>
        })
 
     var approvedDocs =  this.state.approvedDocs.map( (docs , i )=>{
-        return <option key={i} value={docs.document_name}>{docs.document_name}</option>
+        return <option key={i} value={docs.id}>{docs.document_name}</option>
     })   
 
     return (
@@ -232,19 +259,32 @@ class ShareDoc extends Component {
                  </div>
                 
                  <center>
+                     
                      <div style={style}>
                      {this.state.errorFlag ? 
                      <div className="alert alert-danger">
                      {this.state.errorText}
                      </div> :null
                      }
-                    </div> 
-                 </center>
+                    </div>
 
+                     <div style={style}>
+                     {this.state.successFlag ? 
+                     <div className="alert alert-success">
+                     {this.state.successText}
+                     </div> :null
+                     }
+                    </div> 
+
+                    
+
+
+
+
+                 </center>
 
                       <div class="row">
                         <div class="col-md-6">
-
                          <div class="form-group">
                             <label>Select Docs To Share</label>
                           </div>
