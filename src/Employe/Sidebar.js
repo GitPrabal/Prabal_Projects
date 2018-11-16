@@ -37,10 +37,6 @@ class Sidebar extends Component{
         </li>
 
         <li>
-          <a href="/expenseslist"><i className="fa fa-list" aria-hidden="true"></i> Manage Expenses</a>
-        </li>
-
-        <li>
           <a href="/upload-docs"><i className="fa fa-file-o" aria-hidden="true"></i>Upload Documents</a>
         </li>
 
@@ -59,6 +55,11 @@ class Sidebar extends Component{
         <li>
           <a href="/share"><i className="fa fa-share-alt-square" aria-hidden="true"></i>Shared Documents</a>
         </li>
+        
+        <li>
+          <a href="/request-doc"><i class="fa fa-sign-in" aria-hidden="true"></i>Request For Documents</a>
+        </li>
+
         
         <li>
           <a href="/type-of-docs"><i className="fa fa-keyboard-o" aria-hidden="true"></i>Types of Documents</a>

@@ -18,10 +18,12 @@ import '../Employe/css/common.css';
 class SharedDoc extends Component {
   
   constructor(props){
-    super(props)
-    this.state = [{
-      userdetails:[]
-    }]
+    super(props);
+    this.state = {
+      userdetails:[],
+      data:[],
+      noDataFound:false
+    }
   }
 
 componentWillMount = ()=>{
@@ -47,13 +49,14 @@ componentDidMount = () =>{
     },
     body: JSON.stringify(data)
   })
-  .then((response) =>{ console.log(response) } )
-  /*
-  .then( (response) => response.json())
-  .then( (response)=> (response))
+  .then((response) => response.json())
   .then( (response) =>{
-    console.log(response)
-  }) */    
+            this.setState({
+              data :  response,
+              noDataFound:false
+            })
+  })
+
 
 
 }
@@ -63,44 +66,88 @@ componentDidMount = () =>{
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
 
-    return (
+    var category = this.state.data.map( (category,i)=>{
+
+    return <tr key={i} >
+    <td key={i} >{category.document_name}</td>
+    <td key={i} >{category.fullname}</td>
+    <td key={i} >{category.email}</td>
+    <td key={i} ><img src={category.document_image} height="50" width="50"></img></td>
+    <td key={i} >{category.transaction_date }</td>
+    <td key={i} >{category.transaction_time }</td>
+    </tr>
+    })
+
+
+
+    
+
+     return(
       <div>
-        <div className="hold-transition skin-blue sidebar-mini">
-          <div className="wrapper">
-            <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} push={this.props.history}/>
-            <Sidebar name={full_name} />
-            <div className="content-wrapper">
-              <section className="content-header">
-                <div class="callout callout-info">
-                 <h4>Shared Documents !</h4>
-                 <hr />
-                  <p>This section shows all documents / certificates you have shared with others via email. .</p>
-         </div>
+       <div className="hold-transition skin-blue sidebar-mini">
+        <div className="wrapper">
+         <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} 
+          push={this.props.history}
+         />
+         <Sidebar name={full_name} />
 
-        <div class="box box-default">
-          <div class="box-header with-border">
-            <center><h3 class="box-title font-bold">Nothing shared yet</h3></center>
-          </div>
-          <div class="box-body">
-             <center>Documents shared by you will show up here</center>
-          </div>
-        </div>
-       </section>
-    </div>
-    <footer className="main-footer">
-              <div className="pull-right hidden-xs">
-                <b>Version</b> 2.4.0
-              </div>
-              <strong>Copyright &copy; 2018-2019 <a>Smart Documents</a>.</strong> All rights
-              reserved.
-    </footer>
+   <div class="content-wrapper">
 
-            <div className="control-sidebar-bg"></div>
-
+          <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Data Table With Full Features</h3>
+            </div>
+          
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Document Name</th>
+                  <th>Share With</th>
+                  <th>Shared User Email</th>
+                  <th>Document Image</th>
+                  <th>Transaction Date</th>
+                  <th>Transaction Time</th>
+                </tr>
+                </thead>
+                <tbody>
+               {category}
+                </tbody>
+                <tfoot>
+                <tr>
+                <th>Document Name</th>
+                  <th>Share With</th>
+                  <th>Shared User Email</th>
+                  <th>Document Image</th>
+                  <th>Transaction Date</th>
+                  <th>Transaction Time</th>
+                </tr>
+                </tfoot>
+              </table>
+            </div>
+        
           </div>
-        </div>
-      </div>
-    )
+   
+  
+ </div>
+
+
+ 
+</div>
+</div>
+</div>
+       )
+
+
+    
+
+
+
+
+   
+
+
+  
 
   }
 

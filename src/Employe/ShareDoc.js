@@ -172,7 +172,6 @@ class ShareDoc extends Component {
     .then( (response) => response.json())
     .then( (response)=> (response))
     .then( (response) =>{
-
       if(response.status=='200' || response.status===200){
         this.setState({
           successFlag:true,
@@ -271,14 +270,10 @@ class ShareDoc extends Component {
                      <div style={style}>
                      {this.state.successFlag ? 
                      <div className="alert alert-success">
-                     {this.state.successText}
+                     <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;{this.state.successText}
                      </div> :null
                      }
                     </div> 
-
-                    
-
-
 
 
                  </center>
@@ -290,7 +285,7 @@ class ShareDoc extends Component {
                           </div>
 
                           <div class="form-group">
-                          <select className="form-control select2" multiple="multiple" 
+                          <select className="form-control select2"  
                           data-placeholder="Select Document" id="docs_list" name="docsName[]"
                           >
                           {approvedDocs}
@@ -301,7 +296,7 @@ class ShareDoc extends Component {
                             <label>Select User</label>
                           </div>
                           <div class="form-group">
-                          <select className="form-control select2" multiple="multiple"
+                          <select className="form-control select2" 
                           data-placeholder="Select User" id="user_list" name="userNameList[]"
                           >
                           {username}

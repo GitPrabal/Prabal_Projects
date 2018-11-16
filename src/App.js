@@ -17,6 +17,7 @@ import DocumentList from './Employe/DocumentList';
 import AddDocCategory from './Employe/AddDocCategory';
 import ShareDoc from './Employe/ShareDoc';
 import SetIpin from './Employe/SetIpin';
+import RequestForDoc from './Employe/RequestForDoc';
 
 
 class App extends Component {
@@ -44,6 +45,7 @@ class App extends Component {
           <Route exact path="/addcategory" component={AddDocCategory} />
           <Route exact path="/share-docs" component={ShareDoc} />
           <Route exact path="/set-ipin" component={SetIpin} />
+          <Route exact path="/request-doc" component={RequestForDoc} />
         </div>
       </Router>
       </div>

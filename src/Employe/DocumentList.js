@@ -38,12 +38,46 @@ componentDidMount =()=> {
   })
 }
 
+deleteDocs = (id) =>{
+
+  var data = {
+    user_id : sessionStorage.getItem('myData'),
+    document_id : id
+  }
+  
+  fetch("http://test.reactapi.com/deleteUserDoc",{
+
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then( (response) => response.json() )
+    .then( (response) =>{
+
+      if( response.status=='200' || response.status === 200){
+        alert("Deleted Successfully");
+        window.location.reload();
+        return
+      }else{
+        alert("Unable To Delete");
+        return;
+      }
+           
+  })
+
+}
+
 
 handleLogOut = () =>{
   sessionStorage.clear();
   this.props.history.push('/');
 }
     render(){
+
+
      
       var documents  = this.state.alldocs.map( (category,i)=>{
         return <tr>
@@ -56,6 +90,7 @@ handleLogOut = () =>{
 
           </td>
           <td>{category.isApproved ? 'Approved' : 'Pending For Approval'}</td>
+          <td><button className="btn btn-danger delete" id={category.id} onClick={() => this.deleteDocs(category.id)}>Delete</button></td>
           </tr>
        })
 
@@ -95,6 +130,7 @@ handleLogOut = () =>{
                   <th>Types of Documents</th>
                   <th>Image</th>
                   <th>Status</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
