@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 14, 2018 at 02:34 PM
+-- Generation Time: Nov 16, 2018 at 01:46 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -114,10 +114,20 @@ INSERT INTO `registration` (`id`, `user_id`, `fullname`, `email`, `password`, `s
 CREATE TABLE `share_document` (
   `id` int(11) NOT NULL,
   `user_id` varchar(200) NOT NULL,
+  `share_with` varchar(200) NOT NULL,
   `document_id` varchar(200) NOT NULL,
+  `document_image` text NOT NULL,
   `transaction_id` varchar(800) NOT NULL,
-  `transaction_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `transaction_date` varchar(200) NOT NULL,
+  `transaction_time` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `share_document`
+--
+
+INSERT INTO `share_document` (`id`, `user_id`, `share_with`, `document_id`, `document_image`, `transaction_id`, `transaction_date`, `transaction_time`) VALUES
+(1, '1612986067', '1586975032', '1', 'http://images.reactapi.com/images/0470244001542110832.jpg', '0221843001542361601', '16-11-2018', '03:16:41 pm');
 
 -- --------------------------------------------------------
 
@@ -164,7 +174,9 @@ CREATE TABLE `user_docs` (
 --
 
 INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `image_url`, `isApproved`, `added_on`) VALUES
-(1, '1612986067', '1', '0470244001542110832.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-13 12:09:23');
+(4, '1612986067', '1', '0699385001542368315.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:39:44'),
+(5, '1612986067', '2', '0834587001542368322.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:39:47'),
+(7, '1612986067', '7', '0111448001542368845.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:47:34');
 
 -- --------------------------------------------------------
 
@@ -184,7 +196,7 @@ CREATE TABLE `user_ipin` (
 --
 
 INSERT INTO `user_ipin` (`id`, `user_id`, `user_ipin`, `set_ipin_date`) VALUES
-(1, '1612986067', '123456', '2018-11-14 13:33:02'),
+(1, '1612986067', '123', '2018-11-15 06:54:23'),
 (2, '1586975032', '', '2018-11-13 12:10:32'),
 (3, '1619866243', '', '2018-11-13 12:10:43'),
 (4, '1639794359', '', '2018-11-13 12:10:59');
@@ -220,6 +232,13 @@ CREATE TABLE `user_token` (
   `user_id` varchar(500) NOT NULL,
   `access_token` varchar(600) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_token`
+--
+
+INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
+(30, '1612986067', 'cdf7a01c47f4e861886d17d3fcf3f285');
 
 --
 -- Indexes for dumped tables
@@ -292,7 +311,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `document_category`
 --
 ALTER TABLE `document_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `expenses`
 --
@@ -307,7 +326,7 @@ ALTER TABLE `registration`
 -- AUTO_INCREMENT for table `share_document`
 --
 ALTER TABLE `share_document`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
@@ -317,7 +336,7 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `user_docs`
 --
 ALTER TABLE `user_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `user_ipin`
 --
@@ -327,12 +346,12 @@ ALTER TABLE `user_ipin`
 -- AUTO_INCREMENT for table `user_otp`
 --
 ALTER TABLE `user_otp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
