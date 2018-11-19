@@ -12,7 +12,7 @@ import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
 import Header from '../Employe/Header';
 import Sidebar from '../Employe/Sidebar';
 
-class DocumentList extends Component{
+class MyRequest extends Component{
 
     constructor(props){
         super(props);
@@ -21,54 +21,32 @@ class DocumentList extends Component{
         };
     }
 
+componentWillMount = () =>{
 
-componentWillMount =()=> {
-  var user_id =  sessionStorage.getItem('myData');
-  if( user_id   === '' || user_id == null ){
-    this.props.history.push('/')
-  }
+    var data = {
+        user_id : sessionStorage.getItem('myData')
+    }
 
-  fetch('http://test.reactapi.com/getAllDocs?id='+user_id)
-  .then( (response) => response.json())
-  .then( (response)=> (response))
-  .then( (response) =>{
-          this.setState({
-            alldocs :  response
-          })
-  })
-}
-
-deleteDocs = (id) =>{
-
-  var data = {
-    user_id : sessionStorage.getItem('myData'),
-    document_id : id
-  }
-  
-  fetch("http://test.reactapi.com/deleteUserDoc",{
-
+    fetch('http://test.reactapi.com/getAllRequestByUserId',{
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
-  })
-  .then( (response) => response.json() )
+    })
+    
+    
+
+    .then( (response) => response.json())
+    .then( (response)=> (response))
     .then( (response) =>{
-
-      if( response.status=='200' || response.status === 200){
-        alert("Deleted Successfully");
-        window.location.reload();
-        return
-      }else{
-        alert("Unable To Delete");
-        return;
-      }
-           
-  })
-
+            this.setState({
+              alldocs :  response
+            })
+    })
 }
+
 
 
 handleLogOut = () =>{
@@ -76,26 +54,18 @@ handleLogOut = () =>{
   this.props.history.push('/');
 }
     render(){
-
-
      
-      var documents  = this.state.alldocs.map( (category,i)=>{
-        return <tr>
-          <td value={i}>{category.document_name}</td>
-          <td value={i}>
-          <img src={category.image_url+category.document_image} height="50" width="50"></img>
-          &nbsp;&nbsp;
-          <a href="/share-docs">{category.isApproved ? <i class="fa fa-share-alt-square" aria-hidden="true"></i>
-          : null}</a>
-
-          </td>
-          <td>{category.isApproved ? 'Approved' : 'Pending For Approval'}</td>
-          <td><button className="btn btn-danger delete" id={category.id} onClick={() => this.deleteDocs(category.id)}>Delete</button></td>
-          </tr>
-       })
-
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
+
+      var all_docs = this.state.alldocs.map( (alldocs)=>{
+
+        return <tr>
+               <td>
+                   {alldocs.requested_for}
+               </td>
+              </tr>
+      })
 
       return(
        <div>
@@ -109,9 +79,9 @@ handleLogOut = () =>{
     <div className="content-wrapper">
     <section className="content-header">
       <div className="callout callout-info">
-                 <h4>List Of Documents !</h4>
+                 <h4>My Request !</h4>
                  <hr />
-                  <p>This section shows all documents / certificates which you can upload here.</p>
+                  <p>This section shows all request including pending and approved.</p>
          </div>
     </section>
     <section className="content">
@@ -127,14 +97,14 @@ handleLogOut = () =>{
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Types of Documents</th>
+                  <th>Types of Request</th>
                   <th>Image</th>
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {documents}
+                   {all_docs}
                 </tbody>
               </table>
             </div>
@@ -151,4 +121,4 @@ handleLogOut = () =>{
     }
 }
 
-export default DocumentList;
+export default MyRequest;

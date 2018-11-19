@@ -19,6 +19,12 @@ class RequestForDoc extends Component {
     this.state = {
       data: [],
       userlist: [],
+      successFlag:false,
+      successText:'',
+      textHead:'',
+      errorFlag:false,
+      errorText:'',
+      loader:false
     }
   }
 
@@ -30,43 +36,126 @@ class RequestForDoc extends Component {
       this.props.history.push('/')
       return;
     }
-  }
-
-  componentDidMount() {
 
     var data = {
-        user_id : sessionStorage.getItem('myData')
-    }
+      user_id : sessionStorage.getItem('myData')
+  }
 
-    fetch('http://test.reactapi.com/getCategory')
-    .then( (response) => response.json())
-          .then( (response) => (response))
-          .then( (response) =>{
-            this.setState({
-              data :  response
-            })
-    })
-
-    fetch('http://test.reactapi.com/getAllUser',{
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-        })
-        .then( (response) => response.json())
-        .then( (response)=> (response))
+  fetch('http://test.reactapi.com/getCategory')
+  .then( (response) => response.json())
+        .then( (response) => (response))
         .then( (response) =>{
-                this.setState({
-                   userlist :  response
-                })
-        })
-}
+          this.setState({
+            data :  response
+          })
+  })
+
+  fetch('http://test.reactapi.com/getAllUser',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      })
+      .then( (response) => response.json())
+      .then( (response)=> (response))
+      .then( (response) =>{
+              this.setState({
+                 userlist :  response
+              })
+      })
+  }
+
 
 makeRequest = ()=>{
-    var document_name = document.getElementsByTagName('select')[0].value;
-    alert(document_name);
+
+    var document_id = document.getElementsByTagName('select')[0].value;
+    var requested_user_name = document.getElementsByTagName('select')[1].value;
+
+    this.setState({
+      loader:true
+    })
+
+    var data = {
+      user_id : sessionStorage.getItem('myData'),
+      document_id:document_id,
+      requested_user_name:requested_user_name
+    }
+
+    fetch('http://test.reactapi.com/requestDocFromUser',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      })
+      .then( (response) => response.json())
+      .then( (response)=> (response))
+      .then( (response) =>{
+
+        if( response.status == '200' || response.status === 200 ){
+          this.setState({
+            successFlag:true,
+            textHead:'Request Recorded Successfully',
+            successText:'Your Request Has been recorded and requested user has been notified with your request',
+            loader:false,
+            errorFlag:false,
+          })
+
+          setTimeout( ()=>{
+            this.setState({
+              successFlag:false,
+              successText:'',
+              errorFlag:false
+            })
+          },5000 )
+        }
+
+        if(response.status=='400' || response.status===400){
+          this.setState({
+            errorFlag:true,
+            successFlag:false,
+            textHead:'Duplicate Request Found',
+            errorText:'It seems that you already made the request ! ',
+            loader:false
+          })
+          setTimeout( ()=>{
+            this.setState({
+              successFlag:false,
+              successText:'',
+              errorFlag:false
+            })
+          },7000 )
+        }
+        else{
+          this.setState({
+            errorFlag:true,
+            successFlag:false,
+            textHead:'Request Recorded Successfully',
+            errorText:'It seems that user has not uploaded the requested document which your looking for ! Still we have notified user with your request',
+            loader:false
+          })
+          setTimeout( ()=>{
+            this.setState({
+              successFlag:false,
+              successText:'',
+              errorFlag:false
+            })
+          },7000 )
+        }
+
+      }).catch((err)=> {
+    
+        this.setState({
+          loader:false,
+          errorFlag:true,
+          textHead:'Server Down !',
+          errorText:"It Seems that server is not responding Please try after sometime"
+        })
+      });
+
 }
 
 
@@ -77,7 +166,7 @@ makeRequest = ()=>{
     })
 
     var username  = this.state.userlist.map( (user,i)=>{
-        return <option key={i} value={user.user_id}>{user.fullname}</option>
+        return <option key={i} value={user.user_id}>Name:{user.fullname}&nbsp;&nbsp;&nbsp;&nbsp;Email:{user.email}</option>
        })
 
 
@@ -113,15 +202,26 @@ makeRequest = ()=>{
                           : null}
                       </center>
                       <center>
-                       {this.state.showHtml}
+                       {this.state.successFlag ?
+                         <div class="callout callout-info">
+                         <h4>{this.state.textHead}&nbsp;</h4>
+                         <hr />
+                         <p>{this.state.successText}.</p>
+                         </div>
+                         :null
+                      }
                       </center>
                       <center>
-                        {this.state.errorFlag ?
-                          <div className="btn btn-danger">
-                            {this.state.errorText}
-                          </div> : null}
+                      {this.state.errorFlag ?
+                         <div class="callout callout-warning">
+                         <h4>{this.state.textHead}&nbsp;</h4>
+                         <hr />
+                         <p>{this.state.errorText}.</p>
+                         </div>
+                         :null
+                      }
                       </center>
-                      <h3 className="box-title">Choose Documents To Upload</h3>
+                      <h3 className="box-title">Make a Request For Document</h3>
                     </div>
                     <div className="box-body">
                       <div className="row">
@@ -144,7 +244,10 @@ makeRequest = ()=>{
                           </div>
                           
                           <div class="form-group">
-                              <button className="btn btn-info" onClick={this.makeRequest} >Make a request</button>
+                          {this.state.loader
+                            ?<button disabled className="btn btn-info"  >Make a request</button>
+                            :<button className="btn btn-info" onClick={this.makeRequest} >Make a request</button>
+                          }
                           </div>
                          
                         </div>

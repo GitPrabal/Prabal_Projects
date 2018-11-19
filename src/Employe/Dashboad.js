@@ -38,6 +38,7 @@ componentWillMount = ()=>{
 
     return (
       <div>
+        
         <div className="hold-transition skin-blue sidebar-mini">
           <div className="wrapper">
             <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} push={this.props.history}/>

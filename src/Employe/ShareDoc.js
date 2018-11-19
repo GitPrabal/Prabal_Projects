@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+
 import Header from './Header';
 import Sidebar from './Sidebar';
 
@@ -26,6 +30,12 @@ class ShareDoc extends Component {
       }
   }
 
+
+  componentDidMount = ()=>{
+    NotificationManager.success('We are soon rolling out new feature where you can select multiple docs and also can share with multiple users', 'Close after 10 seconds', 10000);
+
+  }
+
   componentWillMount = () => {
     const result = sessionStorage.getItem('myData');
     if (result === '' || result == null) {
@@ -33,6 +43,8 @@ class ShareDoc extends Component {
       this.props.history.push('/')
       return;
     }
+
+    
 
     var data = {
         user_id : sessionStorage.getItem('myData')
@@ -213,12 +225,14 @@ class ShareDoc extends Component {
     })
 }
 
+
+
   render() {
 
     var style = {
         width:'40%'
     }
-
+    
     var full_name = sessionStorage.getItem('full_name');
     var reg_date = sessionStorage.getItem('reg_date');
 
@@ -235,6 +249,7 @@ class ShareDoc extends Component {
         <div>
           <div className="hold-transition skin-blue sidebar-mini">
             <div className="wrapper">
+            <NotificationContainer/>
               <Header click={this.handleLogOut} name={full_name} reg_date={reg_date} push={this.props.history} />
               <Sidebar name={full_name} />
               <div class="content-wrapper">
@@ -258,7 +273,6 @@ class ShareDoc extends Component {
                  </div>
                 
                  <center>
-                     
                      <div style={style}>
                      {this.state.errorFlag ? 
                      <div className="alert alert-danger">

@@ -55,6 +55,10 @@ class Sidebar extends Component{
         <li>
           <a href="/share"><i className="fa fa-share-alt-square" aria-hidden="true"></i>Shared Documents</a>
         </li>
+
+        <li>
+          <a href="/my-request"><i class="fa fa-envelope" aria-hidden="true"></i>My Request</a>
+        </li>
         
         <li>
           <a href="/request-doc"><i class="fa fa-sign-in" aria-hidden="true"></i>Request For Documents</a>
