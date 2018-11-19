@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2018 at 01:46 PM
+-- Generation Time: Nov 19, 2018 at 02:10 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -176,7 +176,8 @@ CREATE TABLE `user_docs` (
 INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `image_url`, `isApproved`, `added_on`) VALUES
 (4, '1612986067', '1', '0699385001542368315.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:39:44'),
 (5, '1612986067', '2', '0834587001542368322.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:39:47'),
-(7, '1612986067', '7', '0111448001542368845.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:47:34');
+(7, '1612986067', '7', '0111448001542368845.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-16 11:47:34'),
+(8, '1586975032', '1', '0728276001542611310.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-19 07:08:51');
 
 -- --------------------------------------------------------
 
@@ -224,6 +225,35 @@ INSERT INTO `user_otp` (`id`, `user_id`, `otp`, `otp_date`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_request`
+--
+
+CREATE TABLE `user_request` (
+  `id` int(11) NOT NULL,
+  `requested_by` varchar(200) NOT NULL,
+  `requested_for` varchar(200) NOT NULL COMMENT 'document_id',
+  `requested_with` varchar(200) NOT NULL COMMENT 'requested_user_id',
+  `approved` varchar(10) NOT NULL,
+  `requested_date` varchar(200) NOT NULL,
+  `requested_time` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `user_request`
+--
+
+INSERT INTO `user_request` (`id`, `requested_by`, `requested_for`, `requested_with`, `approved`, `requested_date`, `requested_time`) VALUES
+(1, '1612986067', '1', '1586975032', '0', '19-11-2018', '03:09:44 pm'),
+(2, '1612986067', '15', '1586975032', '0', '19-11-2018', '03:11:26 pm'),
+(3, '1612986067', '16', '1586975032', '0', '19-11-2018', '03:16:18 pm'),
+(4, '1612986067', '16', '1586975032', '0', '19-11-2018', '03:18:03 pm'),
+(5, '1612986067', '13', '1586975032', '0', '19-11-2018', '03:37:29 pm'),
+(6, '1612986067', '14', '1586975032', '0', '19-11-2018', '03:40:02 pm'),
+(7, '1612986067', '12', '1619866243', '0', '19-11-2018', '03:42:30 pm');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_token`
 --
 
@@ -238,7 +268,7 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
-(30, '1612986067', 'cdf7a01c47f4e861886d17d3fcf3f285');
+(34, '1612986067', 'f1b5b27c19fab5db0e468ff62539b30d');
 
 --
 -- Indexes for dumped tables
@@ -297,6 +327,12 @@ ALTER TABLE `user_otp`
   ADD UNIQUE KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `user_request`
+--
+ALTER TABLE `user_request`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_token`
 --
 ALTER TABLE `user_token`
@@ -336,7 +372,7 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `user_docs`
 --
 ALTER TABLE `user_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user_ipin`
 --
@@ -348,10 +384,15 @@ ALTER TABLE `user_ipin`
 ALTER TABLE `user_otp`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `user_request`
+--
+ALTER TABLE `user_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
