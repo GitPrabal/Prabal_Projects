@@ -27,7 +27,7 @@ componentWillMount = () =>{
         user_id : sessionStorage.getItem('myData')
     }
 
-    fetch('http://test.reactapi.com/getAllRequestByUserId',{
+    fetch('http://test.reactapi.com/myRequestedDocs',{
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -35,19 +35,15 @@ componentWillMount = () =>{
     },
     body: JSON.stringify(data)
     })
-    
-    
-
     .then( (response) => response.json())
     .then( (response)=> (response))
     .then( (response) =>{
+      console.log(response);
             this.setState({
               alldocs :  response
             })
     })
 }
-
-
 
 handleLogOut = () =>{
   sessionStorage.clear();
@@ -58,14 +54,16 @@ handleLogOut = () =>{
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
 
-      var all_docs = this.state.alldocs.map( (alldocs)=>{
-
-        return <tr>
-               <td>
-                   {alldocs.requested_for}
-               </td>
-              </tr>
-      })
+      var all_docs = this.state.alldocs.map(obj => {
+        return (
+          <tr key={ obj.id }>
+            <td> { obj.fullname } </td>
+            <td> { obj.document_name } </td>
+            <td> { obj.status } </td>
+          </tr>
+         );
+       }) 
+    
 
       return(
        <div>
@@ -81,7 +79,7 @@ handleLogOut = () =>{
       <div className="callout callout-info">
                  <h4>My Request !</h4>
                  <hr />
-                  <p>This section shows all request including pending and approved.</p>
+                  <p>This section shows all request which you made with other users.</p>
          </div>
     </section>
     <section className="content">
@@ -93,18 +91,17 @@ handleLogOut = () =>{
               List Of Documents
               </h3>
             </div>
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+            <div className="box-body">
+              <table id="example1" className="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Types of Request</th>
-                  <th>Image</th>
+                  <th>Document Name</th>
                   <th>Status</th>
-                  <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                   {all_docs}
+               {all_docs}
                 </tbody>
               </table>
             </div>

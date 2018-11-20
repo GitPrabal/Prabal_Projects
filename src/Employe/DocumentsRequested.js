@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import AutoLogout from './AutoLogout';
+
 
 import '../Admin/bower_components/bootstrap/dist/css/bootstrap.min.css';
 import '../Admin/bower_components/Ionicons/css/ionicons.min.css';
@@ -11,10 +11,10 @@ import '../Admin/dist/css/AdminLTE.min.css';
 import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
-import Dashboardcards from './Dashboardcards';
-import { userInfo } from 'os';
 
-class Dashboard extends Component {
+
+
+class DocumentsRequested extends Component {
   
   constructor(props){
     super(props)
@@ -29,6 +29,22 @@ componentWillMount = ()=>{
     if( result   === '' || result == null ){
       this.props.history.push('/')
     }
+    
+    var user_id = sessionStorage.getItem('myData');
+    user_id     = new Buffer(user_id).toString('base64');
+
+    var url = 'http://test.reactapi.com/requestedDocument/'+user_id;
+
+    fetch(url)
+    .then( (response) => response.json())
+    .then( (response)=> (response))
+    .then( (response) =>{
+        console.log(response);
+            this.setState({
+               userlist :  response
+            })
+    })
+    
 
 }
 
@@ -36,6 +52,22 @@ componentWillMount = ()=>{
     
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
+
+    console.log(this.state.userlist);
+
+    var documents  = this.state.userlist.map((category,i) => {
+        return <tr key={i}>
+          <td value={i}>{category.fullname}</td>
+          <td value={i}>
+          {category.document_name}
+          </td>
+          </tr>
+       })
+
+
+  
+
+   
 
     return (
       <div>
@@ -56,8 +88,37 @@ componentWillMount = ()=>{
                   <li className="active">Dashboard</li>
                 </ol>
               </section>
-                <Dashboardcards />
+              <section className="content">
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="box">
+            <div className="box-header">
+              <h3 className="box-title">
+              List Of Documents Requested By Other Users
+              </h3>
             </div>
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Types of Documents</th>
+                  <th>Image</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+              </table>
+            </div>
+          
+          </div>
+        </div>
+      </div>
+    </section>
+            </div>
+            
 
             <footer className="main-footer">
               <div className="pull-right hidden-xs">
@@ -76,4 +137,4 @@ componentWillMount = ()=>{
   }
 
 }
-export default Dashboard;
+export default DocumentsRequested;

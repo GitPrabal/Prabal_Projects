@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AutoLogout from './AutoLogout';
 
 import '../Admin/bower_components/bootstrap/dist/css/bootstrap.min.css';
 import '../Admin/bower_components/Ionicons/css/ionicons.min.css';
@@ -21,6 +22,7 @@ class Login extends Component {
       invalidEmail:false,
       invalidPass:false
     }]
+    
   }
 
 
@@ -97,7 +99,7 @@ class Login extends Component {
     })
    .then(res => res.json())
    .then(res=>{
-     console.log(res);
+
     if(res.flag){
       this.setState({
        emailErrorMsg:false,

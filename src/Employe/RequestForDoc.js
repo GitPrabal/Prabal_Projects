@@ -95,7 +95,7 @@ makeRequest = ()=>{
       .then( (response)=> (response))
       .then( (response) =>{
 
-        if( response.status == '200' || response.status === 200 ){
+        if(response.status == '200' || response.status === 200){
           this.setState({
             successFlag:true,
             textHead:'Request Recorded Successfully',
@@ -110,7 +110,25 @@ makeRequest = ()=>{
               successText:'',
               errorFlag:false
             })
-          },5000 )
+          },10000)
+        }
+        if(response.status == '500' || response.status === 500){
+          this.setState({
+            successFlag:false,
+            successText:'',
+            errorFlag:true,
+            textHead:'Request Recorded Successfully',
+            errorText:'It seems that user has not uploaded the requested document which your looking for ! Still we have notified user with your request',
+            loader:false
+          })
+
+          setTimeout( ()=>{
+            this.setState({
+              successFlag:false,
+              successText:'',
+              errorFlag:false
+            })
+          },10000 )
         }
 
         if(response.status=='400' || response.status===400){
@@ -127,23 +145,7 @@ makeRequest = ()=>{
               successText:'',
               errorFlag:false
             })
-          },7000 )
-        }
-        else{
-          this.setState({
-            errorFlag:true,
-            successFlag:false,
-            textHead:'Request Recorded Successfully',
-            errorText:'It seems that user has not uploaded the requested document which your looking for ! Still we have notified user with your request',
-            loader:false
-          })
-          setTimeout( ()=>{
-            this.setState({
-              successFlag:false,
-              successText:'',
-              errorFlag:false
-            })
-          },7000 )
+          },10000 )
         }
 
       }).catch((err)=> {
@@ -151,7 +153,7 @@ makeRequest = ()=>{
         this.setState({
           loader:false,
           errorFlag:true,
-          textHead:'Server Down !',
+          textHead:'Server is not responding !',
           errorText:"It Seems that server is not responding Please try after sometime"
         })
       });

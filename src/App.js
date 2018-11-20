@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import Login from './Employe/Login';
 import Register from './Employe/Register';
 import Forgotpass from './Employe/Forgotpass';
@@ -19,6 +20,9 @@ import ShareDoc from './Employe/ShareDoc';
 import SetIpin from './Employe/SetIpin';
 import RequestForDoc from './Employe/RequestForDoc';
 import MyRequest from './Employe/MyRequest';
+import DocumentRequested from './Employe/DocumentsRequested';
+
+
 
 
 class App extends Component {
@@ -48,6 +52,8 @@ class App extends Component {
           <Route exact path="/set-ipin" component={SetIpin} />
           <Route exact path="/request-doc" component={RequestForDoc} />
           <Route exact path="/my-request" component={MyRequest} />
+          <Route exact path="/doc-requested" component={DocumentRequested} />
+          
         </div>
       </Router>
       </div>

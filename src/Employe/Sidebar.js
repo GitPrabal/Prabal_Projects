@@ -45,11 +45,11 @@ class Sidebar extends Component{
         </li>
 
          <li>
-          <a href="/share-docs"><i class="fa fa-retweet" aria-hidden="true"></i>Share Your Document</a>
+          <a href="/share-docs"><i className="fa fa-retweet" aria-hidden="true"></i>Share Your Document</a>
         </li>
         
         <li>
-          <a href="/set-ipin"><i class="fa fa-key" aria-hidden="true"></i>Set Instant IPIN</a>
+          <a href="/set-ipin"><i className="fa fa-key" aria-hidden="true"></i>Set Instant IPIN</a>
         </li>
 
         <li>
@@ -57,11 +57,15 @@ class Sidebar extends Component{
         </li>
 
         <li>
-          <a href="/my-request"><i class="fa fa-envelope" aria-hidden="true"></i>My Request</a>
+          <a href="/my-request"><i className="fa fa-envelope" aria-hidden="true"></i>My Request</a>
+        </li>
+
+        <li>
+          <a href="/doc-requested"><i class="fa fa-file-text" aria-hidden="true"></i>Document Request From Others</a>
         </li>
         
         <li>
-          <a href="/request-doc"><i class="fa fa-sign-in" aria-hidden="true"></i>Request For Documents</a>
+          <a href="/request-doc"><i className="fa fa-sign-in" aria-hidden="true"></i>Request For Documents</a>
         </li>
 
         

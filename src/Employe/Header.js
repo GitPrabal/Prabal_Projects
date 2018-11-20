@@ -35,13 +35,13 @@ render(){
   return (
     <div>
       <header className="main-header">
-        <a className="logo">
+        <a className="logo" href="/dashboard">
           <span className="logo-mini">
             <b>A</b>
             LT
           </span>
           <span className="logo-lg">
-            <a href="/dashboard"><b>Dashboard</b></a>
+            <a ><b>Dashboard</b></a>
           </span>
         </a>
         <nav className="navbar navbar-static-top">

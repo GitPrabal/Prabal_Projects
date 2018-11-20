@@ -34,12 +34,12 @@ class Dashboardcards extends Component {
                     <div className="small-box bg-yellow">
                         <div className="inner">
                             <h3>44</h3>
-                            <p>User Registrations</p>
+                            <p>Document Requested</p>
                         </div>
                         <div className="icon">
                             <i className="ion ion-person-add"></i>
                         </div>
-                        <a className="small-box-footer">More info <i className="fa fa-arrow-circle-right"></i></a>
+                        <a href="/my-request" className="small-box-footer">More info <i className="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
