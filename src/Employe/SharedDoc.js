@@ -95,9 +95,11 @@ componentDidMount = () =>{
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">List Of Docs Which you shared with other users</h3>
             </div>
-          
+            {this.state.data.length==0 ?
+             <h3>No Data Found</h3>
+            :
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -113,19 +115,9 @@ componentDidMount = () =>{
                 <tbody>
                {category}
                 </tbody>
-                <tfoot>
-                <tr>
-                <th>Document Name</th>
-                  <th>Share With</th>
-                  <th>Shared User Email</th>
-                  <th>Document Image</th>
-                  <th>Transaction Date</th>
-                  <th>Transaction Time</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
-        
+            }
           </div>
    
   

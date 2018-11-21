@@ -18,60 +18,67 @@ class DocumentsRequested extends Component {
   
   constructor(props){
     super(props)
-    this.state = [{
-      userdetails:[]
-    }]
+    this.state = {
+      userdetails:[],
+      loader:false
+    }
   }
 
+ 
+   componentWillMount = () =>{
 
-componentWillMount = ()=>{
-    const result = sessionStorage.getItem('myData');
-    if( result   === '' || result == null ){
-      this.props.history.push('/')
-    }
-    
     var user_id = sessionStorage.getItem('myData');
     user_id     = new Buffer(user_id).toString('base64');
 
-    var url = 'http://test.reactapi.com/requestedDocument/'+user_id;
+    var data = {
+        user_id:user_id
+    }
 
-    fetch(url)
-    .then( (response) => response.json())
-    .then( (response)=> (response))
-    .then( (response) =>{
-        console.log(response);
-            this.setState({
-               userlist :  response
-            })
-    })
-    
-
+    var url = 'http://test.reactapi.com/requestedDocument';
+    fetch((url),{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+       .then(res => res.json())
+       .then(res => {
+         this.setState({
+             userdetails:res
+         })
+       })
 }
-
   render() {
-    
+  
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
 
-    console.log(this.state.userlist);
+    var docs = this.state.userdetails;
 
-    var documents  = this.state.userlist.map((category,i) => {
-        return <tr key={i}>
-          <td value={i}>{category.fullname}</td>
-          <td value={i}>
-          {category.document_name}
-          </td>
-          </tr>
-       })
+    if(this.state.userdetails.length == 0){
+    
+    }else{
+        
+      
+    var docsList = docs.map( (docs,i)=>{
+        return <tr key={i}><td>{docs.fullname}</td>
+                   <td>{docs.document_name}</td>
+                   <td>{docs.description}</td>
+                   <td>{docs.status}</td>
+                   <td><button className="btn btn-success sendDoc">Send</button>
+                       &nbsp;&nbsp;
+                       <button className="btn btn-danger discardRequest">Discard</button>
+                   </td>
+               </tr>
+    })
 
+    }    
 
-  
-
-   
+    console.log(this.state.userdetails.length);
 
     return (
       <div>
-        
         <div className="hold-transition skin-blue sidebar-mini">
           <div className="wrapper">
           
@@ -97,22 +104,28 @@ componentWillMount = ()=>{
               List Of Documents Requested By Other Users
               </h3>
             </div>
+            {console.log("---------------------",this.state.userdetails.length)}
+            { this.state.userdetails.length == 0 ?
+            <h3>No Docs Found</h3>
+            : 
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Types of Documents</th>
-                  <th>Image</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                
-                </tbody>
-              </table>
-            </div>
-          
+             <table id="example1" class="table table-bordered table-striped">
+               <thead>
+               <tr>
+                 <th>Requested User</th>
+                 <th>Document Name</th>
+                 <th>Description</th>
+                 <th>Status</th>
+                 <th>Action</th>
+               </tr>
+               </thead>
+               <tbody>
+               {docsList}                 
+               </tbody>
+             </table>
+           </div>
+            }
+
           </div>
         </div>
       </div>
@@ -120,15 +133,7 @@ componentWillMount = ()=>{
             </div>
             
 
-            <footer className="main-footer">
-              <div className="pull-right hidden-xs">
-                <b>Version</b> 2.4.0
-              </div>
-              <strong>Copyright &copy; 2018-2019 <a>Smart Documents</a>.</strong> All rights
-              reserved.
-            </footer>
-
-            <div className="control-sidebar-bg"></div>
+           
           </div>
         </div>
       </div>

@@ -124,6 +124,7 @@ handleLogOut = () =>{
               </h3>
             </div>
             <div class="box-body">
+            {documents.length > 0 ?  
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -137,6 +138,7 @@ handleLogOut = () =>{
                 {documents}
                 </tbody>
               </table>
+              : <h3>No Docs Found</h3> }
             </div>
           
           </div>

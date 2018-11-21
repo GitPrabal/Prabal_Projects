@@ -24,7 +24,8 @@ class RequestForDoc extends Component {
       textHead:'',
       errorFlag:false,
       errorText:'',
-      loader:false
+      loader:false,
+      description:''
     }
   }
 
@@ -80,10 +81,11 @@ makeRequest = ()=>{
     var data = {
       user_id : sessionStorage.getItem('myData'),
       document_id:document_id,
-      requested_user_name:requested_user_name
+      requested_user_name:requested_user_name,
+      description:this.state.description
     }
 
-    fetch('http://test.reactapi.com/requestDocFromUser',{
+    fetch('http://test.reactapi.com/requestForDocumentFromUser',{
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -158,6 +160,12 @@ makeRequest = ()=>{
         })
       });
 
+}
+
+changeDescHandler = (event)=>{
+ this.setState({
+    description:event.target.value
+ })
 }
 
 
@@ -243,6 +251,13 @@ makeRequest = ()=>{
                           >
                           {username}
                           </select>
+                          </div>
+
+                          <div className="form-group">
+                            <label>Description</label>
+                          </div>
+                          <div class="form-group">
+                          <input type="text" className="form-control" name="desc" onChange={this.changeDescHandler} />
                           </div>
                           
                           <div class="form-group">

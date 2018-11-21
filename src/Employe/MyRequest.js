@@ -36,7 +36,6 @@ componentWillMount = () =>{
     body: JSON.stringify(data)
     })
     .then( (response) => response.json())
-    .then( (response)=> (response))
     .then( (response) =>{
       console.log(response);
             this.setState({
@@ -54,16 +53,18 @@ handleLogOut = () =>{
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
 
-      var all_docs = this.state.alldocs.map(obj => {
+      if(this.state.alldocs.length > 0)
+      {
+      var all_docs = this.state.alldocs.map( (obj,i) => {
         return (
-          <tr key={ obj.id }>
+          <tr key={ i }>
             <td> { obj.fullname } </td>
             <td> { obj.document_name } </td>
             <td> { obj.status } </td>
           </tr>
          );
        }) 
-    
+    }
 
       return(
        <div>
@@ -91,6 +92,9 @@ handleLogOut = () =>{
               List Of Documents
               </h3>
             </div>
+            {this.state.alldocs.length == 0 ? 
+            <h3>No Docs Found</h3>
+            : 
             <div className="box-body">
               <table id="example1" className="table table-bordered table-striped">
                 <thead>
@@ -101,11 +105,11 @@ handleLogOut = () =>{
                 </tr>
                 </thead>
                 <tbody>
-               {all_docs}
+                {all_docs}
                 </tbody>
               </table>
             </div>
-          
+            }
           </div>
         </div>
       </div>
