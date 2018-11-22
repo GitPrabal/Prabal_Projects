@@ -53,6 +53,9 @@ handleLogOut = () =>{
       var full_name =  sessionStorage.getItem('full_name');
       var reg_date =  sessionStorage.getItem('reg_date');
 
+      sessionStorage.setItem('myRequestDocCount', this.state.alldocs.length);
+      //= this.state.alldocs.length);
+
       if(this.state.alldocs.length > 0)
       {
       var all_docs = this.state.alldocs.map( (obj,i) => {

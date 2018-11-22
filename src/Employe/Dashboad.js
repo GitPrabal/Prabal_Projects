@@ -19,7 +19,8 @@ class Dashboard extends Component {
   constructor(props){
     super(props)
     this.state = [{
-      userdetails:[]
+      userdetails:[],
+      request_count:null
     }]
   }
 
@@ -29,6 +30,23 @@ componentWillMount = ()=>{
     if( result   === '' || result == null ){
       this.props.history.push('/')
     }
+    var data = {
+      user_id:result
+    }
+    fetch('http://test.reactapi.com/myRequestedDocsCount',{
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+  })
+  .then( (res) => res.json() )
+  .then( (res) => {
+       this.setState({
+         request_count:res
+       })
+  })
 
 }
 
@@ -56,7 +74,7 @@ componentWillMount = ()=>{
                   <li className="active">Dashboard</li>
                 </ol>
               </section>
-                <Dashboardcards />
+                <Dashboardcards count={this.state.request_count}/>
             </div>
 
             <footer className="main-footer">

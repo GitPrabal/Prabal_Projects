@@ -61,7 +61,7 @@ class Sidebar extends Component{
         </li>
 
         <li>
-          <a href="/doc-requested"><i class="fa fa-file-text" aria-hidden="true"></i>Document Request From Others</a>
+          <a href="/doc-requested"><i className="fa fa-file-text" aria-hidden="true"></i>Document Request From Others</a>
         </li>
         
         <li>

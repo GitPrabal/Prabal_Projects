@@ -2,29 +2,32 @@ import React, { Component } from 'react';
 
 class Dashboardcards extends Component {
     render() {
+        
+        var cursor = {
+            cursor:'pointer'
+        }
         return (
         <section className="content">    
             <div className="row">
                 <div className="col-lg-3 col-xs-6">
                     <div className="small-box bg-aqua">
                         <div className="inner">
-                            <h3>150</h3>
-                            <p>Total Documents</p>
+                            <h3>{this.props.count}</h3>
+                            <p>My Total Requested Documents</p>
                         </div>
                         <div className="icon">
-                            <i className="ion ion-bag"></i>
+                            
                         </div>
-                        <a className="small-box-footer">More info <i className="fa fa-arrow-circle-right"></i></a>
+                        <a href="/my-request" className="small-box-footer" style={cursor}>More info <i className="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <div className="col-lg-3 col-xs-6">
                     <div className="small-box bg-green">
                         <div className="inner">
                             <h3>53<sup>%</sup></h3>
-                            <p>Bounce Rate</p>
+                            <p>Document Requested</p>
                         </div>
                         <div className="icon">
-                            <i className="ion ion-stats-bars"></i>
                         </div>
                         <a className="small-box-footer">More info <i className="fa fa-arrow-circle-right"></i></a>
                     </div>

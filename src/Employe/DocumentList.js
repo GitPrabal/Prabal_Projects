@@ -80,12 +80,12 @@ handleLogOut = () =>{
 
      
       var documents  = this.state.alldocs.map( (category,i)=>{
-        return <tr>
+        return <tr key={i}>
           <td value={i}>{category.document_name}</td>
           <td value={i}>
           <img src={category.image_url+category.document_image} height="50" width="50"></img>
           &nbsp;&nbsp;
-          <a href="/share-docs">{category.isApproved ? <i class="fa fa-share-alt-square" aria-hidden="true"></i>
+          <a href="/share-docs">{category.isApproved ? <i className="fa fa-share-alt-square" aria-hidden="true"></i>
           : null}</a>
 
           </td>
@@ -123,9 +123,9 @@ handleLogOut = () =>{
               List Of Documents
               </h3>
             </div>
-            <div class="box-body">
+            <div className="box-body">
             {documents.length > 0 ?  
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" className="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>Types of Documents</th>

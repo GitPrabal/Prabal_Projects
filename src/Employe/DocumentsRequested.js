@@ -26,10 +26,8 @@ class DocumentsRequested extends Component {
 
  
    componentWillMount = () =>{
-
     var user_id = sessionStorage.getItem('myData');
     user_id     = new Buffer(user_id).toString('base64');
-
     var data = {
         user_id:user_id
     }
@@ -48,9 +46,35 @@ class DocumentsRequested extends Component {
              userdetails:res
          })
        })
-}
+  }
+
+  sendRequestedDocViaEmailToUser = (id) => {
+
+    var url = 'http://test.reactapi.com/sendRequestedDocViaEmailToUser';
+
+    var data = {
+      id:id,
+      user_id:sessionStorage.getItem('myData')
+    }
+    
+    fetch((url),{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+        })
+        .then( (res)=>res.json())
+        .then( (res)=>{
+         console.log(res);
+        })
+
+
+
+  }
+
   render() {
-  
+    
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
 
@@ -59,14 +83,12 @@ class DocumentsRequested extends Component {
     if(this.state.userdetails.length == 0){
     
     }else{
-        
-      
     var docsList = docs.map( (docs,i)=>{
         return <tr key={i}><td>{docs.fullname}</td>
                    <td>{docs.document_name}</td>
                    <td>{docs.description}</td>
                    <td>{docs.status}</td>
-                   <td><button className="btn btn-success sendDoc">Send</button>
+                   <td><button className="btn btn-success sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send</button>
                        &nbsp;&nbsp;
                        <button className="btn btn-danger discardRequest">Discard</button>
                    </td>
@@ -75,7 +97,7 @@ class DocumentsRequested extends Component {
 
     }    
 
-    console.log(this.state.userdetails.length);
+
 
     return (
       <div>
