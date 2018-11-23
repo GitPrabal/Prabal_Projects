@@ -241,7 +241,7 @@ class ShareDoc extends Component {
        })
 
     var approvedDocs =  this.state.approvedDocs.map( (docs , i )=>{
-        return <option key={i} value={docs.id}>{docs.document_name}</option>
+        return <option key={i} value={docs.document_id}>{docs.document_name}</option>
     })   
 
     return (
@@ -325,6 +325,7 @@ class ShareDoc extends Component {
                           <input type="password" class="form-control" id="ipin" placeholder="Enter IPIN" 
                           onChange={this.changeIpinHandler}
                           />
+                          <a href="/set-ipin"><b>Forgot Password</b></a>
                           </div>
 
                           <div class="form-group">

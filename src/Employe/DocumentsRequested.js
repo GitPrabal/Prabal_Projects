@@ -80,7 +80,7 @@ class DocumentsRequested extends Component {
 
     var docs = this.state.userdetails;
 
-    if(this.state.userdetails.length == 0){
+    if(this.state.userdetails.length == 0 || this.state.userdetails.length == undefined){
     
     }else{
     var docsList = docs.map( (docs,i)=>{
@@ -89,8 +89,6 @@ class DocumentsRequested extends Component {
                    <td>{docs.description}</td>
                    <td>{docs.status}</td>
                    <td><button className="btn btn-success sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send</button>
-                       &nbsp;&nbsp;
-                       <button className="btn btn-danger discardRequest">Discard</button>
                    </td>
                </tr>
     })
@@ -126,7 +124,6 @@ class DocumentsRequested extends Component {
               List Of Documents Requested By Other Users
               </h3>
             </div>
-            {console.log("---------------------",this.state.userdetails.length)}
             { this.state.userdetails.length == 0 ?
             <h3>No Docs Found</h3>
             : 

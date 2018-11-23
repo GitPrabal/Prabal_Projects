@@ -40,6 +40,9 @@ componentWillMount =()=> {
 
 deleteDocs = (id) =>{
 
+  var flag = window.confirm("Are you sure you want to delete doc");
+ 
+  if(flag){
   var data = {
     user_id : sessionStorage.getItem('myData'),
     document_id : id
@@ -67,6 +70,8 @@ deleteDocs = (id) =>{
       }
            
   })
+
+}
 
 }
 
