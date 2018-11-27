@@ -61,6 +61,10 @@ class Sidebar extends Component{
         </li>
 
         <li>
+          <a href="/change-pass"><i class="fa fa-unlock" aria-hidden="true"></i>Change Login Password</a>
+        </li>
+
+        <li>
           <a href="/doc-requested"><i className="fa fa-file-text" aria-hidden="true"></i>Document Request From Others</a>
         </li>
         

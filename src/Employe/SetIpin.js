@@ -99,9 +99,11 @@ class SetIpin extends Component {
     this.setState({ secondsRemaining: 30 });
     this.interval = setInterval(this.tick, 1000);
 
+
+
 var data = {
     user_id : sessionStorage.getItem('myData'),
-    otp     : '789456'
+    otp     : Math.floor(1000 + Math.random() * 9000)
 }
 
 fetch('http://test.reactapi.com/sendOtp',{
@@ -118,7 +120,7 @@ fetch('http://test.reactapi.com/sendOtp',{
         if(response.status === 200 || response.status == '200'){
             this.setState({
                 successFlag:true,
-                successText:'An OTP is send to your registered mobile number'
+                successText:'A 4 digit OTP is send to your registered mobile number'
             })
         }
     })
@@ -267,6 +269,7 @@ changeOtpHandler = (event) => {
                           onChange={this.changeOtpHandler}
                           />
                           </div>
+                          
                           <p>Enter OTP In {this.state.secondsRemaining} seconds.</p>
                           <p>Otherwise you will be redirected to login page for security reasons</p>
                           <div class="form-group">

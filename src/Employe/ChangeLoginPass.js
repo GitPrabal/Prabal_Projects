@@ -19,7 +19,8 @@ class ChangeLoginPass extends Component {
         newPass:null,
         confirmPass:null,
         successFlag:false,
-        successText:null
+        successText:null,
+        loader:false
     }       
 }
 
@@ -31,16 +32,8 @@ class ChangeLoginPass extends Component {
 
 componentWillMount = ()=>{
 
-const changePassToken =  sessionStorage.getItem('changePassToken');
-
-if(changePassToken == '' || changePassToken==null){
-    alert("You can not visit page via URL");
-    this.props.history.push('/');
-    sessionStorage.clear();
-    return;
-}
-
 const result = sessionStorage.getItem('myData');
+
   if( result   === '' || result == null ){
     sessionStorage.clear();
     this.props.history.push('/')
@@ -107,6 +100,10 @@ changeConfirmPassword = (event)=>{
         return;
     }
 
+    this.setState({
+      loader:true
+    })
+
     var user_id = sessionStorage.getItem('myData');
     var data = {
         user_id:user_id,
@@ -124,8 +121,55 @@ changeConfirmPassword = (event)=>{
         })
        .then(res => res.json())
        .then(res => {
-           if(res==1 || res=='1'){
-               
+           if(res == 1 || res == '1'){
+
+            var data = {
+              user_id : sessionStorage.getItem('myData'),
+              newPass : this.state.newPass,
+            }
+
+            fetch(('http://test.reactapi.com/changePassword'),{
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+              })
+              .then( (res)=> res.json())
+              .then( (res)=>{
+                if(res.status == 200 || res.status == '200'){
+                 this.setState({
+                   successFlag:true,
+                   successText:'Password Changed Successfully',
+                   errorFlag:false,
+                   loader:false,
+                   errorText:null
+                 }) 
+
+                document.getElementById("oldPass").value='';
+                document.getElementById("newPass").value='';
+                document.getElementById("confirmPass").value='';
+
+                }else{
+                  this.setState({
+                    errorFlag:true,
+                    errorText:'Something wents wrong ! Please try again later',
+                    successFlag:false,
+                    successText:null,
+                    loader:false
+                  }) 
+                }
+              })
+
+           }else{
+             this.setState({
+               errorFlag:true,
+               loader:false,
+               errorText:'Old password did not match'
+             })
+          document.getElementById("oldPass").value='';
+          document.getElementById("newPass").value='';
+          document.getElementById("confirmPass").value='';
            }
 
        })
@@ -170,6 +214,11 @@ changeConfirmPassword = (event)=>{
             <br />
             <center>
 
+                { this.state.loader ? 
+                <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+                :null
+                }
+
                 {this.state.errorFlag ? 
                 <div className="btn btn-danger">{this.state.errorText}</div>
                 :null
@@ -185,19 +234,19 @@ changeConfirmPassword = (event)=>{
               <div className="box-body">
                 <div className="form-group">
                   <label for="exampleInputEmail1">Old Password</label>
-                  <input type="password" className="form-control" id="exampleInputEmail1" placeholder="Old Password" 
+                  <input type="password" className="form-control" id="oldPass" placeholder="Old Password" 
                     onChange={this.changeOldPassword}
                   />
                 </div>
                 <div className="form-group">
                   <label for="exampleInputPassword1">New Password</label>
-                  <input type="password" className="form-control" id="exampleInputPassword1" placeholder="New Password" 
+                  <input type="password" className="form-control" id="newPass" placeholder="New Password" 
                    onChange={this.changeNewPassword}
                   />
                 </div>
                 <div className="form-group">
                   <label for="exampleInputPassword1">Confirm Password</label>
-                  <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Confirm Password" 
+                  <input type="password" className="form-control" id="confirmPass" placeholder="Confirm Password" 
                    onChange={this.changeConfirmPassword}
                   />
                 </div>

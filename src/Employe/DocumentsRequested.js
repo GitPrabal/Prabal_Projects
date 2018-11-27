@@ -108,13 +108,11 @@ class DocumentsRequested extends Component {
                 successFlag:false,
                 successText:null
               })
+              window.location.reload();
             }, 5000);
           }
         })
 
-        setTimeout( () => {
-        window.location.reload();
-        }, 9000);
 
 
   }
