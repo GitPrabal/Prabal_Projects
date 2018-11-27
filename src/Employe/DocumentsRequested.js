@@ -20,6 +20,11 @@ class DocumentsRequested extends Component {
     super(props)
     this.state = {
       userdetails:[],
+      loader:false,
+      errorFlag:false,
+      errorText:null,
+      successFlag:false,
+      successText:null,
       loader:false
     }
   }
@@ -56,6 +61,10 @@ class DocumentsRequested extends Component {
       id:id,
       user_id:sessionStorage.getItem('myData')
     }
+
+    this.setState({
+      loader:true
+    })
     
     fetch((url),{
         method: 'POST',
@@ -66,9 +75,46 @@ class DocumentsRequested extends Component {
         })
         .then( (res)=>res.json())
         .then( (res)=>{
-         console.log(res);
+
+          this.setState({
+            loader:false
+          })
+
+          if( res.status==404 || res.status == '404'){
+            this.setState({
+              errorFlag:true,
+              errorText:<div class="callout callout-warning">
+                        <h4>Document Not Found ?</h4>
+                        <hr />
+                        <p>It seems that you have not uploaded your document.No worries you can <a href="/upload-docs">Click Here</a>  to upload in just single click</p>
+                        </div>
+            })
+          }
+
+          if( res.status == 200 || res.status == '200'){
+
+            this.setState({
+              errorFlag:true,
+              errorText:<div class="callout callout-success">
+                        <h5><i className="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;
+                          Document Sent Successfully !</h5>
+                        <hr />
+                        <p>Now you can keep track of your all documents at <a href="/share">Shared Documents</a> Section</p>
+                        </div>
+            })
+
+            setTimeout( () => {
+              this.setState({
+                successFlag:false,
+                successText:null
+              })
+            }, 5000);
+          }
         })
 
+        setTimeout( () => {
+        window.location.reload();
+        }, 9000);
 
 
   }
@@ -87,9 +133,14 @@ class DocumentsRequested extends Component {
         return <tr key={i}><td>{docs.fullname}</td>
                    <td>{docs.document_name}</td>
                    <td>{docs.description}</td>
-                   <td>{docs.status}</td>
-                   <td><button className="btn btn-success sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send</button>
+                   <td>{ docs.status == 0 ? 'Pending' : 'Sent' }</td>
+                   <td>{ docs.status == 1 ? 
+                   <button className="btn btn-info sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send Again</button>
+                   :
+                   <button className="btn btn-success sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send</button>
+                   }
                    </td>
+                   
                </tr>
     })
 
@@ -123,7 +174,37 @@ class DocumentsRequested extends Component {
               <h3 className="box-title">
               List Of Documents Requested By Other Users
               </h3>
+              <br />
+              <br />
+              { this.state.errorFlag ?   
+              <div className="alert-alert-warning">
+               <center>{this.state.errorText}</center>    
+              </div>
+              : null
+              }
+
+             { this.state.successFlag ?   
+              <div className="alert-alert-success">
+               <center>{this.state.successText}</center>    
+              </div>
+              : null
+              }
             </div>
+
+            {/* Loader */}
+            {this.state.loader ? 
+            <div>
+              <center><h4><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+              <span className="sr-only">Sending...</span>
+              </h4>
+              </center>
+              </div>
+              : null
+            }
+
+
+
+
             { this.state.userdetails.length == 0 ?
             <h3>No Docs Found</h3>
             : 

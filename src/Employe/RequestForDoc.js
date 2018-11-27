@@ -176,7 +176,7 @@ changeDescHandler = (event)=>{
     })
 
     var username  = this.state.userlist.map( (user,i)=>{
-        return <option key={i} value={user.user_id}>Name:{user.fullname}&nbsp;&nbsp;&nbsp;&nbsp;Email:{user.email}</option>
+        return <option key={i} value={user.user_id}>{user.fullname}&nbsp;&nbsp;&nbsp;&nbsp;{user.email}</option>
        })
 
 

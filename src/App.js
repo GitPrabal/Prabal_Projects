@@ -21,6 +21,7 @@ import SetIpin from './Employe/SetIpin';
 import RequestForDoc from './Employe/RequestForDoc';
 import MyRequest from './Employe/MyRequest';
 import DocumentRequested from './Employe/DocumentsRequested';
+import ChangeLoginPass from './Employe/ChangeLoginPass';
 
 
 
@@ -53,6 +54,7 @@ class App extends Component {
           <Route exact path="/request-doc" component={RequestForDoc} />
           <Route exact path="/my-request" component={MyRequest} />
           <Route exact path="/doc-requested" component={DocumentRequested} />
+          <Route exact path="/change-pass" component={ChangeLoginPass} />
           
         </div>
       </Router>

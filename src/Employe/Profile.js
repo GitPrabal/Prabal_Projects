@@ -12,7 +12,10 @@ class Profile extends Component {
 
   state = {
      details:[],
-     errorFlag:false
+     errorFlag:false,
+     fullname:null,
+     email:null,
+     mobile_no:null
   }
 
 
@@ -23,19 +26,39 @@ class Profile extends Component {
 
 componentWillMount = ()=>{
 const result = sessionStorage.getItem('myData');
+sessionStorage.setItem('changePassToken',result); 
+
   if( result   === '' || result == null ){
     this.props.history.push('/')
 }
 }
 
 componentDidMount = () =>{
-  const x = sessionStorage.getItem('myData');
-  var result    = new Buffer(x).toString('base64');
-  fetch(('http://localhost/ReactApi/checkUserDetails.php?user_id='+result))
-   .then(res => res.json())
-   .then(res=>{
-     console.log(res);
-   }).catch((err)=> {
+
+  const user_id = sessionStorage.getItem('myData');
+
+  var data = {
+    user_id :user_id
+  }
+
+   fetch('http://test.reactapi.com/checkUserDetails',{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then( (response) => response.json() )
+    .then( (res)=>{
+
+          this.setState({
+            fullname:res.fullname,
+            email:res.email,
+            mobile_no:res.mobile_no
+          })
+    })
+    .catch((err)=> {
     this.setState({
       errorFlag:true,
       errorText:"It Seems that server is not responding Please try after sometime"
@@ -114,7 +137,7 @@ componentDidMount = () =>{
                           <div class="form-horizontal">
                             <div class="form-group">
                               <label
-                                for="inputName"
+                                htmlFor="inputName"
                                 class="col-sm-2 control-label"
                               >
                                 Name
@@ -122,17 +145,18 @@ componentDidMount = () =>{
 
                               <div class="col-sm-10">
                                 <input
-                                  type="email"
-                                  class="form-control"
-                                  id="inputName"
-                                  placeholder="Name"
+                                  type        = "email"
+                                  className   = "form-control"
+                                  id          = "inputName"
+                                  placeholder = "Name"
+                                  value={this.state.fullname}
                                 />
                               </div>
                             </div>
                             <div class="form-group">
                               <label
                                 htmlFor="user-email"
-                                class="col-sm-2 control-label"
+                                className="col-sm-2 control-label"
                               >
                                 Email
                               </label>
@@ -140,26 +164,10 @@ componentDidMount = () =>{
                               <div class="col-sm-10">
                                 <input
                                   type="email"
-                                  class="form-control"
+                                  className="form-control"
                                   id="inputEmail"
                                   placeholder="Email"
-                                />
-                              </div>
-                            </div>
-                            
-                            <div class="form-group">
-                              <label
-                                htmlFor="inputExperience"
-                                class="col-sm-2 control-label"
-                              >
-                                Address
-                              </label>
-
-                              <div class="col-sm-10">
-                                <textarea name="address"
-                                  class="form-control"
-                                  id="inputExperience"
-                                  placeholder="Address"
+                                  value={this.state.email}
                                 />
                               </div>
                             </div>
@@ -177,6 +185,7 @@ componentDidMount = () =>{
                                   class="form-control"
                                   id="inputSkills"
                                   placeholder="Mobile No"
+                                  value={this.state.mobile_no}
                                 />
                               </div>
                             </div>
@@ -200,8 +209,8 @@ componentDidMount = () =>{
                               <div class="col-sm-offset-2 col-sm-10">
                                 <div class="checkbox">
                                   <label>
-                                    For Change Password {" "}
-                                    <a>click here</a>
+                                    For Change Login Password {" "}
+                                    <a href="/change-pass">click here</a>
                                   </label>
                                 </div>
                               </div>

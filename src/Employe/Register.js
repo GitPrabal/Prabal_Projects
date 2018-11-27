@@ -16,6 +16,7 @@ class Register extends Component {
       fullname: '',
       email: '',
       password: '',
+      mobileno:'',
       isLoaded: false,
       errorMsg:false,
       errorText:''
@@ -28,6 +29,7 @@ registerUserData = () => {
     var name = this.state.fullname;
     var email = this.state.email;
     var pass = this.state.password;
+    var mobileno = this.state.mobileno;
 
     this.setState({
       isLoaded:true
@@ -46,6 +48,45 @@ registerUserData = () => {
         isLoaded:true,
        })
     }
+
+    if (mobileno === '' || mobileno == null ) {
+      this.setState({
+       errorMsg:true,
+       isLoaded:false,
+       errorText:"Mobile Number Can't be blank"
+      })
+      return;
+    }else{ 
+      this.setState({
+        errorMsg:false,
+        errorText:"",
+        isLoaded:true,
+       })
+    }
+
+    var mobileno_check = /^[0-9]+$/.test(mobileno);
+
+    if (!mobileno_check) {
+      this.setState({
+        errorMsg:true,
+        errorText:"Please Insert Valid Mobile Number",
+        isLoaded:false,
+       })
+
+       return;
+ 
+    }else{
+      this.setState({
+        errorMsg:false,
+        errorText:"",
+        isLoaded:true,
+       })
+    }
+
+
+
+
+
     
     var check = /^[A-Za-z ]+$/.test(name);
 
@@ -118,7 +159,8 @@ registerUserData = () => {
     var data = {
       fullname  : this.state.fullname,
       email     : this.state.email,
-      pass      : this.state.password 
+      pass      : this.state.password,
+      mobileno  : this.state.mobileno
   }
 
 
@@ -195,6 +237,12 @@ registerUserData = () => {
     })
   }
 
+  changeMobileNumber = (event) =>{
+    this.setState({
+      mobileno: event.target.value
+    })
+  }
+
 
   render() {
 
@@ -221,6 +269,14 @@ registerUserData = () => {
               />
               <span className="glyphicon glyphicon-user form-control-feedback"></span>
             </div>
+
+            <div className="form-group has-feedback">
+              <input type="text" className="form-control" id="" placeholder="Mobile Number" name="mobilenumber"
+                onChange={this.changeMobileNumber} 
+              />
+              <span className="glyphicon glyphicon-earphone form-control-feedback"></span>
+            </div>
+
             <div className="form-group has-feedback">
               <input type="email" className="form-control" placeholder="Email" name="email"
                 onChange={this.changeEmailHandler} 

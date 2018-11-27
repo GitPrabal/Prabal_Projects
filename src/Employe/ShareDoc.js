@@ -325,7 +325,7 @@ class ShareDoc extends Component {
                           <input type="password" class="form-control" id="ipin" placeholder="Enter IPIN" 
                           onChange={this.changeIpinHandler}
                           />
-                          <a href="/set-ipin"><b>Forgot Password</b></a>
+                          <a href="/set-ipin"><b>Forgot IPIN</b></a>
                           </div>
 
                           <div class="form-group">
