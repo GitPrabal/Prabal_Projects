@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 27, 2018 at 02:04 PM
+-- Generation Time: Dec 05, 2018 at 02:00 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -78,7 +78,11 @@ INSERT INTO `expenses` (`id`, `user_id`, `date`, `price`, `desc_exp`) VALUES
 (2, '1586975032', '', '', ''),
 (3, '1619866243', '', '', ''),
 (4, '1639794359', '', '', ''),
-(5, '1617024689', '', '', '');
+(5, '1617024689', '', '', ''),
+(6, '1575598672', '', '', ''),
+(7, '1590287335', '', '', ''),
+(8, '1599734455', '', '', ''),
+(9, '1598050025', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -102,11 +106,8 @@ CREATE TABLE `registration` (
 --
 
 INSERT INTO `registration` (`id`, `user_id`, `fullname`, `mobile_no`, `email`, `password`, `salt_string`, `reg_date`) VALUES
-(1, '1612986067', 'prabal', '8105495600', 'prabal1.gupta@gmail.com', '123456', '71875cce475ba332d2986a38dfc1e122$e10adc3949ba59abbe56e057f20f883e', '2018-11-27 11:14:42'),
-(2, '1586975032', 'krishna', '8105495600', 'krishna@gmail.com', '123456', '8612ab3933764d2c6e39fd0ff898a19a$e10adc3949ba59abbe56e057f20f883e', '2018-11-27 11:14:45'),
-(3, '1619866243', 'lata', '8105495600', 'lata@gmail.com', '123456', '89b1163c1d18b81c9aec10e3f84baca4$e10adc3949ba59abbe56e057f20f883e', '2018-11-27 11:14:47'),
-(4, '1639794359', 'abhishek', '8105495600', 'abhishek@gmail.com', '123456', 'd7ccd51bf3ea86dd2137db894c62786f$e10adc3949ba59abbe56e057f20f883e', '2018-11-27 11:14:39'),
-(5, '1617024689', 'Jack Jones', '8105495600', 'jack@gmail.com', '123456', '77864601526fc73452f5c7f942ac4ff4$e10adc3949ba59abbe56e057f20f883e', '2018-11-26 11:04:49');
+(1, '1599734455', 'prabal', '8105495600', 'prabal1.gupta@gmail.com', '123456', '71875cce475ba332d2986a38dfc1e122$e10adc3949ba59abbe56e057f20f883e', '2018-12-05 10:50:55'),
+(2, '1598050025', 'krishna', '8105495600', 'krishna@gmail.com', '123456', '8612ab3933764d2c6e39fd0ff898a19a$e10adc3949ba59abbe56e057f20f883e', '2018-12-05 10:52:05');
 
 -- --------------------------------------------------------
 
@@ -130,10 +131,12 @@ CREATE TABLE `share_document` (
 --
 
 INSERT INTO `share_document` (`id`, `user_id`, `share_with`, `document_id`, `document_image`, `transaction_id`, `transaction_date`, `transaction_time`) VALUES
-(1, '1612986067', '1586975032', '1', 'http://images.reactapi.com/images/0975221001542704664.jpg', '0956445001542803565', '21-11-2018', '06:02:45 pm'),
-(2, '1612986067', '1619866243', '3', '', '0929383001542952710', '23-11-2018', '11:28:30 am'),
-(3, '1612986067', '1639794359', '4', 'http://images.reactapi.com/images/0960094001542704784.jpg', '0496264001542953459', '23-11-2018', '11:40:59 am'),
-(4, '1619866243', '1639794359', '3', 'http://images.reactapi.com/images/0970753001542967098.jpg', '0576322001543227385', '26-11-2018', '03:46:25 pm');
+(1, '1599734455', '1598050025', '1', 'http://images.reactapi.com/images/0170718001544007170.jpg', '0801164001544008021', '05-12-2018', '04:37:01 pm'),
+(2, '1599734455', '1598050025', '1', 'http://images.reactapi.com/images/0170718001544007170.jpg', '0866880001544008050', '05-12-2018', '04:37:30 pm'),
+(3, '1598050025', '1599734455', '1', 'http://images.reactapi.com/images/0939858001544008127.jpg', '0566897001544008204', '05-12-2018', '04:40:04 pm'),
+(4, '1598050025', '1599734455', '1', 'http://images.reactapi.com/images/0939858001544008127.jpg', '0740605001544008525', '05-12-2018', '04:45:25 pm'),
+(5, '1599734455', '1598050025', '4', 'http://images.reactapi.com/images/0792246001544007200.jpeg', '0845228001544008946', '05-12-2018', '04:52:26 pm'),
+(6, '1598050025', '1599734455', '1', 'http://images.reactapi.com/images/0939858001544008127.jpg', '0110743001544011247', '05-12-2018', '05:30:47 pm');
 
 -- --------------------------------------------------------
 
@@ -154,11 +157,8 @@ CREATE TABLE `user_details` (
 --
 
 INSERT INTO `user_details` (`id`, `user_id`, `address`, `phone_no`, `profile_pic`) VALUES
-(1, '1612986067', '', '', ''),
-(2, '1586975032', '', '', ''),
-(3, '1619866243', '', '', ''),
-(4, '1639794359', '', '', ''),
-(5, '1617024689', '', '', '');
+(1, '1599734455', '', '', ''),
+(2, '1598050025', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -181,16 +181,11 @@ CREATE TABLE `user_docs` (
 --
 
 INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `image_url`, `isApproved`, `added_on`) VALUES
-(1, '1612986067', '1', '0975221001542704664.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-20 09:04:33'),
-(3, '1612986067', '4', '0960094001542704784.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-20 09:06:41'),
-(4, '1586975032', '1', '0996514001542704868.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-20 09:08:10'),
-(5, '1586975032', '2', '0521691001542704896.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-20 09:08:40'),
-(6, '1586975032', '3', '0260019001542704909.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-20 09:08:45'),
-(7, '1619866243', '3', '0970753001542967098.jpg', 'http://images.reactapi.com/images/', 1, '2018-11-23 09:58:32'),
-(8, '1619866243', '1', '0654455001542967284.jpeg', 'http://images.reactapi.com/images/', 1, '2018-11-23 10:01:33'),
-(9, '1612986067', '11', '0904000001543225136.jpeg', 'http://images.reactapi.com/images/', 1, '2018-11-26 09:39:10'),
-(10, '1612986067', '12', '0841828001543225352.jpeg', 'http://images.reactapi.com/images/', 1, '2018-11-26 09:42:39'),
-(11, '1639794359', '14', '0095325001543298918.jpeg', 'http://images.reactapi.com/images/', 0, '2018-11-27 06:08:38');
+(1, '1599734455', '1', '0170718001544007170.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 10:53:28'),
+(2, '1599734455', '7', '0557262001544007182.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 10:53:31'),
+(3, '1599734455', '4', '0792246001544007200.jpeg', 'http://images.reactapi.com/images/', 1, '2018-12-05 10:53:34'),
+(4, '1598050025', '1', '0939858001544008127.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 11:09:05'),
+(5, '1598050025', '7', '0709162001544008136.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 11:09:08');
 
 -- --------------------------------------------------------
 
@@ -210,11 +205,8 @@ CREATE TABLE `user_ipin` (
 --
 
 INSERT INTO `user_ipin` (`id`, `user_id`, `user_ipin`, `set_ipin_date`) VALUES
-(1, '1612986067', '123456', '2018-11-21 12:26:13'),
-(2, '1586975032', '', '2018-11-13 12:10:32'),
-(3, '1619866243', '123456', '2018-11-26 10:16:11'),
-(4, '1639794359', '', '2018-11-13 12:10:59'),
-(5, '1617024689', '', '2018-11-26 11:04:49');
+(1, '1599734455', '123456', '2018-12-05 11:22:11'),
+(2, '1598050025', '', '2018-12-05 10:52:05');
 
 -- --------------------------------------------------------
 
@@ -234,8 +226,8 @@ CREATE TABLE `user_otp` (
 --
 
 INSERT INTO `user_otp` (`id`, `user_id`, `otp`, `otp_date`) VALUES
-(1, '1612986067', '9836', '2018-11-27 12:22:07'),
-(3, '1619866243', '6989', '2018-11-27 12:40:15');
+(1, '1599734455', '9749', '2018-12-05 11:21:59'),
+(2, '1598050025', '8175', '2018-12-05 11:34:38');
 
 -- --------------------------------------------------------
 
@@ -250,6 +242,7 @@ CREATE TABLE `user_request` (
   `requested_with` varchar(200) NOT NULL COMMENT 'requested_user_id',
   `description` text NOT NULL,
   `approved` varchar(100) NOT NULL,
+  `isSeen` varchar(20) NOT NULL DEFAULT '0',
   `requested_date` varchar(200) NOT NULL,
   `requested_time` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -258,28 +251,10 @@ CREATE TABLE `user_request` (
 -- Dumping data for table `user_request`
 --
 
-INSERT INTO `user_request` (`id`, `requested_by`, `requested_for`, `requested_with`, `description`, `approved`, `requested_date`, `requested_time`) VALUES
-(1, '1612986067', '1', '1586975032', 'Nation Wants to know', '1', '21-11-2018', '03:03:46 pm'),
-(2, '1612986067', '2', '1586975032', 'ksdjd', '1', '21-11-2018', '03:08:04 pm'),
-(3, '1619866243', '1', '1612986067', '', '1', '21-11-2018', '04:13:31 pm'),
-(4, '1612986067', '14', '1639794359', 'kjsdsd dfsdsd', '1', '22-11-2018', '11:22:07 am'),
-(5, '1619866243', '11', '1612986067', 'fgfdf', '1', '22-11-2018', '11:35:16 am'),
-(6, '1612986067', '3', '1619866243', '', '1', '23-11-2018', '02:59:57 pm'),
-(7, '1612986067', '1', '1619866243', '', '0', '23-11-2018', '04:09:45 pm'),
-(8, '1619866243', '12', '1612986067', '', '1', '26-11-2018', '03:12:02 pm'),
-(9, '1612986067', '3', '1619866243', '', '0', '26-11-2018', '03:32:13 pm'),
-(10, '1612986067', '1', '1586975032', '', '0', '27-11-2018', '05:47:55 pm'),
-(11, '1619866243', '15', '1612986067', 'We want for Visa Process', '0', '27-11-2018', '06:00:19 pm'),
-(12, '1619866243', '3', '1612986067', '', '0', '27-11-2018', '06:00:54 pm'),
-(13, '1619866243', '6', '1612986067', '', '0', '27-11-2018', '06:05:09 pm'),
-(14, '1619866243', '6', '1639794359', '', '0', '27-11-2018', '06:07:45 pm'),
-(15, '1619866243', '6', '1617024689', '', '0', '27-11-2018', '06:08:31 pm'),
-(16, '1619866243', '13', '1612986067', '', '0', '27-11-2018', '06:11:33 pm'),
-(17, '1619866243', '14', '1612986067', '', '0', '27-11-2018', '06:19:48 pm'),
-(18, '1619866243', '14', '1586975032', '', '0', '27-11-2018', '06:21:50 pm'),
-(19, '1619866243', '1', '1639794359', '', '0', '27-11-2018', '06:22:36 pm'),
-(20, '1619866243', '8', '1617024689', '', '0', '27-11-2018', '06:28:24 pm'),
-(21, '1619866243', '11', '1617024689', '', '0', '27-11-2018', '06:31:05 pm');
+INSERT INTO `user_request` (`id`, `requested_by`, `requested_for`, `requested_with`, `description`, `approved`, `isSeen`, `requested_date`, `requested_time`) VALUES
+(1, '1598050025', '1', '1599734455', '', '1', '1', '05-12-2018', '04:36:44 pm'),
+(2, '1599734455', '1', '1598050025', '', '1', '1', '05-12-2018', '04:39:37 pm'),
+(3, '1599734455', '1', '1598050025', '', '1', '1', '05-12-2018', '05:30:23 pm');
 
 -- --------------------------------------------------------
 
@@ -298,7 +273,7 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
-(110, '1619866243', '583e1bc4cc29351cb7c550f44dfb9193');
+(14, '1599734455', '10aeb11eb82c67a26b4ebf5a19f8e5bc');
 
 --
 -- Indexes for dumped tables
@@ -382,32 +357,32 @@ ALTER TABLE `document_category`
 -- AUTO_INCREMENT for table `expenses`
 --
 ALTER TABLE `expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `share_document`
 --
 ALTER TABLE `share_document`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_docs`
 --
 ALTER TABLE `user_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user_ipin`
 --
 ALTER TABLE `user_ipin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_otp`
 --
@@ -417,12 +392,12 @@ ALTER TABLE `user_otp`
 -- AUTO_INCREMENT for table `user_request`
 --
 ALTER TABLE `user_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

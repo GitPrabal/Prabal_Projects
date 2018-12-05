@@ -24,12 +24,12 @@ class Dashboardcards extends Component {
                 <div className="col-lg-3 col-xs-6">
                     <div className="small-box bg-green">
                         <div className="inner">
-                            <h3>53<sup>%</sup></h3>
-                            <p>Document Requested</p>
+                            <h3>{this.props.notification_count}</h3>
+                            <p>New Notification</p>
                         </div>
                         <div className="icon">
                         </div>
-                        <a className="small-box-footer">More info <i className="fa fa-arrow-circle-right"></i></a>
+                        <a href="/doc-requested" className="small-box-footer">More info <i className="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 

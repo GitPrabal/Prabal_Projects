@@ -17,7 +17,8 @@ class MyRequest extends Component{
     constructor(props){
         super(props);
         this.state = {
-          alldocs: []
+          alldocs: [],
+          loader:false
         };
     }
 
@@ -26,6 +27,10 @@ componentWillMount = () =>{
     var data = {
         user_id : sessionStorage.getItem('myData')
     }
+
+    this.setState({
+      loader:true
+    })
 
     fetch('http://test.reactapi.com/myRequestedDocs',{
     method: 'POST',
@@ -39,7 +44,8 @@ componentWillMount = () =>{
     .then( (response) =>{
       console.log(response);
             this.setState({
-              alldocs :  response
+              alldocs :  response,
+              loader  :  false
             })
     })
 }
@@ -63,7 +69,10 @@ handleLogOut = () =>{
           <tr key={ i }>
             <td> { obj.fullname } </td>
             <td> { obj.document_name } </td>
+            {obj.status=='Pending' ? 
             <td> { obj.status } </td>
+            :<td> { obj.status }&nbsp;{ obj.fullname } </td>
+            } 
           </tr>
          );
        }) 
@@ -96,7 +105,7 @@ handleLogOut = () =>{
               </h3>
             </div>
             {this.state.alldocs.length == 0 ? 
-            <h3>No Docs Found</h3>
+            <center><h3>No Docs Found</h3><br /></center>
             : 
             <div className="box-body">
               <table id="example1" className="table table-bordered table-striped">
@@ -108,7 +117,11 @@ handleLogOut = () =>{
                 </tr>
                 </thead>
                 <tbody>
-                {all_docs}
+                {this.state.loader ? 
+                 <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> :
+                 all_docs 
+                 }  
+
                 </tbody>
               </table>
             </div>

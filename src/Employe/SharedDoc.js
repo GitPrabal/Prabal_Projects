@@ -22,7 +22,8 @@ class SharedDoc extends Component {
     this.state = {
       userdetails:[],
       data:[],
-      noDataFound:false
+      noDataFound:false,
+      loader:null
     }
   }
 
@@ -38,8 +39,12 @@ componentDidMount = () =>{
   var data = {
     user_id : sessionStorage.getItem('myData')
    }
-
-
+   
+   this.setState({
+     loader:true
+   })
+     
+   
   fetch("http://test.reactapi.com/getAllSharedDocsList",{
 
     method: 'POST',
@@ -53,7 +58,8 @@ componentDidMount = () =>{
   .then( (response) =>{
             this.setState({
               data :  response,
-              noDataFound:false
+              noDataFound:false,
+              loader:false
             })
   })
 
@@ -97,8 +103,10 @@ componentDidMount = () =>{
             <div class="box-header">
               <h3 class="box-title">List Of Docs Which you shared with other users</h3>
             </div>
-            {this.state.data.length==0 ?
-             <h3>No Data Found</h3>
+            {this.state.loader  ?
+             <center>
+               <i class="fa fa-spinner" aria-hidden="true"></i>
+             </center>
             :
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
@@ -113,7 +121,11 @@ componentDidMount = () =>{
                 </tr>
                 </thead>
                 <tbody>
-               {category}
+                  {this.state.loader ? 
+                  <i class="fa fa-spinner" aria-hidden="true"></i>:
+                  category
+                  }
+               
                 </tbody>
               </table>
             </div>

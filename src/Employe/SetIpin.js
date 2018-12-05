@@ -52,27 +52,23 @@ class SetIpin extends Component {
     this.setState({secondsRemaining: this.state.secondsRemaining - 1});
     if (this.state.secondsRemaining <= 0) {
       //  sessionStorage.clear();
-      //  this.props.history.push('/');
+        this.props.history.push('/dashboard');
         clearInterval(this.interval);
     }
   }
 
-
   setIpin = ()=>{
-
     if(this.state.ipin.length == 0 || this.state.confirm_ipin.length == 0){
         this.setState({
          errorFlag:true,
          errorText:'Please Set Ipin for both fields'
         })
-
         setTimeout( () => {
             this.setState({
                 errorFlag:false,
                 errorText:''
                })
             }, 3000);
-
             return;
     }
 
@@ -115,8 +111,10 @@ fetch('http://test.reactapi.com/sendOtp',{
     body: JSON.stringify(data)
     })
     .then( (response) => response.json())
-    .then( (response)=> (response))
     .then( (response) =>{
+
+      alert(response);
+
         if(response.status === 200 || response.status == '200'){
             this.setState({
                 successFlag:true,

@@ -42,7 +42,6 @@ class UploadDocs extends Component {
   }
 
   componentDidMount() {
-
     fetch('http://test.reactapi.com/getCategory')
     .then( (response) => response.json())
           .then( (response) => (response))
@@ -51,20 +50,11 @@ class UploadDocs extends Component {
               data :  response
             })
     })
-    
-      
   }
 
 
-
-
-
-
-
   fileChangedHandler = (event) => {
-
     this.setState({ selectedFile: event.target.files[0] })
-
     if( event.target.files[0] === undefined){
       this.setState({
         imagePreviewUrl:''

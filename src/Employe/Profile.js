@@ -109,6 +109,11 @@ componentDidMount = () =>{
                           {full_name}
                         </h3>
                         <p class="text-muted text-center">Member Since {reg_date}</p>
+                        <center>
+                        <span className="btn btn-info btn-file">
+                           Upload Pic <input type="file" />
+                        </span>
+                        </center>
                       </div>
                     </div>
                   </div>

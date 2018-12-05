@@ -89,10 +89,6 @@ handleLogOut = () =>{
           <td value={i}>{category.document_name}</td>
           <td value={i}>
           <img src={category.image_url+category.document_image} height="50" width="50"></img>
-          &nbsp;&nbsp;
-          <a href="/share-docs">{category.isApproved ? <i className="fa fa-share-alt-square" aria-hidden="true"></i>
-          : null}</a>
-
           </td>
           <td>{category.isApproved ? 'Approved' : 'Pending For Approval'}</td>
           <td><button className="btn btn-danger delete" id={category.id} onClick={() => this.deleteDocs(category.id)}>Delete</button></td>

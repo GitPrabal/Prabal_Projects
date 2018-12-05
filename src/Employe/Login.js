@@ -15,22 +15,25 @@ class Login extends Component {
     this.state = [{
       email: '',
       password: '',
-      isLoaded: false,
       emailErrorMsg: false,
       errorFlag:false,
       errorText:'',
       invalidEmail:false,
-      invalidPass:false
+      invalidPass:false,
+      blocking:false
     }]
     
   }
 
   getUserLoggedIn = () =>{
 
-
   var email = this.state.email;
   var password = this.state.password;
   var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+
+  this.setState({
+    blocking:true
+  })
 
 
   if(email=== '' || !validEmail ){
@@ -38,13 +41,15 @@ class Login extends Component {
     this.setState({
     errorFlag:true,
     invalidEmail:true,
-    errorText:"Invalid Email"
+    errorText:"Invalid Email",
+    blocking:false
     })
 
     setTimeout( () => {
       this.setState({
         errorFlag: false,
-        invalidEmail:false
+        invalidEmail:false,
+        blocking:false
       });
     }, 3000);
     return;
@@ -53,7 +58,8 @@ class Login extends Component {
     this.setState({
     errorFlag:false,
     invalidEmail:false,
-    errorText:''
+    errorText:'',
+    blocking:false
     })
 }
 
@@ -64,7 +70,8 @@ class Login extends Component {
     this.setState({
       errorFlag:true,
       errorText:"Password can't be blanked",
-      invalidPass:true
+      invalidPass:true,
+      blocking:false
     })
 
     setTimeout( () => {
@@ -102,7 +109,7 @@ class Login extends Component {
     if(res.flag){
       this.setState({
        emailErrorMsg:false,
-       isLoaded:false
+       blocking:false
     })
       sessionStorage.setItem('myData',res.user_id);
       sessionStorage.setItem('full_name',res.fullname);
@@ -117,7 +124,7 @@ class Login extends Component {
       errorFlag:true,
       errorText:"Invalid Credentials",
       emailErrorMsg:false,
-      isLoaded:false
+      blocking:false
       })
 
       setTimeout( () => {
@@ -211,7 +218,7 @@ class Login extends Component {
               <div className="col-xs-8">
               </div>
               <div className="col-xs-4">
-              {this.state.isLoaded ? 
+              {this.state.blocking ? 
                 <button disabled type="button" className="btn btn-primary btn-block btn-flat"><i className="fa fa-spinner fa-spin"></i></button>
                 :<button type="button" className="btn btn-primary btn-block btn-flat" onClick={this.getUserLoggedIn}>Sign In</button>
               }

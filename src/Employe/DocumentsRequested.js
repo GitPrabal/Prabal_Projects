@@ -25,7 +25,8 @@ class DocumentsRequested extends Component {
       errorText:null,
       successFlag:false,
       successText:null,
-      loader:false
+      loader:false,
+      blocking:false
     }
   }
 
@@ -63,7 +64,8 @@ class DocumentsRequested extends Component {
     }
 
     this.setState({
-      loader:true
+      loader:true,
+      blocking:true
     })
     
     fetch((url),{
@@ -112,9 +114,6 @@ class DocumentsRequested extends Component {
             }, 5000);
           }
         })
-
-
-
   }
 
   render() {
@@ -131,10 +130,16 @@ class DocumentsRequested extends Component {
         return <tr key={i}><td>{docs.fullname}</td>
                    <td>{docs.document_name}</td>
                    <td>{docs.description}</td>
+                   <td>{docs.requested_date}</td>
+                   <td>{docs.requested_time}</td>
                    <td>{ docs.status == 0 ? 'Pending' : 'Sent' }</td>
                    <td>{ docs.status == 1 ? 
                    <button className="btn btn-info sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send Again</button>
                    :
+
+                   this.state.blocking ? 
+                   <button disabled className="btn btn-success sendDoc">Send</button>
+                   :   
                    <button className="btn btn-success sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send</button>
                    }
                    </td>
@@ -200,11 +205,8 @@ class DocumentsRequested extends Component {
               : null
             }
 
-
-
-
-            { this.state.userdetails.length == 0 ?
-            <h3>No Docs Found</h3>
+            { this.state.userdetails.length == 0 || this.state.userdetails.length == undefined ?
+            <center><h3>No Docs Found</h3><br /></center>
             : 
             <div class="box-body">
              <table id="example1" class="table table-bordered table-striped">
@@ -213,6 +215,8 @@ class DocumentsRequested extends Component {
                  <th>Requested User</th>
                  <th>Document Name</th>
                  <th>Description</th>
+                 <th>Requested Date</th>
+                 <th>Requested Time</th>
                  <th>Status</th>
                  <th>Action</th>
                </tr>

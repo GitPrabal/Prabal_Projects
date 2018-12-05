@@ -20,7 +20,8 @@ class Dashboard extends Component {
     super(props)
     this.state = [{
       userdetails:[],
-      request_count:null
+      request_count:null,
+      notification_count:null
     }]
   }
 
@@ -41,12 +42,28 @@ componentWillMount = ()=>{
       },
       body: JSON.stringify(data)
   })
-  .then( (res) => res.json() )
-  .then( (res) => {
+  .then((res) => res.json() )
+  .then((res) => {
        this.setState({
          request_count:res
        })
   })
+
+  fetch('http://test.reactapi.com/myNotificationForDocs',{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+.then((res) => res.json() )
+.then((res) => {
+     this.setState({
+      notification_count:res
+     })
+})
+
 
 }
 
@@ -74,7 +91,7 @@ componentWillMount = ()=>{
                   <li className="active">Dashboard</li>
                 </ol>
               </section>
-                <Dashboardcards count={this.state.request_count}/>
+                <Dashboardcards count={this.state.request_count} notification_count={this.state.notification_count} />
             </div>
 
             <footer className="main-footer">
