@@ -112,9 +112,6 @@ fetch('http://test.reactapi.com/sendOtp',{
     })
     .then( (response) => response.json())
     .then( (response) =>{
-
-      alert(response);
-
         if(response.status === 200 || response.status == '200'){
             this.setState({
                 successFlag:true,

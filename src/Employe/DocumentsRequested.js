@@ -3,6 +3,7 @@ import Header from './Header';
 import Sidebar from './Sidebar';
 
 
+
 import '../Admin/bower_components/bootstrap/dist/css/bootstrap.min.css';
 import '../Admin/bower_components/Ionicons/css/ionicons.min.css';
 import '../Admin/bower_components/font-awesome/css/font-awesome.min.css';
@@ -11,8 +12,6 @@ import '../Admin/dist/css/AdminLTE.min.css';
 import '../Admin/dist/css/skins/_all-skins.min.css';
 import '../Admin/bower_components/jvectormap/jquery-jvectormap.css';
 import '../Admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css';
-
-
 
 class DocumentsRequested extends Component {
   
@@ -26,7 +25,13 @@ class DocumentsRequested extends Component {
       successFlag:false,
       successText:null,
       loader:false,
-      blocking:false
+      blocking:false,
+      sendOption:null,
+      documentId:null,
+      userIpin:null,
+      invalidUserIpinFlag:false,
+      invalidUserIpinText:null,
+
     }
   }
 
@@ -54,12 +59,73 @@ class DocumentsRequested extends Component {
        })
   }
 
-  sendRequestedDocViaEmailToUser = (id) => {
+
+  setDocumentId = (id) =>{
+
+    this.setState({
+      documentId:id
+    })
+
+}
+
+
+changeUserIpinHandler = (event)=>{
+  
+  this.setState({
+    userIpin:event.target.value
+  })
+}
+
+verifyIpin = () =>{
+
+  var url = 'http://test.reactapi.com/verifyUserIpin';  
+  var data = {
+    user_id:sessionStorage.getItem('myData'),
+    ipin:this.state.userIpin
+  }
+  fetch((url),{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+    })
+    .then( (res)=>res.json())
+    .then( (res)=>{
+      if( res.status=='200' || res.status === 200){
+        document.getElementById("hidePopUpBtn").click();
+        this.sendRequestedDocViaEmailToUser(data);
+      }else{
+         this.setState({
+          invalidUserIpinFlag:true,
+          invalidUserIpinText:'Ipin is not valid'
+         })
+
+         setTimeout( () => {
+
+          document.getElementById("hidePopUpBtn").click();
+          document.getElementById('userpin').value='';
+
+          this.setState({
+            userIpin:'',
+            invalidUserIpinFlag:false
+          })
+
+         }, 3000);
+        return;
+
+      }
+    })
+
+}
+
+  sendRequestedDocViaEmailToUser = () => {
+
 
     var url = 'http://test.reactapi.com/sendRequestedDocViaEmailToUser';
 
     var data = {
-      id:id,
+      id:this.state.documentId,
       user_id:sessionStorage.getItem('myData')
     }
 
@@ -134,13 +200,12 @@ class DocumentsRequested extends Component {
                    <td>{docs.requested_time}</td>
                    <td>{ docs.status == 0 ? 'Pending' : 'Sent' }</td>
                    <td>{ docs.status == 1 ? 
-                   <button className="btn btn-info sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send Again</button>
+                   <button className="btn btn-info sendDoc" data-toggle="modal" data-target="#myModal" onClick={() => this.setDocumentId(docs.id)}>Send Again</button>
                    :
-
                    this.state.blocking ? 
-                   <button disabled className="btn btn-success sendDoc">Send</button>
+                   <button disabled className="btn btn-success sendDoc" >Send</button>
                    :   
-                   <button className="btn btn-success sendDoc" onClick={() => this.sendRequestedDocViaEmailToUser(docs.id)}>Send</button>
+                   <button className="btn btn-success sendDoc" data-toggle="modal" data-target="#myModal" onClick={() => this.setDocumentId(docs.id)}>Send</button>
                    }
                    </td>
                    
@@ -233,11 +298,52 @@ class DocumentsRequested extends Component {
       </div>
     </section>
             </div>
-            
-
-           
           </div>
         </div>
+     
+<div className="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span className="sr-only">Close</span></button>
+        <h4 className="modal-title" id="myModalLabel">We need to verify you</h4>
+      </div>
+      <div className="modal-body">
+      { this.state.invalidUserIpinFlag ?   
+                        <div className="alert-alert-warning">
+                        <center><h3>{this.state.invalidUserIpinText}</h3></center>    
+                        </div>
+                        : null
+                        }
+      <div class="row">
+                        <div class="col-md-6">
+                        
+
+                          <div class="form-group">
+                            <label>Enter Your IPIN Here</label>
+                          </div>
+                          <div class="form-group">
+                          <input type="password" class="form-control" id="userpin" placeholder="Please enter your ipin" 
+                          onChange={this.changeUserIpinHandler}
+                          />
+                          </div>
+                        </div>
+                      </div>  
+      </div>
+      <div className="modal-footer">
+        <button type="button" className="btn btn-default" id="hidePopUpBtn" data-dismiss="modal">Close</button>
+        <button type="button" className="btn btn-primary" onClick={this.verifyIpin}>Verify</button>
+      </div>
+    </div>
+  </div>
+</div>
+                    
+
+
+
+
+
+
       </div>
     )
 

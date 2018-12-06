@@ -139,7 +139,7 @@ class Login extends Component {
     
     this.setState({
       errorFlag:true,
-      errorText:"It Seems that server is not responding Please try after sometime"
+      errorText:"Server is not responding Please try after sometime ! "+err
     })
    });
 }

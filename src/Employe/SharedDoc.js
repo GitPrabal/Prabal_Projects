@@ -78,7 +78,6 @@ componentDidMount = () =>{
     <td key={i} >{category.document_name}</td>
     <td key={i} >{category.fullname}</td>
     <td key={i} >{category.email}</td>
-    <td key={i} ><img src={category.document_image} height="50" width="50"></img></td>
     <td key={i} >{category.transaction_date }</td>
     <td key={i} >{category.transaction_time }</td>
     </tr>
@@ -115,7 +114,6 @@ componentDidMount = () =>{
                   <th>Document Name</th>
                   <th>Share With</th>
                   <th>Shared User Email</th>
-                  <th>Document Image</th>
                   <th>Transaction Date</th>
                   <th>Transaction Time</th>
                 </tr>
