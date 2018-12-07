@@ -327,10 +327,15 @@ class ShareDoc extends Component {
                           />
                           <a href="/set-ipin"><b>Forgot IPIN</b></a>
                           </div>
-
+                          {this.state.ipin.length > 0 ? 
                           <div class="form-group">
                             <button  className="btn btn-info" onClick={this.sendDocs}>Send</button> 
                           </div>
+                          :
+                          <div class="form-group">
+                            <button disabled className="btn btn-info">Send</button> 
+                          </div>
+                          }
                          
                         </div>
                       </div>

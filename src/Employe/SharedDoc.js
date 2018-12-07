@@ -108,6 +108,10 @@ componentDidMount = () =>{
              </center>
             :
             <div class="box-body">
+            { category.length =='0' || category.length == 0 
+            ?
+            <center><h4>No Records Found</h4></center> 
+            :
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
@@ -126,6 +130,7 @@ componentDidMount = () =>{
                
                 </tbody>
               </table>
+            }
             </div>
             }
           </div>

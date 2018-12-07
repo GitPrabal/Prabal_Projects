@@ -23,7 +23,8 @@ class SetIpin extends Component {
       successFlag:false,
       successText:'',
       secondsRemaining:0,
-      setOtp:''
+      setOtp:'',
+      blocking:true
       }
   }
 
@@ -238,9 +239,16 @@ changeOtpHandler = (event) => {
                           />
                           </div>
 
+                          {this.state.ipin.length > 0 && this.state.confirm_ipin.length > 0 ?
                           <div class="form-group">
                             <button  className="btn btn-info" onClick={this.setIpin}>Send</button>
                           </div>
+                          :
+                          <div class="form-group">
+                          <button  className="btn btn-info" disabled>Send</button>
+                          </div>
+                          }
+
                         </div>
                       </div>
 

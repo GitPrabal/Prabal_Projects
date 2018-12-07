@@ -94,6 +94,11 @@ verifyIpin = () =>{
     .then( (res)=>{
       if( res.status=='200' || res.status === 200){
         document.getElementById("hidePopUpBtn").click();
+
+    this.setState({
+      loader:true,
+      blocking:true
+    })
         this.sendRequestedDocViaEmailToUser(data);
       }else{
          this.setState({

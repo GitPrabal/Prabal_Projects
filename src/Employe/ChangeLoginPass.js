@@ -15,9 +15,9 @@ class ChangeLoginPass extends Component {
     this.state={
         errorFlag:false,
         errorText:null,
-        oldPass:null,
-        newPass:null,
-        confirmPass:null,
+        oldPass:'',
+        newPass:'',
+        confirmPass:'',
         successFlag:false,
         successText:null,
         loader:false
@@ -251,9 +251,17 @@ changeConfirmPassword = (event)=>{
                   />
                 </div>
               </div>
+              { this.state.oldPass.length > 0 && this.state.newPass.length > 0 && this.state.confirmPass.length > 0
+              ?
               <div class="box-footer">
                 <button type="button" className="btn btn-primary" onClick={this.sendNewPassword}>Change Password</button>
               </div>
+              :
+              <div class="box-footer">
+              <button type="button" disabled className="btn btn-primary" >Change Password</button>
+              </div>
+              }
+
             </form>
           </div>
         </div>
