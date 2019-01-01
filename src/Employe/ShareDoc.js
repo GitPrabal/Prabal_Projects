@@ -33,7 +33,6 @@ class ShareDoc extends Component {
 
   componentDidMount = ()=>{
     NotificationManager.success('We are soon rolling out new feature where you can select multiple docs and also can share with multiple users', 'Close after 10 seconds', 10000);
-
   }
 
   componentWillMount = () => {

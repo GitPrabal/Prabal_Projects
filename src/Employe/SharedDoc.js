@@ -62,9 +62,6 @@ componentDidMount = () =>{
               loader:false
             })
   })
-
-
-
 }
 
   render() {
@@ -78,14 +75,11 @@ componentDidMount = () =>{
     <td key={i} >{category.document_name}</td>
     <td key={i} >{category.fullname}</td>
     <td key={i} >{category.email}</td>
+    <td key={i} >{category.note}</td>
     <td key={i} >{category.transaction_date }</td>
     <td key={i} >{category.transaction_time }</td>
     </tr>
     })
-
-
-
-    
 
      return(
       <div>
@@ -118,6 +112,7 @@ componentDidMount = () =>{
                   <th>Document Name</th>
                   <th>Share With</th>
                   <th>Shared User Email</th>
+                  <th>Document Note</th>
                   <th>Transaction Date</th>
                   <th>Transaction Time</th>
                 </tr>

@@ -206,11 +206,8 @@ class UploadDocs extends Component {
           showHtml: ''
         });
       }, 3000);
-
       document.getElementById("docId").value='';
-
     }   
-
 
     }).catch(function(err) {
       console.log(err)

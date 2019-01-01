@@ -15,7 +15,8 @@ class Profile extends Component {
      errorFlag:false,
      fullname:null,
      email:null,
-     mobile_no:null
+     mobile_no:null,
+     selectedFile:null
   }
 
 
@@ -66,14 +67,75 @@ componentDidMount = () =>{
    });
 }
 
+
   fileChangedHandler = (event) => {
-    this.setState({selectedFile: event.target.files[0]})
+    this.setState({ selectedFile: event.target.files[0] })
+    if( event.target.files[0] === undefined){
+      this.setState({
+        imagePreviewUrl:''
+      })
+      return;    
+    }
+
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    var fileName = file.name;
+
+    this.setState({
+      imagename: file.name
+    })
+
+
+    var validExt = ["jpg", "jpeg", "png", "PNG", "JPEG", "JPG"];
+    var fileExtension = fileName.substr(fileName.lastIndexOf('.') + 1);
+    var isValidFile = validExt.indexOf(fileExtension) > -1;
+
+    if (!(isValidFile)) {
+      this.setState({
+        errorFlag: true,
+        errorText: 'Please choose valid image',
+        hideButton: true
+      })
+
+      setTimeout(() => {
+        this.setState({
+          errorFlag: false,
+          errorText: ''
+        });
+      }, 3000);
+      return;
+
+    } else {
+      this.setState({
+        hideButton: false
+      })
+    }
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
   }
+
+
+
 
   render() {
 
     var full_name =  sessionStorage.getItem('full_name');
     var reg_date =  sessionStorage.getItem('reg_date');
+
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (<img src={imagePreviewUrl} />);
+    } else {
+      $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+    }
 
     return (
       <div>
@@ -191,22 +253,6 @@ componentDidMount = () =>{
                                   id="inputSkills"
                                   placeholder="Mobile No"
                                   value={this.state.mobile_no}
-                                />
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label
-                                for="inputSkills"
-                                class="col-sm-2 control-label"
-                              >
-                                Profile Pic
-                              </label>
-
-                              <div class="col-sm-10">
-                                <input
-                                  type="file"
-                                  class="form-control"
-                                  onChange={this.fileChangedHandler}
                                 />
                               </div>
                             </div>

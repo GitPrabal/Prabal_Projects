@@ -110,9 +110,9 @@ handleLogOut = () =>{
     <div className="content-wrapper">
     <section className="content-header">
       <div className="callout callout-info">
-                 <h4>List Of Documents !</h4>
-                 <hr />
-                  <p>This section shows all documents / certificates which you can upload here.</p>
+        <h4>List Of Documents !</h4>
+        <hr />
+        <p>This section shows all documents / certificates which you have uploaded.</p>
          </div>
     </section>
     <section className="content">
@@ -139,7 +139,7 @@ handleLogOut = () =>{
                 {documents}
                 </tbody>
               </table>
-              : <h3>No Docs Found</h3> }
+              : <div><h3>No Docs Found</h3><a href="/upload-docs">click here to add doc</a></div> }
             </div>
           
           </div>

@@ -143,12 +143,26 @@ changeConfirmPassword = (event)=>{
                    successText:'Password Changed Successfully',
                    errorFlag:false,
                    loader:false,
-                   errorText:null
+                   errorText:null,
+                   oldPass:'',
+                   confirmPass:'',
+                   oldPass:''
                  }) 
+
+                setTimeout( () => {
+                  this.setState({
+                    successFlag:false,
+                    successText:'',
+                  });
+                }, 3000);
 
                 document.getElementById("oldPass").value='';
                 document.getElementById("newPass").value='';
                 document.getElementById("confirmPass").value='';
+
+
+
+
 
                 }else{
                   this.setState({
