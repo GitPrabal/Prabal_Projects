@@ -139,7 +139,7 @@ var noteDoc =  this.state.noteDoc;
 
 }
 
-  sendRequestedDocViaEmailToUser = () => {
+  sendRequestedDocViaEmailToUser = (data) => {
     
     var url = 'http://test.reactapi.com/sendRequestedDocViaEmailToUser';
 
@@ -169,7 +169,7 @@ var noteDoc =  this.state.noteDoc;
             imagePath:res
           })
 
-          if( res.status==404 || res.status == '404'){
+          if( res.status == 404 || res.status == '404'){
             this.setState({
               errorFlag:true,
               errorText:<div class="callout callout-warning">
@@ -178,6 +178,7 @@ var noteDoc =  this.state.noteDoc;
                         <p>It seems that you have not uploaded your document.No worries you can <a href="/upload-docs">Click Here</a>  to upload in just single click</p>
                         </div>
             })
+
           }
 
           if( res.status == 200 || res.status == '200'){

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 05, 2018 at 02:00 PM
+-- Generation Time: Jan 11, 2019 at 02:02 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.20
 
@@ -121,6 +121,7 @@ CREATE TABLE `share_document` (
   `share_with` varchar(200) NOT NULL,
   `document_id` varchar(200) NOT NULL,
   `document_image` text NOT NULL,
+  `note` text NOT NULL,
   `transaction_id` varchar(800) NOT NULL,
   `transaction_date` varchar(200) NOT NULL,
   `transaction_time` varchar(200) NOT NULL
@@ -130,13 +131,9 @@ CREATE TABLE `share_document` (
 -- Dumping data for table `share_document`
 --
 
-INSERT INTO `share_document` (`id`, `user_id`, `share_with`, `document_id`, `document_image`, `transaction_id`, `transaction_date`, `transaction_time`) VALUES
-(1, '1599734455', '1598050025', '1', 'http://images.reactapi.com/images/0170718001544007170.jpg', '0801164001544008021', '05-12-2018', '04:37:01 pm'),
-(2, '1599734455', '1598050025', '1', 'http://images.reactapi.com/images/0170718001544007170.jpg', '0866880001544008050', '05-12-2018', '04:37:30 pm'),
-(3, '1598050025', '1599734455', '1', 'http://images.reactapi.com/images/0939858001544008127.jpg', '0566897001544008204', '05-12-2018', '04:40:04 pm'),
-(4, '1598050025', '1599734455', '1', 'http://images.reactapi.com/images/0939858001544008127.jpg', '0740605001544008525', '05-12-2018', '04:45:25 pm'),
-(5, '1599734455', '1598050025', '4', 'http://images.reactapi.com/images/0792246001544007200.jpeg', '0845228001544008946', '05-12-2018', '04:52:26 pm'),
-(6, '1598050025', '1599734455', '1', 'http://images.reactapi.com/images/0939858001544008127.jpg', '0110743001544011247', '05-12-2018', '05:30:47 pm');
+INSERT INTO `share_document` (`id`, `user_id`, `share_with`, `document_id`, `document_image`, `note`, `transaction_id`, `transaction_date`, `transaction_time`) VALUES
+(1, '1599734455', '1598050025', '1', 'http://images.reactapi.com/images/0092894001545978070.jpg', 'This doc is only valid for joining in company', '0493047001545981140', '28-12-2018', '12:42:20 pm'),
+(2, '1599734455', '1598050025', '1', 'http://images.reactapi.com/images/0092894001545978070.jpg', 'This is only for joining company', '0103029001545990801', '28-12-2018', '03:23:21 pm');
 
 -- --------------------------------------------------------
 
@@ -181,11 +178,9 @@ CREATE TABLE `user_docs` (
 --
 
 INSERT INTO `user_docs` (`id`, `user_id`, `document_id`, `document_image`, `image_url`, `isApproved`, `added_on`) VALUES
-(1, '1599734455', '1', '0170718001544007170.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 10:53:28'),
-(2, '1599734455', '7', '0557262001544007182.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 10:53:31'),
-(3, '1599734455', '4', '0792246001544007200.jpeg', 'http://images.reactapi.com/images/', 1, '2018-12-05 10:53:34'),
-(4, '1598050025', '1', '0939858001544008127.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 11:09:05'),
-(5, '1598050025', '7', '0709162001544008136.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-05 11:09:08');
+(1, '1599734455', '1', '0092894001545978070.jpg', 'http://images.reactapi.com/images/', 1, '2018-12-28 06:23:47'),
+(2, '1598050025', '14', '0086360001546412700.jpeg', 'http://images.reactapi.com/images/', 0, '2019-01-02 07:05:00'),
+(3, '1598050025', '5', '0151973001546412960.jpeg', 'http://images.reactapi.com/images/', 0, '2019-01-02 07:09:20');
 
 -- --------------------------------------------------------
 
@@ -206,7 +201,7 @@ CREATE TABLE `user_ipin` (
 
 INSERT INTO `user_ipin` (`id`, `user_id`, `user_ipin`, `set_ipin_date`) VALUES
 (1, '1599734455', '123456', '2018-12-05 11:22:11'),
-(2, '1598050025', '', '2018-12-05 10:52:05');
+(2, '1598050025', '123456', '2018-12-17 14:46:57');
 
 -- --------------------------------------------------------
 
@@ -226,8 +221,8 @@ CREATE TABLE `user_otp` (
 --
 
 INSERT INTO `user_otp` (`id`, `user_id`, `otp`, `otp_date`) VALUES
-(1, '1599734455', '9749', '2018-12-05 11:21:59'),
-(2, '1598050025', '8175', '2018-12-05 11:34:38');
+(1, '1599734455', '8360', '2018-12-06 11:35:27'),
+(2, '1598050025', '8947', '2018-12-17 14:46:32');
 
 -- --------------------------------------------------------
 
@@ -252,9 +247,8 @@ CREATE TABLE `user_request` (
 --
 
 INSERT INTO `user_request` (`id`, `requested_by`, `requested_for`, `requested_with`, `description`, `approved`, `isSeen`, `requested_date`, `requested_time`) VALUES
-(1, '1598050025', '1', '1599734455', '', '1', '1', '05-12-2018', '04:36:44 pm'),
-(2, '1599734455', '1', '1598050025', '', '1', '1', '05-12-2018', '04:39:37 pm'),
-(3, '1599734455', '1', '1598050025', '', '1', '1', '05-12-2018', '05:30:23 pm');
+(1, '1598050025', '1', '1599734455', '', '1', '1', '28-12-2018', '12:36:26 pm'),
+(2, '1599734455', '14', '1598050025', 'This is for joining a company', '0', '1', '02-01-2019', '12:33:37 pm');
 
 -- --------------------------------------------------------
 
@@ -273,7 +267,7 @@ CREATE TABLE `user_token` (
 --
 
 INSERT INTO `user_token` (`id`, `user_id`, `access_token`) VALUES
-(14, '1599734455', '10aeb11eb82c67a26b4ebf5a19f8e5bc');
+(9, '1599734455', 'b1d7599f7b982ad0145267b0014718c8');
 
 --
 -- Indexes for dumped tables
@@ -367,7 +361,7 @@ ALTER TABLE `registration`
 -- AUTO_INCREMENT for table `share_document`
 --
 ALTER TABLE `share_document`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
@@ -377,7 +371,7 @@ ALTER TABLE `user_details`
 -- AUTO_INCREMENT for table `user_docs`
 --
 ALTER TABLE `user_docs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user_ipin`
 --
@@ -387,17 +381,17 @@ ALTER TABLE `user_ipin`
 -- AUTO_INCREMENT for table `user_otp`
 --
 ALTER TABLE `user_otp`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_request`
 --
 ALTER TABLE `user_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
