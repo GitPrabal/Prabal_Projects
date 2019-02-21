@@ -63,6 +63,7 @@ class ShareDoc extends Component {
             this.setState({
                userlist :  response
             })
+            console.log(response);
     })
 
     fetch('http://test.reactapi.com/getUserApprovedDocs',{
@@ -236,7 +237,7 @@ class ShareDoc extends Component {
     var reg_date = sessionStorage.getItem('reg_date');
 
     var username  = this.state.userlist.map( (user,i)=>{
-        return <option key={i} value={user.user_id}>{user.fullname}</option>
+        return <option key={i} value={user.user_id}>{user.fullname}&nbsp;&nbsp;&nbsp;{user.email}&nbsp;&nbsp;&nbsp;{user.mobile_no}</option>
        })
 
     var approvedDocs =  this.state.approvedDocs.map( (docs , i )=>{

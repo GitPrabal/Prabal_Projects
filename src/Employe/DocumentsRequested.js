@@ -178,7 +178,6 @@ var noteDoc =  this.state.noteDoc;
             })
           }
 
-
           if( res.status == 200 || res.status == '200'){
             this.setState({
               errorFlag:true,
@@ -212,6 +211,24 @@ var noteDoc =  this.state.noteDoc;
         })
   }
 
+  discardRequest = (id) =>{
+
+    var data = {
+      id:id
+    }
+    
+    var url = 'http://test.reactapi.com/discardUserRequest';
+
+    fetch((url),{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      })
+      .then( (res)=>res.json())
+  }
+
   render() {
     
     var full_name =  sessionStorage.getItem('full_name');
@@ -235,8 +252,12 @@ var noteDoc =  this.state.noteDoc;
                    :
                    this.state.blocking ? 
                    <button disabled className="btn btn-success sendDoc" >Send</button>
-                   :   
+                   : 
+                   <div>
                    <button className="btn btn-success sendDoc" data-toggle="modal" data-target="#myModal" onClick={() => this.setDocumentId(docs.id)}>Send</button>
+                   &nbsp;
+                   <button className="btn btn-danger"  onClick={ () => this.discardRequest(docs.id)}>Discard</button>
+                   </div>  
                    }
                    </td>
                    

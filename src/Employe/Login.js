@@ -66,7 +66,6 @@ class Login extends Component {
 
 
   if(typeof password == 'undefined' || password == ' '){
-
     this.setState({
       errorFlag:true,
       errorText:"Password can't be blanked",

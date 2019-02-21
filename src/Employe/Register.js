@@ -64,6 +64,22 @@ registerUserData = () => {
        })
     }
 
+    if (mobileno.length > 10) {
+      this.setState({
+       errorMsg:true,
+       isLoaded:false,
+       errorText:"Mobile Number Should not be more than 10 digit"
+      })
+      return;
+    }else{ 
+      this.setState({
+        errorMsg:false,
+        errorText:"",
+        isLoaded:true,
+       })
+    }
+
+
     var mobileno_check = /^[0-9]+$/.test(mobileno);
 
     if (!mobileno_check) {
