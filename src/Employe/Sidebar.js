@@ -61,7 +61,7 @@ class Sidebar extends Component{
         </li>
 
         <li>
-          <a href="/change-pass"><i class="fa fa-unlock" aria-hidden="true"></i>Change Login Password</a>
+          <a href="/change-pass"><i className="fa fa-unlock" aria-hidden="true"></i>Change Login Password</a>
         </li>
 
         <li>

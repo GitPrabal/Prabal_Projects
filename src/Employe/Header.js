@@ -59,7 +59,7 @@ render(){
                   />
                   <span className="hidden-xs">{this.props.name}</span>
                   &nbsp;&nbsp;
-                  <i class="fa fa-caret-down" aria-hidden="true"></i>
+                  <i className="fa fa-caret-down" aria-hidden="true"></i>
                 </a>
                 <ul className="dropdown-menu">
                   <li className="user-header">
